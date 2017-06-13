@@ -13,4 +13,29 @@ import java.util.ArrayList;
  */
 public class BoletimSaude {
     private ArrayList<RegistroClinico> registrosClinico;
+
+    public BoletimSaude() {
+        registrosClinico = new ArrayList<RegistroClinico>();
+    }
+
+    public BoletimSaude(ArrayList<RegistroClinico> registrosClinico) {
+        this.registrosClinico = registrosClinico;
+    }
+
+    public ArrayList<RegistroClinico> getRegistrosClinico() {
+        return registrosClinico;
+    }
+
+    public void setRegistrosClinico(ArrayList<RegistroClinico> registrosClinico) {
+        this.registrosClinico = registrosClinico;
+    }
+    
+    public void addRegistroClinico(RegistroClinico rc){
+        registrosClinico.add(rc);
+    }
+    
+    public void removeRegistroClinico(int indice){
+        registrosClinico.remove(indice);
+    }
+       
 }

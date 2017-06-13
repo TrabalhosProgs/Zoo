@@ -13,5 +13,28 @@ import java.util.ArrayList;
  */
 public class Tratador extends Empregado {
     private ArrayList<Tarefa> tarefas;
+
+    public Tratador() {
+        tarefas = new ArrayList<Tarefa>();
+    }
     
+    public Tratador(ArrayList<Tarefa> tarefas) {
+        this.tarefas = tarefas;
+    }
+    
+    public ArrayList<Tarefa> getTarefas() {
+        return tarefas;
+    }
+
+    public void setTarefas(ArrayList<Tarefa> tarefas) {
+        this.tarefas = tarefas;
+    }
+    
+    public void add(Tarefa t){
+        tarefas.add(t);
+    }
+    
+    public void remove(int indice){
+        tarefas.remove(indice);
+    }
 }

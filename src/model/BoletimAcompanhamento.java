@@ -19,5 +19,66 @@ public class BoletimAcompanhamento {
     private String observacao;
     private EnumParecer tipo;
     private Animal animal;
+
+    public BoletimAcompanhamento() {
+    }
+
+    public BoletimAcompanhamento(int id, Date dataBoletim, Tratador tratador, String observacao, EnumParecer tipo, Animal animal) {
+        this.id = id;
+        this.dataBoletim = dataBoletim;
+        this.tratador = tratador;
+        this.observacao = observacao;
+        this.tipo = tipo;
+        this.animal = animal;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDataBoletim() {
+        return dataBoletim;
+    }
+
+    public void setDataBoletim(Date dataBoletim) {
+        this.dataBoletim = dataBoletim;
+    }
+
+    public Tratador getTratador() {
+        return tratador;
+    }
+
+    public void setTratador(Tratador tratador) {
+        this.tratador = tratador;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public EnumParecer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(EnumParecer tipo) {
+        this.tipo = tipo;
+    }
+
+    public Animal getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
+    }
+    
     
 }

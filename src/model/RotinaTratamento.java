@@ -17,4 +17,54 @@ public class RotinaTratamento {
     private Date dataValidade;
     private Receita receita;
     private ArrayList<Tarefa> tarefas;
+
+    public RotinaTratamento() {
+    }
+
+    public RotinaTratamento(int id, Date dataValidade, Receita receita, ArrayList<Tarefa> tarefas) {
+        this.id = id;
+        this.dataValidade = dataValidade;
+        this.receita = receita;
+        this.tarefas = tarefas;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDataValidade() {
+        return dataValidade;
+    }
+
+    public void setDataValidade(Date dataValidade) {
+        this.dataValidade = dataValidade;
+    }
+
+    public Receita getReceita() {
+        return receita;
+    }
+
+    public void setReceita(Receita receita) {
+        this.receita = receita;
+    }
+
+    public ArrayList<Tarefa> getTarefas() {
+        return tarefas;
+    }
+
+    public void setTarefas(ArrayList<Tarefa> tarefas) {
+        this.tarefas = tarefas;
+    }
+    
+    public void addTarefa(Tarefa t){
+        tarefas.add(t);
+    }
+    
+    public void removeTarefa(int indice){
+        tarefas.remove(indice);
+    }
 }
