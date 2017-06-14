@@ -14,7 +14,7 @@ import java.util.Date;
 public class Consulta {
     private int id;
     private Date dataHoraPrevista;
-    private Date dataForaRealizacao;
+    private Date dataHoraRealizacao;
     private Veterinario veterinario;
     private Animal animal;
 
@@ -24,7 +24,7 @@ public class Consulta {
     public Consulta(int id, Date dataHoraPrevista, Date dataForaRealizacao, Veterinario veterinario, Animal animal) {
         this.id = id;
         this.dataHoraPrevista = dataHoraPrevista;
-        this.dataForaRealizacao = dataForaRealizacao;
+        this.dataHoraRealizacao = dataForaRealizacao;
         this.veterinario = veterinario;
         this.animal = animal;
     }
@@ -45,12 +45,12 @@ public class Consulta {
         this.dataHoraPrevista = dataHoraPrevista;
     }
 
-    public Date getDataForaRealizacao() {
-        return dataForaRealizacao;
+    public Date getDataHoraRealizacao() {
+        return dataHoraRealizacao;
     }
 
-    public void setDataForaRealizacao(Date dataForaRealizacao) {
-        this.dataForaRealizacao = dataForaRealizacao;
+    public void setDataHoraRealizacao(Date dataHoraRealizacao) {
+        this.dataHoraRealizacao = dataHoraRealizacao;
     }
 
     public Veterinario getVeterinario() {
