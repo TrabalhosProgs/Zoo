@@ -6,7 +6,6 @@
 package view.tabela.cad;
 
 import java.sql.SQLException;
-import java.util.List;
 import javax.swing.JOptionPane;
 import model.Vacina;
 import model.dao.impl.VacinaDAO;
@@ -37,14 +36,19 @@ public class FrmCadVacina extends javax.swing.JDialog {
         jPanelCabecalho = new javax.swing.JPanel();
         ljTituloCabecalho = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelCodigo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jtfCodigo = new javax.swing.JTextField();
         jtfDescricao = new javax.swing.JTextField();
         jbGravar = new javax.swing.JButton();
+        jLabelCodigoTexto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Vacina");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                aoAbrir(evt);
+            }
+        });
 
         jPanelCabecalho.setBackground(new java.awt.Color(246, 243, 224));
 
@@ -69,7 +73,7 @@ public class FrmCadVacina extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jLabel1.setText("Código");
+        jLabelCodigo.setText("Código");
 
         jLabel2.setText("Descrição");
 
@@ -80,6 +84,8 @@ public class FrmCadVacina extends javax.swing.JDialog {
             }
         });
 
+        jLabelCodigoTexto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -88,11 +94,11 @@ public class FrmCadVacina extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabelCodigo))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelCodigoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -104,13 +110,13 @@ public class FrmCadVacina extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelCodigo)
+                    .addComponent(jLabelCodigoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(jbGravar)
                 .addContainerGap())
         );
@@ -135,7 +141,8 @@ public class FrmCadVacina extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-        Vacina vacina = new Vacina(Integer.parseInt(jtfCodigo.getText()), jtfDescricao.getText());
+        //Vacina vacina = new Vacina(Integer.parseInt(jtfCodigo.getText()), jtfDescricao.getText());
+        Vacina vacina = new Vacina(0, jtfDescricao.getText());
         try {
             if(selecionado == null){
                 new VacinaDAO().inserir(vacina);
@@ -152,6 +159,17 @@ public class FrmCadVacina extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
         setVisible(false);
     }//GEN-LAST:event_jbGravarActionPerformed
+
+    private void aoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_aoAbrir
+         if(selecionado == null){
+            jLabelCodigo.setVisible(false);
+            jLabelCodigoTexto.setVisible(false);
+         }else{
+            jLabelCodigo.setVisible(true);
+            jLabelCodigoTexto.setVisible(true);
+         }
+         
+    }//GEN-LAST:event_aoAbrir
 
     /**
      * @param args the command line arguments
@@ -199,19 +217,19 @@ public class FrmCadVacina extends javax.swing.JDialog {
         selecionado = vacina;
         
         jtfDescricao.setText(vacina.getNome());
-        jtfCodigo.setText(vacina.getId()+"");
-               
+        jLabelCodigoTexto.setText(vacina.getId()+"");
+        
     }
-    List<Vacina> lista;
+
     private Vacina selecionado = null;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelCodigo;
+    private javax.swing.JLabel jLabelCodigoTexto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCabecalho;
     private javax.swing.JButton jbGravar;
-    private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfDescricao;
     private javax.swing.JLabel ljTituloCabecalho;
     // End of variables declaration//GEN-END:variables

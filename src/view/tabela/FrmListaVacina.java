@@ -197,6 +197,7 @@ public class FrmListaVacina extends javax.swing.JDialog {
     private void callTelaIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTelaIncluir
         FrmCadVacina fcv = new FrmCadVacina(null, true);
         fcv.setVisible(true);
+        
         preencheTabela(null); //após inserir, ele preenche a tabela atualizando-a
     }//GEN-LAST:event_callTelaIncluir
 
@@ -228,7 +229,7 @@ public class FrmListaVacina extends javax.swing.JDialog {
                 JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
                 
                 int idVacina =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
-                Vacina v = new Vacina(0, "");
+                Vacina v  =  new Vacina(idVacina, "");
                 try {
                     new VacinaDAO().apagar(v);
                     preencheTabela();
