@@ -5,6 +5,8 @@
  */
 package view;
 
+import view.tabela.FrmListaFrequencia;
+import view.tabela.FrmListaMedicamento;
 import view.tabela.FrmListaTarefa;
 import view.tabela.FrmListaVacina;
 /**
@@ -47,7 +49,6 @@ public class FrmZoo extends javax.swing.JFrame {
         jMenuMedicamento = new javax.swing.JMenu();
         jmiMedicamento = new javax.swing.JMenuItem();
         jmiFrequencia = new javax.swing.JMenuItem();
-        jmiPeriodo = new javax.swing.JMenuItem();
         jmiVacina = new javax.swing.JMenuItem();
         jMenuAjuda = new javax.swing.JMenu();
 
@@ -127,13 +128,20 @@ public class FrmZoo extends javax.swing.JFrame {
         jMenuMedicamento.setText("Medicamentos");
 
         jmiMedicamento.setText("Medicamentos");
+        jmiMedicamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAbreTelaListaMedicamento(evt);
+            }
+        });
         jMenuMedicamento.add(jmiMedicamento);
 
         jmiFrequencia.setText("Frequencia");
+        jmiFrequencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAbreTelaListaFrequencia(evt);
+            }
+        });
         jMenuMedicamento.add(jmiFrequencia);
-
-        jmiPeriodo.setText("Periodo");
-        jMenuMedicamento.add(jmiPeriodo);
 
         jmiTabelas.add(jMenuMedicamento);
 
@@ -187,6 +195,16 @@ public class FrmZoo extends javax.swing.JFrame {
         fListaTarefa.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaTarefa
 
+    private void callAbreTelaListaMedicamento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaMedicamento
+        FrmListaMedicamento fListaMedicamento = new FrmListaMedicamento(this, true);
+        fListaMedicamento.setVisible(true);
+    }//GEN-LAST:event_callAbreTelaListaMedicamento
+
+    private void callAbreTelaListaFrequencia(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaFrequencia
+        FrmListaFrequencia fListaFrequencia = new FrmListaFrequencia(this, true);
+        fListaFrequencia.setVisible(true);
+    }//GEN-LAST:event_callAbreTelaListaFrequencia
+
     /**
      * @param args the command line arguments
      */
@@ -239,7 +257,6 @@ public class FrmZoo extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiEmpregado;
     private javax.swing.JMenuItem jmiFrequencia;
     private javax.swing.JMenuItem jmiMedicamento;
-    private javax.swing.JMenuItem jmiPeriodo;
     private javax.swing.JMenuItem jmiRotinaTratamento;
     private javax.swing.JMenu jmiTabelas;
     private javax.swing.JMenuItem jmiTarefa;

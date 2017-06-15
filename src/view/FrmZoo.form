@@ -80,16 +80,17 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Medicamentos"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaListaMedicamento"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jmiFrequencia">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Frequencia"/>
                   </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jmiPeriodo">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Periodo"/>
-                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaListaFrequencia"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
