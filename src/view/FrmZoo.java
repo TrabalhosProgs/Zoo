@@ -5,6 +5,7 @@
  */
 package view;
 
+import view.tabela.FrmListaVacina;
 /**
  *
  * @author william
@@ -131,6 +132,11 @@ public class FrmZoo extends javax.swing.JFrame {
         jmiTabelas.add(jMenuMedicamento);
 
         jmiVacina.setText("Vacinas");
+        jmiVacina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAbreTelaListaVacina(evt);
+            }
+        });
         jmiTabelas.add(jmiVacina);
 
         jMenuBar1.add(jmiTabelas);
@@ -164,6 +170,11 @@ public class FrmZoo extends javax.swing.JFrame {
     private void jmiBoletimDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBoletimDiarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiBoletimDiarioActionPerformed
+
+    private void callAbreTelaListaVacina(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaVacina
+        FrmListaVacina fListaVacina = new FrmListaVacina(this, true);
+        fListaVacina.setVisible(true);
+    }//GEN-LAST:event_callAbreTelaListaVacina
 
     /**
      * @param args the command line arguments
