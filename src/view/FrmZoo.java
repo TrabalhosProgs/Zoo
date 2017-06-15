@@ -5,6 +5,7 @@
  */
 package view;
 
+import view.tabela.FrmListaTarefa;
 import view.tabela.FrmListaVacina;
 /**
  *
@@ -116,6 +117,11 @@ public class FrmZoo extends javax.swing.JFrame {
         jmiTabelas.setText("Tabelas");
 
         jmiTarefa.setText("Tarefas");
+        jmiTarefa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAbreTelaListaTarefa(evt);
+            }
+        });
         jmiTabelas.add(jmiTarefa);
 
         jMenuMedicamento.setText("Medicamentos");
@@ -175,6 +181,11 @@ public class FrmZoo extends javax.swing.JFrame {
         FrmListaVacina fListaVacina = new FrmListaVacina(this, true);
         fListaVacina.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaVacina
+
+    private void callAbreTelaListaTarefa(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaTarefa
+        FrmListaTarefa fListaTarefa = new FrmListaTarefa(this, true);
+        fListaTarefa.setVisible(true);
+    }//GEN-LAST:event_callAbreTelaListaTarefa
 
     /**
      * @param args the command line arguments

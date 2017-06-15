@@ -9,20 +9,21 @@ import java.awt.HeadlessException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Vacina;
-import model.dao.impl.VacinaDAO;
-import view.tabela.cad.FrmCadVacina;
+import model.Tarefa;
+import model.dao.impl.TarefaDAO;
+import view.tabela.cad.FrmCadTarefa;
+
 
 /**
  *
  * @author william
  */
-public class FrmListaVacina extends javax.swing.JDialog {
+public class FrmListaTarefa extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmListaVacina
+     * Creates new form FrmListaTarefa
      */
-    public FrmListaVacina(java.awt.Frame parent, boolean modal) {
+    public FrmListaTarefa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -49,7 +50,7 @@ public class FrmListaVacina extends javax.swing.JDialog {
         jbIncluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Relação de Vacinas");
+        setTitle("Relação de Tarefas");
         setPreferredSize(new java.awt.Dimension(600, 400));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -61,7 +62,8 @@ public class FrmListaVacina extends javax.swing.JDialog {
 
         ljTituloCabecalho.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ljTituloCabecalho.setForeground(new java.awt.Color(235, 161, 91));
-        ljTituloCabecalho.setText("Relação de Vacinas");
+        ljTituloCabecalho.setText("Relação de Tarefas");
+        ljTituloCabecalho.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanelCabecalhoLayout = new javax.swing.GroupLayout(jPanelCabecalho);
         jPanelCabecalho.setLayout(jPanelCabecalhoLayout);
@@ -195,21 +197,22 @@ public class FrmListaVacina extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void callTelaIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTelaIncluir
-        FrmCadVacina fcv = new FrmCadVacina(null, true);
-        fcv.setVisible(true);
+        FrmCadTarefa fct = new FrmCadTarefa(null, true);
+        fct.setVisible(true);
         
         preencheTabela(null); //após inserir, ele preenche a tabela atualizando-a
     }//GEN-LAST:event_callTelaIncluir
 
     private void callTelaIAlterar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTelaIAlterar
         if(jtLista.getSelectedRowCount() == 1){
-           FrmCadVacina fcv = new FrmCadVacina(null, true);
-           fcv.preparaEdit(lista.get(jtLista.getSelectedRow()));
-           fcv.setVisible(true);
+           FrmCadTarefa fct = new FrmCadTarefa(null, true);
+           
+           fct.preparaEdit(lista.get(jtLista.getSelectedRow()));
+           fct.setVisible(true);
            preencheTabela();
                            
         }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas uma vacina"); 
+            JOptionPane.showMessageDialog(null, "Selecione apenas uma Tarefa"); 
         }        
     }//GEN-LAST:event_callTelaIAlterar
 
@@ -221,25 +224,25 @@ public class FrmListaVacina extends javax.swing.JDialog {
          preencheTabela(jtfPesquisar.getText());
     }//GEN-LAST:event_aoPesquisar
 
-    // apagar nao funfou
+   
     private void aoExcluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoExcluir
         if(jtLista.getSelectedRowCount() == 1){
-            String nomeVacina = (String) jtLista.getValueAt(jtLista.getSelectedRow(), 1);
-            if (JOptionPane.showConfirmDialog(this,"Deseja apagar a vacina "+nomeVacina+"?","Atenção",
+            String nomeTarefa = (String) jtLista.getValueAt(jtLista.getSelectedRow(), 1);
+            if (JOptionPane.showConfirmDialog(this,"Deseja apagar a tarefa "+nomeTarefa+"?","Atenção",
                 JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
                 
-                int idVacina =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
-                Vacina v  =  new Vacina(idVacina, "");
+                int idTarefa =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
+                Tarefa t = new Tarefa(idTarefa, "");
                 try {
-                    new VacinaDAO().apagar(v);
+                    new TarefaDAO().apagar(t);
                     preencheTabela();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao apagar a vacina "+ex); 
+                    JOptionPane.showMessageDialog(null, "Erro ao apagar a tarefa "+ex); 
                 }
             }            
                 
         }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas uma vacina"); 
+            JOptionPane.showMessageDialog(null, "Selecione apenas uma tarefa"); 
         }
     }//GEN-LAST:event_aoExcluir
 
@@ -248,11 +251,10 @@ public class FrmListaVacina extends javax.swing.JDialog {
     }
     private void preencheTabela(String nome) throws HeadlessException {
         try {
-            
             if(nome == null){
-                lista = new VacinaDAO().buscarTodos();
+                lista = new TarefaDAO().buscarTodos();
             }else{
-                lista = new VacinaDAO().buscarPeloNome(nome);
+                lista = new TarefaDAO().buscarPeloNome(nome);
             }
             DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
             int idx = dtm.getRowCount();
@@ -260,12 +262,12 @@ public class FrmListaVacina extends javax.swing.JDialog {
                 dtm.removeRow(0);
             }
             
-            for(Vacina vacina : lista){
-                Object[] row = {vacina.getId(),vacina.getNome()};
+            for(Tarefa tarefa : lista){
+                Object[] row = {tarefa.getId(),tarefa.getDescricao()};
                 dtm.addRow(row);
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as vacinas ...");
+            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as tarefas ...");
         }
     }
     /**
@@ -285,20 +287,21 @@ public class FrmListaVacina extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmListaVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmListaVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmListaVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmListaVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmListaVacina dialog = new FrmListaVacina(new javax.swing.JFrame(), true);
+                FrmListaTarefa dialog = new FrmListaTarefa(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -310,7 +313,7 @@ public class FrmListaVacina extends javax.swing.JDialog {
         });
     }
     //Variaveis criadas manualmente
-    private List<Vacina> lista;
+    private List<Tarefa> lista;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelNomePesquisa;
