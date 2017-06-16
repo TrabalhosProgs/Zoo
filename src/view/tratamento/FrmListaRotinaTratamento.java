@@ -261,8 +261,6 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
     private void preencheTabela(String data) throws HeadlessException {
         //convertendo string em data
         Date dt = null;
-        
-        
         try {
             if(data == null){
                 lista = new RotinaTratamentoDAO().buscarTodos();

@@ -86,7 +86,7 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
     public List<RotinaTratamento> buscarTodos() throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "SELECT * FROM rotinatratamento WHERE idrotinatratamento = ?;";
+        String sql = "SELECT * FROM rotinatratamento;";
         
         PreparedStatement pst = c.prepareStatement(sql);
         
