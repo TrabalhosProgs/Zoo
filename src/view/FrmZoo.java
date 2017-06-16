@@ -9,6 +9,7 @@ import view.tabela.FrmListaFrequencia;
 import view.tabela.FrmListaMedicamento;
 import view.tabela.FrmListaTarefa;
 import view.tabela.FrmListaVacina;
+import view.tratamento.FrmListaRotinaTratamento;
 /**
  *
  * @author william
@@ -101,6 +102,11 @@ public class FrmZoo extends javax.swing.JFrame {
         jMenuGestaoTratador.add(jmiBoletimDiario);
 
         jmiRotinaTratamento.setText("Rotina Tratamento");
+        jmiRotinaTratamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAbreTelaListaRotinaTratamento(evt);
+            }
+        });
         jMenuGestaoTratador.add(jmiRotinaTratamento);
 
         jMenuBar1.add(jMenuGestaoTratador);
@@ -204,6 +210,11 @@ public class FrmZoo extends javax.swing.JFrame {
         FrmListaFrequencia fListaFrequencia = new FrmListaFrequencia(this, true);
         fListaFrequencia.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaFrequencia
+
+    private void callAbreTelaListaRotinaTratamento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaRotinaTratamento
+        FrmListaRotinaTratamento fListaRotinaTratamento = new FrmListaRotinaTratamento(this, true);
+        fListaRotinaTratamento.setVisible(true);
+    }//GEN-LAST:event_callAbreTelaListaRotinaTratamento
 
     /**
      * @param args the command line arguments

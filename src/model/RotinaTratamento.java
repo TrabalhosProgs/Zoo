@@ -19,6 +19,7 @@ public class RotinaTratamento {
     private ArrayList<Tarefa> tarefas;
 
     public RotinaTratamento() {
+        this.tarefas = new ArrayList<>();
     }
 
     public RotinaTratamento(int id, Date dataValidade, Receita receita, ArrayList<Tarefa> tarefas) {
