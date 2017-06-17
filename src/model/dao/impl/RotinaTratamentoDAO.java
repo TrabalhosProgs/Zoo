@@ -31,7 +31,8 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
         String sql = "INSERT INTO rotinatratamento (dataValidade) VALUES (?);";
         
         PreparedStatement pst = c.prepareStatement(sql);
-        pst.setDate(1, (java.sql.Date) obj.getDataValidade());
+        
+        pst.setDate(1, new java.sql.Date(obj.getDataValidade().getTime()));
         pst.executeUpdate();
     }
 

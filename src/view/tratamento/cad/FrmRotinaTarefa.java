@@ -179,12 +179,17 @@ public class FrmRotinaTarefa extends javax.swing.JDialog {
 
     private void aoSeleciona(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoSeleciona
         if(jtLista.getSelectedRowCount() == 1){                 
-            try {
-                new RotinaTratamentoDAO().inserirTarefa(selecionado.getId(),lista.get(jtLista.getSelectedRow()).getId());
-                JOptionPane.showMessageDialog(null,"Salvo com sucesso!");
-            } catch (ClassNotFoundException | SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possivel vincular a Tarefa"+ ex);
-            } 
+            if(selecionado != null){
+                try {
+                    new RotinaTratamentoDAO().inserirTarefa(selecionado.getId(),lista.get(jtLista.getSelectedRow()).getId());
+                    JOptionPane.showMessageDialog(null,"Salvo com sucesso!");
+                    setVisible(false);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Não foi possivel vincular a Tarefa"+ ex);
+                } 
+            }else{
+                selecionadoInclusao.addTarefa(lista.get(jtLista.getSelectedRow()));
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Selecione apenas uma Tarefa"); 
         }
@@ -272,9 +277,13 @@ public class FrmRotinaTarefa extends javax.swing.JDialog {
     public void vincularTarefaRotina(RotinaTratamento rotinaTratamento) {
         selecionado = rotinaTratamento;
     }
+    public void vincularTarefaRotinaInclusao(RotinaTratamento rotinaTratamento) {
+        selecionadoInclusao = rotinaTratamento;
+    }
     //Variaveis criadas manualmente
     private List<Tarefa> lista;
     private RotinaTratamento selecionado;
+    private RotinaTratamento selecionadoInclusao;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelNomePesquisa;

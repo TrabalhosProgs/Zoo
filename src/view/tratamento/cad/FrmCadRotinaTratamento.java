@@ -275,27 +275,25 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
         Date dt = null;
         try {
             dt = sdf.parse(jftfData.getText());
+            try {
+                if(selecionado == null){
+                    incluirSelecionado.setDataValidade(dt);
+                    new RotinaTratamentoDAO().inserir(incluirSelecionado);
+                    gravaTarefas(incluirSelecionado);
+                }else{
+                    selecionado.setDataValidade(dt);
+                    new RotinaTratamentoDAO().alterar(selecionado);
+                }
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
+                setVisible(false);    
+            } catch (HeadlessException | ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao gravar Rotina Tratamento ..."+ex.getMessage());
+            }
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Digite uma data em formato válido (dd/MM/aaaa)!");
         }
         
-        RotinaTratamento rt = new RotinaTratamento(0, dt, null, null);
         
-        try {
-            if(selecionado == null){
-                new RotinaTratamentoDAO().inserir(rt);
-                rt.setId(new RotinaTratamentoDAO().buscarMaiorID());
-            }else{
-                rt.setId(selecionado.getId());
-                new RotinaTratamentoDAO().alterar(rt);
-            }
-            
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao gravar Rotina Tratamento ..."+ex.getMessage());
-        }
-        
-        JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
-        setVisible(false);
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void aoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_aoAbrir
@@ -312,9 +310,17 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
 
     private void inserirTarefa(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirTarefa
         FrmRotinaTarefa frt = new FrmRotinaTarefa(null, true);
-        frt.vincularTarefaRotina(selecionado);
-        frt.setVisible(true);
-        preencheTabelaTarefa(selecionado.getId());
+        
+        if(selecionado == null){
+            frt.vincularTarefaRotinaInclusao(incluirSelecionado);
+            frt.setVisible(true);
+            preencheTabelaTarefa(incluirSelecionado);
+        }
+        else{
+            frt.vincularTarefaRotina(selecionado);
+            frt.setVisible(true);
+            preencheTabelaTarefa(selecionado.getId());
+        }
     }//GEN-LAST:event_inserirTarefa
 
     private void excluirTarefa(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirTarefa
@@ -404,7 +410,21 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Não conseguiu buscar as Tarefas cadastradas para a Rotina de Tratamento ..."+ ex);
         }
     }
-    
+    private void preencheTabelaTarefa(RotinaTratamento rt) throws HeadlessException {
+        
+        listaTarefa = rt.getTarefas();
+
+        DefaultTableModel dtm = (DefaultTableModel) jtListaTarefa.getModel();
+        int idx = dtm.getRowCount();
+        for (int i = 0; i < idx; i++) {
+            dtm.removeRow(0);
+        }
+
+        for(Tarefa tarefa : listaTarefa){
+            Object[] row = {tarefa.getId(),tarefa.getDescricao()};
+            dtm.addRow(row);
+        }
+    }
     private void preencheTabelaMedicacoes(int id) {
         try{
             listaMedicacoes = new MedicacaoDAO().buscarTudoPorReceita(id);
@@ -432,7 +452,27 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
         jftfData.setText(sdf.format(rotinaTratamento.getDataValidade()));
         jLabelCodigoTexto.setText(rotinaTratamento.getId()+"");
     }
+    public void preparaInclusao(RotinaTratamento rotinaTratamento) {
+        incluirSelecionado = rotinaTratamento;
+        try {
+            incluirSelecionado.setId(new RotinaTratamentoDAO().buscarMaiorID() + 1);
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar maior id..."+ ex);
+        } 
+        
+        jLabelCodigoTexto.setText(incluirSelecionado.getId()+"");
+    }
+    private void gravaTarefas(RotinaTratamento incluirSelecionado) {
+        for(Tarefa t : incluirSelecionado.getTarefas()){
+            try {
+                new RotinaTratamentoDAO().inserirTarefa(incluirSelecionado.getId(), t.getId());
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possivel gravar tarefas..."+ ex);
+            } 
+        }    
+    }
     private RotinaTratamento selecionado = null;
+    private RotinaTratamento incluirSelecionado = null;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private List<Tarefa> listaTarefa;
     private List<Medicacao> listaMedicacoes;
@@ -457,6 +497,8 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
     private javax.swing.JTextField jtfReceita;
     private javax.swing.JLabel ljTituloCabecalho;
     // End of variables declaration//GEN-END:variables
+
+    
 
     
 }

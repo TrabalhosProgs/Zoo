@@ -207,6 +207,8 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
 
     private void callTelaIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTelaIncluir
         FrmCadRotinaTratamento fcrt = new FrmCadRotinaTratamento(null, true);
+        
+        fcrt.preparaInclusao(new RotinaTratamento());
         fcrt.setVisible(true);
         
         preencheTabela(null); //após inserir, ele preenche a tabela atualizando-a
@@ -277,7 +279,7 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
                 try {
                     dt = sdf.parse(data);
                 } catch (ParseException ex) {
-                    Logger.getLogger(FrmListaRotinaTratamento.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Data em formato inválido "+ex);
                 }
                 lista = new RotinaTratamentoDAO().buscarPelaData(new java.sql.Date(dt.getTime()));
             }
