@@ -3,34 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.tratamento;
+package view.tratamento.cad;
 
 import view.tabela.*;
 import java.awt.HeadlessException;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.RotinaTratamento;
+import model.Tarefa;
 import model.dao.impl.RotinaTratamentoDAO;
-import view.tratamento.cad.FrmCadRotinaTratamento;
+import model.dao.impl.TarefaDAO;
+
 
 
 /**
  *
  * @author william
  */
-public class FrmListaRotinaTratamento extends javax.swing.JDialog {
+public class FrmRotinaTarefa extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmListaRotinaTratamento
+     * Creates new form FrmRotinaTarefa
      */
-    public FrmListaRotinaTratamento(java.awt.Frame parent, boolean modal) {
+    public FrmRotinaTarefa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -49,16 +48,13 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
         jPanelPesquisa = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtLista = new javax.swing.JTable();
-        jLabelDataPesquisa = new javax.swing.JLabel();
-        jbPesquisar = new javax.swing.JButton();
-        jbExcluir = new javax.swing.JButton();
-        jbAlterar = new javax.swing.JButton();
-        jbIncluir = new javax.swing.JButton();
+        jLabelNomePesquisa = new javax.swing.JLabel();
         jtfPesquisar = new javax.swing.JTextField();
+        jbPesquisar = new javax.swing.JButton();
+        jbAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Relação de Rotinas de Tratamento");
-        setPreferredSize(new java.awt.Dimension(600, 400));
+        setTitle("Relação de Tarefas");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 aoAbrir(evt);
@@ -69,7 +65,7 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
 
         ljTituloCabecalho.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ljTituloCabecalho.setForeground(new java.awt.Color(235, 161, 91));
-        ljTituloCabecalho.setText("Rotinas de Tratamento");
+        ljTituloCabecalho.setText("Vincular Tarefas à Rotina de Tratamento");
         ljTituloCabecalho.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanelCabecalhoLayout = new javax.swing.GroupLayout(jPanelCabecalho);
@@ -97,7 +93,7 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
                 {null, null}
             },
             new String [] {
-                "Código", "Data de Válidade"
+                "Código", "Descricão"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -113,7 +109,7 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
             jtLista.getColumnModel().getColumn(0).setPreferredWidth(5);
         }
 
-        jLabelDataPesquisa.setText("Data:");
+        jLabelNomePesquisa.setText("Nome:");
 
         jbPesquisar.setText("Pesquisar");
         jbPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -122,28 +118,12 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
             }
         });
 
-        jbExcluir.setText("Excluir");
-        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aoExcluir(evt);
-            }
-        });
-
-        jbAlterar.setText("Alterar");
+        jbAlterar.setText("Selecionar");
         jbAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                callTelaIAlterar(evt);
+                aoSeleciona(evt);
             }
         });
-
-        jbIncluir.setText("Incluir");
-        jbIncluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                callTelaIncluir(evt);
-            }
-        });
-
-        jtfPesquisar.setToolTipText("dd/MM/aaaa");
 
         javax.swing.GroupLayout jPanelPesquisaLayout = new javax.swing.GroupLayout(jPanelPesquisa);
         jPanelPesquisa.setLayout(jPanelPesquisaLayout);
@@ -152,38 +132,30 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(jPanelPesquisaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelPesquisaLayout.createSequentialGroup()
-                        .addComponent(jLabelDataPesquisa)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbPesquisar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPesquisaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbIncluir)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbAlterar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbExcluir))))
+                .addComponent(jLabelNomePesquisa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jtfPesquisar)
+                .addGap(18, 18, 18)
+                .addComponent(jbPesquisar)
+                .addGap(21, 21, 21))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPesquisaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbAlterar)
+                .addContainerGap())
         );
         jPanelPesquisaLayout.setVerticalGroup(
             jPanelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPesquisaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDataPesquisa)
-                    .addComponent(jbPesquisar)
-                    .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelNomePesquisa)
+                    .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbPesquisar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                .addGap(9, 9, 9)
-                .addGroup(jPanelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbExcluir)
-                    .addComponent(jbAlterar)
-                    .addComponent(jbIncluir))
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbAlterar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -198,88 +170,45 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelCabecalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void callTelaIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTelaIncluir
-        FrmCadRotinaTratamento fcrt = new FrmCadRotinaTratamento(null, true);
-        fcrt.setVisible(true);
-        
-        preencheTabela(null); //após inserir, ele preenche a tabela atualizando-a
-    }//GEN-LAST:event_callTelaIncluir
-
-    private void callTelaIAlterar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTelaIAlterar
-        if(jtLista.getSelectedRowCount() == 1){
-           FrmCadRotinaTratamento fcrt = new FrmCadRotinaTratamento(null, true);
-           
-           fcrt.preparaEdit(lista.get(jtLista.getSelectedRow()));
-           fcrt.setVisible(true);
-           preencheTabela();
-                           
+    private void aoSeleciona(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoSeleciona
+        if(jtLista.getSelectedRowCount() == 1){                 
+            try {
+                new RotinaTratamentoDAO().inserirTarefa(selecionado.getId(),lista.get(jtLista.getSelectedRow()).getId());
+                JOptionPane.showMessageDialog(null,"Salvo com sucesso!");
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possivel vincular a Tarefa"+ ex);
+            } 
         }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas uma Rotina de Tratamento"); 
-        }        
-    }//GEN-LAST:event_callTelaIAlterar
+            JOptionPane.showMessageDialog(null, "Selecione apenas uma Tarefa"); 
+        }
+        
+    }//GEN-LAST:event_aoSeleciona
 
     private void aoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_aoAbrir
         preencheTabela(null);
     }//GEN-LAST:event_aoAbrir
 
     private void aoPesquisar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoPesquisar
-        if(jtfPesquisar.getText() == null || "".equals(jtfPesquisar.getText())){
-            preencheTabela();
-        }else{
-            try {
-                Date data = sdf.parse(jtfPesquisar.getText());
-                preencheTabela(jtfPesquisar.getText());
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(null, "Favor digitar a data no formato válido!");
-                preencheTabela();
-            }
-        }
+         preencheTabela(jtfPesquisar.getText());
     }//GEN-LAST:event_aoPesquisar
-     
-   
-    private void aoExcluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoExcluir
-        if(jtLista.getSelectedRowCount() == 1){
-            String nomeRotinaTratamento = (String) jtLista.getValueAt(jtLista.getSelectedRow(), 1);
-            if (JOptionPane.showConfirmDialog(this,"Deseja apagar a Rotina Tratamento nº: "+nomeRotinaTratamento+"?","Atenção",
-                JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
-                
-                int idRotinaTratamento =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
-                RotinaTratamento rt = new RotinaTratamento(idRotinaTratamento, null, null, null);
-                try {
-                    new RotinaTratamentoDAO().apagar(rt);
-                    preencheTabela();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao apagar a Rotina de Tratamento "+ex); 
-                }
-            }            
-                
-        }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas uma Rotina de Tratamento"); 
-        }
-    }//GEN-LAST:event_aoExcluir
 
+   
     private void preencheTabela() throws HeadlessException {
             preencheTabela(null);
     }
-    private void preencheTabela(String data) throws HeadlessException {
+    private void preencheTabela(String nome) throws HeadlessException {
         try {
-            if(data == null){
-                lista = new RotinaTratamentoDAO().buscarTodos();
+            if(nome == null){
+                lista = new TarefaDAO().buscarTodos();
             }else{
-                Date dt = null;
-                try {
-                    dt = sdf.parse(data);
-                } catch (ParseException ex) {
-                    Logger.getLogger(FrmListaRotinaTratamento.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                lista = new RotinaTratamentoDAO().buscarPelaData(new java.sql.Date(dt.getTime()));
+                lista = new TarefaDAO().buscarPeloNome(nome);
             }
             DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
             int idx = dtm.getRowCount();
@@ -287,12 +216,12 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
                 dtm.removeRow(0);
             }
             
-            for(RotinaTratamento rotinaTratamento : lista){
-                Object[] row = {rotinaTratamento.getId(),sdf.format(rotinaTratamento.getDataValidade())};
+            for(Tarefa tarefa : lista){
+                Object[] row = {tarefa.getId(),tarefa.getDescricao()};
                 dtm.addRow(row);
             }
-        } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as Rotinas de Tratamento ..."+ ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as tarefas ...");
         }
     }
     /**
@@ -312,18 +241,14 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmListaRotinaTratamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRotinaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmListaRotinaTratamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRotinaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmListaRotinaTratamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRotinaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmListaRotinaTratamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRotinaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -332,7 +257,7 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmListaRotinaTratamento dialog = new FrmListaRotinaTratamento(new javax.swing.JFrame(), true);
+                FrmRotinaTarefa dialog = new FrmRotinaTarefa(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -343,19 +268,20 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
             }
         });
     }
-    //Variaveis criadas manualmente
-    private List<RotinaTratamento> lista;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
+    public void vincularTarefaRotina(RotinaTratamento rotinaTratamento) {
+        selecionado = rotinaTratamento;
+    }
+    //Variaveis criadas manualmente
+    private List<Tarefa> lista;
+    private RotinaTratamento selecionado;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabelDataPesquisa;
+    private javax.swing.JLabel jLabelNomePesquisa;
     private javax.swing.JPanel jPanelCabecalho;
     private javax.swing.JPanel jPanelPesquisa;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbAlterar;
-    private javax.swing.JButton jbExcluir;
-    private javax.swing.JButton jbIncluir;
     private javax.swing.JButton jbPesquisar;
     private javax.swing.JTable jtLista;
     private javax.swing.JTextField jtfPesquisar;

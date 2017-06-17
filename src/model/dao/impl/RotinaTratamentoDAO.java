@@ -126,10 +126,9 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
         String sql = "SELECT * FROM rotinatratamento WHERE dataValidade = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
-        
         pst.setDate(1, data);
-        ResultSet rs = pst.executeQuery(); 
         
+        ResultSet rs = pst.executeQuery(); 
         
         List<RotinaTratamento> rotinasTratamento = new ArrayList<>();
         
@@ -158,5 +157,28 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
         }else{
             return 0;
         }  
+    }
+
+    public void inserirTarefa(Integer idrotina, Integer idtarefa) throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "INSERT INTO tarefa_rotina (idtarefa, idrotinatratamento) VALUES (?, ?);";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1, idtarefa);
+        pst.setInt(2, idrotina);
+        
+        pst.executeUpdate();
+    }
+    public void excluirTarefa(Integer idrotina, Integer idtarefa) throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "DELETE FROM tarefa_rotina WHERE idtarefa = ? AND idrotinatratamento = ?;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1, idtarefa);
+        pst.setInt(2, idrotina);
+        
+        pst.executeUpdate();
     }
 }

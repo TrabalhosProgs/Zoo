@@ -10,7 +10,10 @@ package connection;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,16 +43,25 @@ public class Zoo {
         }*/
         
         //teste classe RotinaDAO
-        /*
-        try {    
-            List<RotinaTratamento> lista = new RotinaTratamentoDAO().buscarTodos();
-            System.out.println("Conexão funfou!!");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dt = null;
+        try {
+             dt =sdf.parse("06/01/2020");
+        } catch (ParseException ex) {
+            Logger.getLogger(Zoo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(dt);
+        
+        //java.sql.Date dataSql = new java.sql.Date(dt.getTime());
+        try {
+            List<RotinaTratamento> lista = new RotinaTratamentoDAO().buscarPelaData(new java.sql.Date(dt.getTime()));
         } catch (ClassNotFoundException ex) {
-            
             Logger.getLogger(Zoo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Zoo.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
+        System.out.println("Conexão funfou!!");
+        
         
     }
     

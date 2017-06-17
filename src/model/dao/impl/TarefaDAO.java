@@ -146,4 +146,26 @@ public class TarefaDAO implements IGenericDAO<Tarefa, Integer>{
             return 0;
         }  
     }
+    
+    public List<Tarefa> buscarPorRotina(Integer id) throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT * FROM tarefa t INNER JOIN tarefa_rotina tr "
+                + " on t.idtarefa = tr.idtarefa WHERE tr.idrotinatratamento = ?;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1, id);
+        ResultSet rs = pst.executeQuery(); 
+        
+        
+        List<Tarefa> tarefas = new ArrayList<>();
+        
+        while(rs.next()){
+            Tarefa t = new Tarefa(rs.getInt("t.idtarefa"), rs.getString("t.descricao"));
+            tarefas.add(t);
+        }   
+        
+        return tarefas;
+    }
+
 }
