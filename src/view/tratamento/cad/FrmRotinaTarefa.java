@@ -54,7 +54,7 @@ public class FrmRotinaTarefa extends javax.swing.JDialog {
         jbAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Relação de Tarefas");
+        setTitle("Vinculação de Tarefas à Rotina");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 aoAbrir(evt);
