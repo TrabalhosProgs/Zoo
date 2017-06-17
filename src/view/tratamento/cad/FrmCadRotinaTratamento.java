@@ -279,6 +279,7 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
                 if(selecionado == null){
                     incluirSelecionado.setDataValidade(dt);
                     new RotinaTratamentoDAO().inserir(incluirSelecionado);
+                    incluirSelecionado.setId(new RotinaTratamentoDAO().buscarMaiorID());
                     gravaTarefas(incluirSelecionado);
                 }else{
                     selecionado.setDataValidade(dt);
@@ -331,11 +332,17 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
                 
                 int idTarefa =  (int) jtListaTarefa.getValueAt(jtListaTarefa.getSelectedRow(), 0);
                 
-                try {
-                    new RotinaTratamentoDAO().excluirTarefa(selecionado.getId(), idTarefa);
-                    preencheTabelaTarefa(selecionado.getId());
-                } catch (HeadlessException | ClassNotFoundException | SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao desvincular a tarefa "+ex); 
+                if(selecionado == null){
+                    incluirSelecionado.removeTarefa(jtListaTarefa.getSelectedRow());
+                    preencheTabelaTarefa(incluirSelecionado);
+                }
+                else{
+                    try {
+                        new RotinaTratamentoDAO().excluirTarefa(selecionado.getId(), idTarefa);
+                        preencheTabelaTarefa(selecionado.getId());
+                    } catch (HeadlessException | ClassNotFoundException | SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Erro ao desvincular a tarefa "+ex); 
+                    }
                 }
             }            
                 
@@ -392,6 +399,7 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
             }
         });
     }
+    
     private void preencheTabelaTarefa(int id) throws HeadlessException {
         try{
             listaTarefa = new TarefaDAO().buscarPorRotina(id);
@@ -410,6 +418,7 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Não conseguiu buscar as Tarefas cadastradas para a Rotina de Tratamento ..."+ ex);
         }
     }
+    
     private void preencheTabelaTarefa(RotinaTratamento rt) throws HeadlessException {
         
         listaTarefa = rt.getTarefas();
@@ -425,6 +434,7 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
             dtm.addRow(row);
         }
     }
+    
     private void preencheTabelaMedicacoes(int id) {
         try{
             listaMedicacoes = new MedicacaoDAO().buscarTudoPorReceita(id);
@@ -452,6 +462,7 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
         jftfData.setText(sdf.format(rotinaTratamento.getDataValidade()));
         jLabelCodigoTexto.setText(rotinaTratamento.getId()+"");
     }
+    
     public void preparaInclusao(RotinaTratamento rotinaTratamento) {
         incluirSelecionado = rotinaTratamento;
         try {
@@ -462,6 +473,7 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
         
         jLabelCodigoTexto.setText(incluirSelecionado.getId()+"");
     }
+    
     private void gravaTarefas(RotinaTratamento incluirSelecionado) {
         for(Tarefa t : incluirSelecionado.getTarefas()){
             try {
@@ -471,6 +483,8 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
             } 
         }    
     }
+    
+    //Variaveis criadas manualmente
     private RotinaTratamento selecionado = null;
     private RotinaTratamento incluirSelecionado = null;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

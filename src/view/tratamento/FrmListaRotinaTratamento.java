@@ -245,10 +245,9 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_aoPesquisar
      
-   
     private void aoExcluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoExcluir
         if(jtLista.getSelectedRowCount() == 1){
-            String nomeRotinaTratamento = (String) jtLista.getValueAt(jtLista.getSelectedRow(), 1);
+            int nomeRotinaTratamento = (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
             if (JOptionPane.showConfirmDialog(this,"Deseja apagar a Rotina Tratamento nº: "+nomeRotinaTratamento+"?","Atenção",
                 JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
                 
@@ -257,8 +256,9 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
                 try {
                     new RotinaTratamentoDAO().apagar(rt);
                     preencheTabela();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao apagar a Rotina de Tratamento "+ex); 
+                } catch (HeadlessException | ClassNotFoundException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao apagar a Rotina de Tratamento... \n"
+                            + "Desvincule as tarefas antes de deletar! \n"+ex); 
                 }
             }            
                 
@@ -270,6 +270,7 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
     private void preencheTabela() throws HeadlessException {
             preencheTabela(null);
     }
+    
     private void preencheTabela(String data) throws HeadlessException {
         try {
             if(data == null){
@@ -345,6 +346,7 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
             }
         });
     }
+    
     //Variaveis criadas manualmente
     private List<RotinaTratamento> lista;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

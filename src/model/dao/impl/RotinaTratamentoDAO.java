@@ -55,7 +55,7 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
         String sql = "UPDATE rotinatratamento SET dataValidade = ? , idreceita = ? WHERE idrotinatratamento = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
-        pst.setDate(1, (Date) obj.getDataValidade());
+        pst.setDate(1, new java.sql.Date(obj.getDataValidade().getTime()));
         pst.setInt(2, obj.getReceita().getId());
         pst.setInt(3, obj.getId());
         

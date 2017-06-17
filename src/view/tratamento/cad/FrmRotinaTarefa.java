@@ -189,6 +189,8 @@ public class FrmRotinaTarefa extends javax.swing.JDialog {
                 } 
             }else{
                 selecionadoInclusao.addTarefa(lista.get(jtLista.getSelectedRow()));
+                JOptionPane.showMessageDialog(null,"Salvo com sucesso!");
+                setVisible(false);
             }
         }else{
             JOptionPane.showMessageDialog(null, "Selecione apenas uma Tarefa"); 
@@ -204,10 +206,10 @@ public class FrmRotinaTarefa extends javax.swing.JDialog {
          preencheTabela(jtfPesquisar.getText());
     }//GEN-LAST:event_aoPesquisar
 
-   
     private void preencheTabela() throws HeadlessException {
             preencheTabela(null);
     }
+    
     private void preencheTabela(String nome) throws HeadlessException {
         try {
             if(nome == null){
@@ -277,9 +279,11 @@ public class FrmRotinaTarefa extends javax.swing.JDialog {
     public void vincularTarefaRotina(RotinaTratamento rotinaTratamento) {
         selecionado = rotinaTratamento;
     }
+    
     public void vincularTarefaRotinaInclusao(RotinaTratamento rotinaTratamento) {
         selecionadoInclusao = rotinaTratamento;
     }
+    
     //Variaveis criadas manualmente
     private List<Tarefa> lista;
     private RotinaTratamento selecionado;
