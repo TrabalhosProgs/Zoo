@@ -5,10 +5,16 @@
  */
 package view;
 
+import view.boletim.diario.FrmListaBoletimDiario;
+import view.consulta.FrmListaConsulta;
+import view.tabela.FrmListaAnimal;
 import view.tabela.FrmListaFrequencia;
+import view.tabela.FrmListaFuncionario;
 import view.tabela.FrmListaMedicamento;
 import view.tabela.FrmListaTarefa;
 import view.tabela.FrmListaVacina;
+import view.tabela.cad.FrmCadFuncionario; 
+import view.tabela.cad.FrmCadAnimal;
 import view.tratamento.FrmListaRotinaTratamento;
 /**
  *
@@ -46,6 +52,8 @@ public class FrmZoo extends javax.swing.JFrame {
         jmiAgendaConsultas = new javax.swing.JMenuItem();
         jmiBoletimSaude = new javax.swing.JMenuItem();
         jmiTabelas = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jmiTarefa = new javax.swing.JMenuItem();
         jMenuMedicamento = new javax.swing.JMenu();
         jmiMedicamento = new javax.swing.JMenuItem();
@@ -84,9 +92,19 @@ public class FrmZoo extends javax.swing.JFrame {
         jMenuCadastro.setText("Cadastro");
 
         jmiAnimais.setText("Animais");
+        jmiAnimais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CallCadAnimal(evt);
+            }
+        });
         jMenuCadastro.add(jmiAnimais);
 
-        jmiEmpregado.setText("Empregado");
+        jmiEmpregado.setText("Funcionario");
+        jmiEmpregado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CallCadFuncioario(evt);
+            }
+        });
         jMenuCadastro.add(jmiEmpregado);
 
         jMenuBar1.add(jMenuCadastro);
@@ -96,7 +114,7 @@ public class FrmZoo extends javax.swing.JFrame {
         jmiBoletimDiario.setText("Boletim Diario");
         jmiBoletimDiario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiBoletimDiarioActionPerformed(evt);
+                callAbreTelaBoletimDiario(evt);
             }
         });
         jMenuGestaoTratador.add(jmiBoletimDiario);
@@ -114,14 +132,40 @@ public class FrmZoo extends javax.swing.JFrame {
         jMenuGestaoVeterinario.setText("Gestão Veterinária");
 
         jmiAgendaConsultas.setText("Agenda Consultas");
+        jmiAgendaConsultas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAbreTelaAgendaConsultas(evt);
+            }
+        });
         jMenuGestaoVeterinario.add(jmiAgendaConsultas);
 
         jmiBoletimSaude.setText("Boletim Saúde");
+        jmiBoletimSaude.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAbreTelaBoletimSaude(evt);
+            }
+        });
         jMenuGestaoVeterinario.add(jmiBoletimSaude);
 
         jMenuBar1.add(jMenuGestaoVeterinario);
 
         jmiTabelas.setText("Tabelas");
+
+        jMenuItem1.setText("Animais");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAbreTelaListaAnimal(evt);
+            }
+        });
+        jmiTabelas.add(jMenuItem1);
+
+        jMenuItem2.setText("Funcionarios");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callAbreTelaListaFuncionario(evt);
+            }
+        });
+        jmiTabelas.add(jMenuItem2);
 
         jmiTarefa.setText("Tarefas");
         jmiTarefa.addActionListener(new java.awt.event.ActionListener() {
@@ -187,9 +231,10 @@ public class FrmZoo extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmiBoletimDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBoletimDiarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiBoletimDiarioActionPerformed
+    private void callAbreTelaBoletimDiario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaBoletimDiario
+        FrmListaBoletimDiario aux = new FrmListaBoletimDiario(this, true);
+        aux.setVisible(true);
+    }//GEN-LAST:event_callAbreTelaBoletimDiario
 
     private void callAbreTelaListaVacina(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaVacina
         FrmListaVacina fListaVacina = new FrmListaVacina(this, true);
@@ -215,6 +260,34 @@ public class FrmZoo extends javax.swing.JFrame {
         FrmListaRotinaTratamento fListaRotinaTratamento = new FrmListaRotinaTratamento(this, true);
         fListaRotinaTratamento.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaRotinaTratamento
+
+    private void CallCadFuncioario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CallCadFuncioario
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CallCadFuncioario
+
+    private void CallCadAnimal(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CallCadAnimal
+        FrmCadAnimal aux = new FrmCadAnimal(this, true);
+        aux.setVisible(true);
+    }//GEN-LAST:event_CallCadAnimal
+
+    private void callAbreTelaBoletimSaude(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaBoletimSaude
+        // TODO add your handling code here:
+    }//GEN-LAST:event_callAbreTelaBoletimSaude
+
+    private void callAbreTelaAgendaConsultas(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaAgendaConsultas
+        FrmListaConsulta aux = new FrmListaConsulta(this, true);
+        aux.setVisible(true);
+    }//GEN-LAST:event_callAbreTelaAgendaConsultas
+
+    private void callAbreTelaListaAnimal(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaAnimal
+        FrmListaAnimal aux = new FrmListaAnimal(this, true);
+        aux.setVisible(true);
+    }//GEN-LAST:event_callAbreTelaListaAnimal
+
+    private void callAbreTelaListaFuncionario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaFuncionario
+        FrmCadFuncionario aux = new FrmCadFuncionario(this, true);
+        aux.setVisible(true);
+    }//GEN-LAST:event_callAbreTelaListaFuncionario
 
     /**
      * @param args the command line arguments
@@ -259,6 +332,8 @@ public class FrmZoo extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuCadastro;
     private javax.swing.JMenu jMenuGestaoTratador;
     private javax.swing.JMenu jMenuGestaoVeterinario;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu jMenuMedicamento;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem jmiAgendaConsultas;
