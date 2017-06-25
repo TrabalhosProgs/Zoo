@@ -171,6 +171,7 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
         
         pst.executeUpdate();
     }
+    
     public void excluirTarefa(Integer idrotina, Integer idtarefa) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         

@@ -55,7 +55,7 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
                     (Date)rs.getDate("dataNasc"), 
                     rs.getDouble("peso"), 
                     rs.getString("especie"), 
-                    (Tratador) new EmpregadoDAO().buscarUm(rs.getInt("idtratador")),
+                    new TratadorDAO().buscarUm(rs.getInt("idtratador")),
                     null,  // Equipe de tratadores   -> Falta implementar
                     null,  // RotinaTratamento       -> Falta implementar
                     null); // BoletimSaude           -> Falta implementar 
@@ -74,14 +74,23 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
         
         ResultSet rs = pst.executeQuery(); 
         
-        List<Animal> animal = new ArrayList<>();
+        List<Animal> animais = new ArrayList<>();
         
-        //while(rs.next()){
-        //    Animal a = new Animal(rs.getInt("idanimal"), rs.getString("nome"), rs.getString("regiaoOrigem"), rs.getDate("dataNasc"), rs.getDouble("peso"), rs.getString("especie"), rs.getInt("idtratador"));
-        //    animal.add(a);
-        //}
+        while(rs.next()){
+            Animal a = new Animal(rs.getInt("idanimal"), rs.getString("nome"), 
+                    rs.getString("regiaoOrigem"), 
+                    (Date)rs.getDate("dataNasc"), 
+                    rs.getDouble("peso"), 
+                    rs.getString("especie"), 
+                    new TratadorDAO().buscarUm(rs.getInt("idtratador")),
+                    null,  // Equipe de tratadores   -> Falta implementar
+                    null,  // RotinaTratamento       -> Falta implementar
+                    null); // BoletimSaude           -> Falta implementar 
+                    
+            animais.add(a);
+        }
         
-        return animal;
+        return animais;
     }
 
     @Override

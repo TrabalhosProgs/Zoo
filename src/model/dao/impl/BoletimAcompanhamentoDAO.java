@@ -10,10 +10,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import model.Animal;
 import model.BoletimAcompanhamento;
+import model.Receita;
+import model.RotinaTratamento;
 import model.Tratador;
 import model.dao.IGenericDAO;
 import model.enu.EnumParecer;
@@ -91,19 +94,18 @@ public class BoletimAcompanhamentoDAO implements IGenericDAO<BoletimAcompanhamen
         if(rs.next()){
             ba = new BoletimAcompanhamento(rs.getInt("idboletimacompanhamento"), 
                     (Date)rs.getDate("data"), 
-                    (Tratador) new EmpregadoDAO().buscarUm(rs.getInt("idtratador")),
+                    (Tratador) new TratadorDAO().buscarUm(rs.getInt("idtratador")),
                     rs.getString("observacao"),
                     null,
                     new AnimalDAO().buscarUm(rs.getInt("idanimal")));
             
-                    if(rs.getString("parecer") == "SAUDAVEL")
+                    if(rs.getString("parecer").equals("SAUDAVEL"))
                         ba.setTipo(EnumParecer.SAUDAVEL);
-                    else if(rs.getString("parecer") == "ESTADO_ALERTA")
+                    else if(rs.getString("parecer").equals("ESTADO_ALERTA"))
                         ba.setTipo(EnumParecer.ESTADO_ALERTA);
                     else
                         ba.setTipo(EnumParecer.DOENTE);
 
-            //BoletimAcompanhamento( Tratador tratador, Animal animal)
         }   
         
         return ba;
@@ -111,12 +113,83 @@ public class BoletimAcompanhamentoDAO implements IGenericDAO<BoletimAcompanhamen
 
     @Override
     public List<BoletimAcompanhamento> buscarTodos() throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT * FROM boletimacompanhamento ORDER BY data DESC;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        
+        ResultSet rs = pst.executeQuery(); 
+        
+        List<BoletimAcompanhamento> boletinsAcompanhamento = new ArrayList<>();
+        
+        while(rs.next()){
+            BoletimAcompanhamento  ba = new BoletimAcompanhamento(rs.getInt("idboletimacompanhamento"), 
+                    (Date)rs.getDate("data"), 
+                    new TratadorDAO().buscarUm(rs.getInt("idtratador")),
+                    rs.getString("observacao"),
+                    null,
+                    new AnimalDAO().buscarUm(rs.getInt("idanimal")));
+            
+                    if(rs.getString("parecer").equals("SAUDAVEL"))
+                        ba.setTipo(EnumParecer.SAUDAVEL);
+                    else if(rs.getString("parecer").equals("ESTADO_ALERTA"))
+                        ba.setTipo(EnumParecer.ESTADO_ALERTA);
+                    else
+                        ba.setTipo(EnumParecer.DOENTE);
+                    
+            boletinsAcompanhamento.add(ba);
+        }   
+        
+        return boletinsAcompanhamento;
     }
 
     @Override
     public long quantidade() throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT count(*) FROM boletimacompanhamento;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        
+        ResultSet rs = pst.executeQuery(); 
+        
+        rs.next();
+        
+        return rs.getLong(1);
+    }
+
+    public List<BoletimAcompanhamento> buscarPelaData(Date data) throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT * FROM boletimacompanhamento WHERE data = ?;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setDate(1, data);
+        
+        ResultSet rs = pst.executeQuery(); 
+        
+       List<BoletimAcompanhamento> boletinsAcompanhamento = new ArrayList<>();
+        
+        while(rs.next()){
+            BoletimAcompanhamento  ba = new BoletimAcompanhamento(rs.getInt("idboletimacompanhamento"), 
+                    (Date)rs.getDate("data"), 
+                    new TratadorDAO().buscarUm(rs.getInt("idtratador")),
+                    rs.getString("observacao"),
+                    null,
+                    new AnimalDAO().buscarUm(rs.getInt("idanimal")));
+            
+                    if(rs.getString("parecer").equals("SAUDAVEL"))
+                        ba.setTipo(EnumParecer.SAUDAVEL);
+                    else if(rs.getString("parecer").equals("ESTADO_ALERTA"))
+                        ba.setTipo(EnumParecer.ESTADO_ALERTA);
+                    else
+                        ba.setTipo(EnumParecer.DOENTE);
+                    
+            boletinsAcompanhamento.add(ba);
+        }   
+        
+        return boletinsAcompanhamento;
     }
     
 }
