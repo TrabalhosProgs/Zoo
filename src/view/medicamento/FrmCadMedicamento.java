@@ -3,23 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.tabela.cad;
+package view.medicamento;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import model.Vacina;
-import model.dao.impl.VacinaDAO;
+import model.Medicamento;
+
+import model.dao.impl.MedicamentoDAO;
 
 /**
  *
  * @author william
  */
-public class FrmCadVacina extends javax.swing.JDialog {
+public class FrmCadMedicamento extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmCadVacina
+     * Creates new form FrmCadMedicamento
      */
-    public FrmCadVacina(java.awt.Frame parent, boolean modal) {
+    public FrmCadMedicamento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -43,7 +44,7 @@ public class FrmCadVacina extends javax.swing.JDialog {
         jLabelCodigoTexto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Vacina");
+        setTitle("Cadastro de Medicamento");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 aoAbrir(evt);
@@ -54,7 +55,7 @@ public class FrmCadVacina extends javax.swing.JDialog {
 
         ljTituloCabecalho.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ljTituloCabecalho.setForeground(new java.awt.Color(235, 161, 91));
-        ljTituloCabecalho.setText("Cadastro de Vacina");
+        ljTituloCabecalho.setText("Cadastro de Medicamento");
 
         javax.swing.GroupLayout jPanelCabecalhoLayout = new javax.swing.GroupLayout(jPanelCabecalho);
         jPanelCabecalho.setLayout(jPanelCabecalhoLayout);
@@ -63,7 +64,7 @@ public class FrmCadVacina extends javax.swing.JDialog {
             .addGroup(jPanelCabecalhoLayout.createSequentialGroup()
                 .addGap(131, 131, 131)
                 .addComponent(ljTituloCabecalho)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         jPanelCabecalhoLayout.setVerticalGroup(
             jPanelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,19 +142,19 @@ public class FrmCadVacina extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-        //Vacina vacina = new Vacina(Integer.parseInt(jtfCodigo.getText()), jtfDescricao.getText());
-        Vacina vacina = new Vacina(0, jtfDescricao.getText());
+        
+        Medicamento medicamento = new Medicamento(0, jtfDescricao.getText());
         try {
             if(selecionado == null){
-                new VacinaDAO().inserir(vacina);
-                vacina.setId(new VacinaDAO().buscarMaiorID());
+                new MedicamentoDAO().inserir(medicamento);
+                medicamento.setId(new MedicamentoDAO().buscarMaiorID());
             }else{
-                vacina.setId(selecionado.getId());
-                new VacinaDAO().alterar(vacina);
+                medicamento.setId(selecionado.getId());
+                new MedicamentoDAO().alterar(medicamento);
             }
             
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao gravar vacina ..."+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao gravar Medicamento ..."+ex.getMessage());
         }
         
         JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
@@ -188,20 +189,23 @@ public class FrmCadVacina extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCadVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadMedicamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCadVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadMedicamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCadVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadMedicamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCadVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadMedicamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmCadVacina dialog = new FrmCadVacina(new javax.swing.JFrame(), true);
+                FrmCadMedicamento dialog = new FrmCadMedicamento(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -213,15 +217,15 @@ public class FrmCadVacina extends javax.swing.JDialog {
         });
     }
 
-    public void preparaEdit(Vacina vacina) {
-        selecionado = vacina;
+    public void preparaEdit(Medicamento medicamento) {
+        selecionado = medicamento;
         
-        jtfDescricao.setText(vacina.getNome());
-        jLabelCodigoTexto.setText(vacina.getId()+"");
+        jtfDescricao.setText(medicamento.getNome());
+        jLabelCodigoTexto.setText(medicamento.getId()+"");
         
     }
 
-    private Vacina selecionado = null;
+    private Medicamento selecionado = null;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;

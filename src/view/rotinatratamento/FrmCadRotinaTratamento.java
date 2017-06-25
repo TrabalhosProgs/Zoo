@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.tratamento.cad;
+package view.rotinatratamento;
 
-import view.tabela.cad.*;
+import view.rotinatarefa.FrmRotinaTarefa;
 import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -24,7 +24,7 @@ import model.dao.impl.RotinaTratamentoDAO;
 
 import model.dao.impl.RotinaTratamentoDAO;
 import model.dao.impl.TarefaDAO;
-import view.tabela.FrmListaTarefa;
+import view.tarefa.FrmListaTarefa;
 
 /**
  *

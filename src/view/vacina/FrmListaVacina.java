@@ -3,27 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.tabela;
+package view.vacina;
 
 import java.awt.HeadlessException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Frequencia;
-import model.dao.impl.FrequenciaDAO;
-import view.tabela.cad.FrmCadFrequencia;
-
+import model.Vacina;
+import model.dao.impl.VacinaDAO;
+import view.vacina.FrmCadVacina;
 
 /**
  *
  * @author william
  */
-public class FrmListaFrequencia extends javax.swing.JDialog {
+public class FrmListaVacina extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmListaFrequencia
+     * Creates new form FrmListaVacina
      */
-    public FrmListaFrequencia(java.awt.Frame parent, boolean modal) {
+    public FrmListaVacina(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -50,8 +49,7 @@ public class FrmListaFrequencia extends javax.swing.JDialog {
         jbIncluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Relação de Frequencias");
-        setPreferredSize(new java.awt.Dimension(600, 400));
+        setTitle("Relação de Vacinas");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 aoAbrir(evt);
@@ -62,8 +60,7 @@ public class FrmListaFrequencia extends javax.swing.JDialog {
 
         ljTituloCabecalho.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ljTituloCabecalho.setForeground(new java.awt.Color(235, 161, 91));
-        ljTituloCabecalho.setText("Relação de Frequencia");
-        ljTituloCabecalho.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ljTituloCabecalho.setText("Relação de Vacinas");
 
         javax.swing.GroupLayout jPanelCabecalhoLayout = new javax.swing.GroupLayout(jPanelCabecalho);
         jPanelCabecalho.setLayout(jPanelCabecalhoLayout);
@@ -197,22 +194,21 @@ public class FrmListaFrequencia extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void callTelaIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTelaIncluir
-        FrmCadFrequencia fcf = new FrmCadFrequencia(null, true);
-        fcf.setVisible(true);
+        FrmCadVacina fcv = new FrmCadVacina(null, true);
+        fcv.setVisible(true);
         
         preencheTabela(null); //após inserir, ele preenche a tabela atualizando-a
     }//GEN-LAST:event_callTelaIncluir
 
     private void callTelaIAlterar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTelaIAlterar
         if(jtLista.getSelectedRowCount() == 1){
-           FrmCadFrequencia fcf = new FrmCadFrequencia(null, true);
-           
-           fcf.preparaEdit(lista.get(jtLista.getSelectedRow()));
-           fcf.setVisible(true);
+           FrmCadVacina fcv = new FrmCadVacina(null, true);
+           fcv.preparaEdit(lista.get(jtLista.getSelectedRow()));
+           fcv.setVisible(true);
            preencheTabela();
                            
         }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas uma Frequencia"); 
+            JOptionPane.showMessageDialog(null, "Selecione apenas uma vacina"); 
         }        
     }//GEN-LAST:event_callTelaIAlterar
 
@@ -224,25 +220,25 @@ public class FrmListaFrequencia extends javax.swing.JDialog {
          preencheTabela(jtfPesquisar.getText());
     }//GEN-LAST:event_aoPesquisar
 
-   
+    // apagar nao funfou
     private void aoExcluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoExcluir
         if(jtLista.getSelectedRowCount() == 1){
-            String nomeFrequencia = (String) jtLista.getValueAt(jtLista.getSelectedRow(), 1);
-            if (JOptionPane.showConfirmDialog(this,"Deseja apagar a Frequencia "+nomeFrequencia+"?","Atenção",
+            String nomeVacina = (String) jtLista.getValueAt(jtLista.getSelectedRow(), 1);
+            if (JOptionPane.showConfirmDialog(this,"Deseja apagar a vacina "+nomeVacina+"?","Atenção",
                 JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
                 
-                int idFrequencia =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
-                Frequencia f = new Frequencia(idFrequencia, "");
+                int idVacina =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
+                Vacina v  =  new Vacina(idVacina, "");
                 try {
-                    new FrequenciaDAO().apagar(f);
+                    new VacinaDAO().apagar(v);
                     preencheTabela();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao apagar a Frequencia "+ex); 
+                    JOptionPane.showMessageDialog(null, "Erro ao apagar a vacina "+ex); 
                 }
             }            
                 
         }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas uma Frequencia"); 
+            JOptionPane.showMessageDialog(null, "Selecione apenas uma vacina"); 
         }
     }//GEN-LAST:event_aoExcluir
 
@@ -251,10 +247,11 @@ public class FrmListaFrequencia extends javax.swing.JDialog {
     }
     private void preencheTabela(String nome) throws HeadlessException {
         try {
+            
             if(nome == null){
-                lista = new FrequenciaDAO().buscarTodos();
+                lista = new VacinaDAO().buscarTodos();
             }else{
-                lista = new FrequenciaDAO().buscarPeloNome(nome);
+                lista = new VacinaDAO().buscarPeloNome(nome);
             }
             DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
             int idx = dtm.getRowCount();
@@ -262,12 +259,12 @@ public class FrmListaFrequencia extends javax.swing.JDialog {
                 dtm.removeRow(0);
             }
             
-            for(Frequencia frequencia : lista){
-                Object[] row = {frequencia.getId(),frequencia.getDescricao()};
+            for(Vacina vacina : lista){
+                Object[] row = {vacina.getId(),vacina.getNome()};
                 dtm.addRow(row);
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as Frequencias ...");
+            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as vacinas ...");
         }
     }
     /**
@@ -287,23 +284,20 @@ public class FrmListaFrequencia extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmListaFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmListaFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmListaFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmListaFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmListaFrequencia dialog = new FrmListaFrequencia(new javax.swing.JFrame(), true);
+                FrmListaVacina dialog = new FrmListaVacina(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -315,7 +309,7 @@ public class FrmListaFrequencia extends javax.swing.JDialog {
         });
     }
     //Variaveis criadas manualmente
-    private List<Frequencia> lista;
+    private List<Vacina> lista;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelNomePesquisa;

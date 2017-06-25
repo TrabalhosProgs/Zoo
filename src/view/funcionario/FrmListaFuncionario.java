@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.tabela;
+package view.funcionario;
 
 import java.awt.HeadlessException;
 import java.util.List;
@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Funcionario;
 import model.dao.impl.FuncionarioDAO;
-import view.tabela.cad.FrmCadFuncionario;
+import view.funcionario.FrmCadFuncionario;
 
 /**
  *
@@ -171,6 +171,7 @@ public class FrmListaFuncionario extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPesquisarActionPerformed

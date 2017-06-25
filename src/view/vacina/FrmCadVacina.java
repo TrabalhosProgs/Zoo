@@ -3,24 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.tabela.cad;
+package view.vacina;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import model.Frequencia;
-
-import model.dao.impl.FrequenciaDAO;
+import model.Vacina;
+import model.dao.impl.VacinaDAO;
 
 /**
  *
  * @author william
  */
-public class FrmCadFrequencia extends javax.swing.JDialog {
+public class FrmCadVacina extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmCadFrequencia
+     * Creates new form FrmCadVacina
      */
-    public FrmCadFrequencia(java.awt.Frame parent, boolean modal) {
+    public FrmCadVacina(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -44,7 +43,7 @@ public class FrmCadFrequencia extends javax.swing.JDialog {
         jLabelCodigoTexto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Frequencia");
+        setTitle("Cadastro de Vacina");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 aoAbrir(evt);
@@ -55,7 +54,7 @@ public class FrmCadFrequencia extends javax.swing.JDialog {
 
         ljTituloCabecalho.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ljTituloCabecalho.setForeground(new java.awt.Color(235, 161, 91));
-        ljTituloCabecalho.setText("Cadastro de Frequencia");
+        ljTituloCabecalho.setText("Cadastro de Vacina");
 
         javax.swing.GroupLayout jPanelCabecalhoLayout = new javax.swing.GroupLayout(jPanelCabecalho);
         jPanelCabecalho.setLayout(jPanelCabecalhoLayout);
@@ -64,7 +63,7 @@ public class FrmCadFrequencia extends javax.swing.JDialog {
             .addGroup(jPanelCabecalhoLayout.createSequentialGroup()
                 .addGap(131, 131, 131)
                 .addComponent(ljTituloCabecalho)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         jPanelCabecalhoLayout.setVerticalGroup(
             jPanelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,19 +141,19 @@ public class FrmCadFrequencia extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-        
-        Frequencia frequencia = new Frequencia(0, jtfDescricao.getText());
+        //Vacina vacina = new Vacina(Integer.parseInt(jtfCodigo.getText()), jtfDescricao.getText());
+        Vacina vacina = new Vacina(0, jtfDescricao.getText());
         try {
             if(selecionado == null){
-                new FrequenciaDAO().inserir(frequencia);
-                frequencia.setId(new FrequenciaDAO().buscarMaiorID());
+                new VacinaDAO().inserir(vacina);
+                vacina.setId(new VacinaDAO().buscarMaiorID());
             }else{
-                frequencia.setId(selecionado.getId());
-                new FrequenciaDAO().alterar(frequencia);
+                vacina.setId(selecionado.getId());
+                new VacinaDAO().alterar(vacina);
             }
             
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao gravar Frequencia ..."+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao gravar vacina ..."+ex.getMessage());
         }
         
         JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
@@ -189,23 +188,20 @@ public class FrmCadFrequencia extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCadFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCadFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCadFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCadFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadVacina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmCadFrequencia dialog = new FrmCadFrequencia(new javax.swing.JFrame(), true);
+                FrmCadVacina dialog = new FrmCadVacina(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -217,15 +213,15 @@ public class FrmCadFrequencia extends javax.swing.JDialog {
         });
     }
 
-    public void preparaEdit(Frequencia frequencia) {
-        selecionado = frequencia;
+    public void preparaEdit(Vacina vacina) {
+        selecionado = vacina;
         
-        jtfDescricao.setText(frequencia.getDescricao());
-        jLabelCodigoTexto.setText(frequencia.getId()+"");
+        jtfDescricao.setText(vacina.getNome());
+        jLabelCodigoTexto.setText(vacina.getId()+"");
         
     }
 
-    private Frequencia selecionado = null;
+    private Vacina selecionado = null;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.tabela.cad;
+package view.funcionario;
 
 import model.Funcionario;
 
@@ -223,6 +223,7 @@ public class FrmCadFuncionario extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public void preparaEdit(Funcionario empregado) {

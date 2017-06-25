@@ -7,15 +7,15 @@ package view;
 
 import view.boletim.diario.FrmListaBoletimDiario;
 import view.consulta.FrmListaConsulta;
-import view.tabela.FrmListaAnimal;
-import view.tabela.FrmListaFrequencia;
-import view.tabela.FrmListaFuncionario;
-import view.tabela.FrmListaMedicamento;
-import view.tabela.FrmListaTarefa;
-import view.tabela.FrmListaVacina;
-import view.tabela.cad.FrmCadFuncionario; 
-import view.tabela.cad.FrmCadAnimal;
-import view.tratamento.FrmListaRotinaTratamento;
+import view.animal.FrmListaAnimal;
+import view.frequencia.FrmListaFrequencia;
+import view.funcionario.FrmListaFuncionario;
+import view.medicamento.FrmListaMedicamento;
+import view.tarefa.FrmListaTarefa;
+import view.vacina.FrmListaVacina;
+import view.funcionario.FrmCadFuncionario; 
+import view.animal.FrmCadAnimal;
+import view.rotinatratamento.FrmListaRotinaTratamento;
 /**
  *
  * @author william
@@ -237,32 +237,33 @@ public class FrmZoo extends javax.swing.JFrame {
     }//GEN-LAST:event_callAbreTelaBoletimDiario
 
     private void callAbreTelaListaVacina(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaVacina
-        FrmListaVacina fListaVacina = new FrmListaVacina(this, true);
-        fListaVacina.setVisible(true);
+        FrmListaVacina aux = new FrmListaVacina(this, true);
+        aux.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaVacina
 
     private void callAbreTelaListaTarefa(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaTarefa
-        FrmListaTarefa fListaTarefa = new FrmListaTarefa(this, true);
-        fListaTarefa.setVisible(true);
+        FrmListaTarefa aux = new FrmListaTarefa(this, true);
+        aux.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaTarefa
 
     private void callAbreTelaListaMedicamento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaMedicamento
-        FrmListaMedicamento fListaMedicamento = new FrmListaMedicamento(this, true);
-        fListaMedicamento.setVisible(true);
+        FrmListaMedicamento aux = new FrmListaMedicamento(this, true);
+        aux.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaMedicamento
 
     private void callAbreTelaListaFrequencia(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaFrequencia
-        FrmListaFrequencia fListaFrequencia = new FrmListaFrequencia(this, true);
-        fListaFrequencia.setVisible(true);
+        FrmListaFrequencia aux = new FrmListaFrequencia(this, true);
+        aux.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaFrequencia
 
     private void callAbreTelaListaRotinaTratamento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaRotinaTratamento
-        FrmListaRotinaTratamento fListaRotinaTratamento = new FrmListaRotinaTratamento(this, true);
-        fListaRotinaTratamento.setVisible(true);
+        FrmListaRotinaTratamento aux = new FrmListaRotinaTratamento(this, true);
+        aux.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaRotinaTratamento
 
     private void CallCadFuncioario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CallCadFuncioario
-        // TODO add your handling code here:
+        FrmCadFuncionario aux = new FrmCadFuncionario(this, true);
+        aux.setVisible(true);
     }//GEN-LAST:event_CallCadFuncioario
 
     private void CallCadAnimal(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CallCadAnimal
@@ -271,7 +272,7 @@ public class FrmZoo extends javax.swing.JFrame {
     }//GEN-LAST:event_CallCadAnimal
 
     private void callAbreTelaBoletimSaude(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaBoletimSaude
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_callAbreTelaBoletimSaude
 
     private void callAbreTelaAgendaConsultas(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaAgendaConsultas
@@ -285,7 +286,7 @@ public class FrmZoo extends javax.swing.JFrame {
     }//GEN-LAST:event_callAbreTelaListaAnimal
 
     private void callAbreTelaListaFuncionario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaFuncionario
-        FrmCadFuncionario aux = new FrmCadFuncionario(this, true);
+        FrmListaFuncionario aux = new FrmListaFuncionario(this, true);
         aux.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaFuncionario
 

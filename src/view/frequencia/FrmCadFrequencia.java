@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.tabela.cad;
+package view.frequencia;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import model.Medicamento;
+import model.Frequencia;
 
-import model.dao.impl.MedicamentoDAO;
+import model.dao.impl.FrequenciaDAO;
 
 /**
  *
  * @author william
  */
-public class FrmCadMedicamento extends javax.swing.JDialog {
+public class FrmCadFrequencia extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmCadMedicamento
+     * Creates new form FrmCadFrequencia
      */
-    public FrmCadMedicamento(java.awt.Frame parent, boolean modal) {
+    public FrmCadFrequencia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -44,7 +44,7 @@ public class FrmCadMedicamento extends javax.swing.JDialog {
         jLabelCodigoTexto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Medicamento");
+        setTitle("Cadastro de Frequencia");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 aoAbrir(evt);
@@ -55,7 +55,7 @@ public class FrmCadMedicamento extends javax.swing.JDialog {
 
         ljTituloCabecalho.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ljTituloCabecalho.setForeground(new java.awt.Color(235, 161, 91));
-        ljTituloCabecalho.setText("Cadastro de Medicamento");
+        ljTituloCabecalho.setText("Cadastro de Frequencia");
 
         javax.swing.GroupLayout jPanelCabecalhoLayout = new javax.swing.GroupLayout(jPanelCabecalho);
         jPanelCabecalho.setLayout(jPanelCabecalhoLayout);
@@ -64,7 +64,7 @@ public class FrmCadMedicamento extends javax.swing.JDialog {
             .addGroup(jPanelCabecalhoLayout.createSequentialGroup()
                 .addGap(131, 131, 131)
                 .addComponent(ljTituloCabecalho)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanelCabecalhoLayout.setVerticalGroup(
             jPanelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,18 +143,18 @@ public class FrmCadMedicamento extends javax.swing.JDialog {
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         
-        Medicamento medicamento = new Medicamento(0, jtfDescricao.getText());
+        Frequencia frequencia = new Frequencia(0, jtfDescricao.getText());
         try {
             if(selecionado == null){
-                new MedicamentoDAO().inserir(medicamento);
-                medicamento.setId(new MedicamentoDAO().buscarMaiorID());
+                new FrequenciaDAO().inserir(frequencia);
+                frequencia.setId(new FrequenciaDAO().buscarMaiorID());
             }else{
-                medicamento.setId(selecionado.getId());
-                new MedicamentoDAO().alterar(medicamento);
+                frequencia.setId(selecionado.getId());
+                new FrequenciaDAO().alterar(frequencia);
             }
             
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao gravar Medicamento ..."+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao gravar Frequencia ..."+ex.getMessage());
         }
         
         JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
@@ -189,13 +189,13 @@ public class FrmCadMedicamento extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCadMedicamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCadMedicamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCadMedicamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCadMedicamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadFrequencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -205,7 +205,7 @@ public class FrmCadMedicamento extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmCadMedicamento dialog = new FrmCadMedicamento(new javax.swing.JFrame(), true);
+                FrmCadFrequencia dialog = new FrmCadFrequencia(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -217,15 +217,15 @@ public class FrmCadMedicamento extends javax.swing.JDialog {
         });
     }
 
-    public void preparaEdit(Medicamento medicamento) {
-        selecionado = medicamento;
+    public void preparaEdit(Frequencia frequencia) {
+        selecionado = frequencia;
         
-        jtfDescricao.setText(medicamento.getNome());
-        jLabelCodigoTexto.setText(medicamento.getId()+"");
+        jtfDescricao.setText(frequencia.getDescricao());
+        jLabelCodigoTexto.setText(frequencia.getId()+"");
         
     }
 
-    private Medicamento selecionado = null;
+    private Frequencia selecionado = null;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
