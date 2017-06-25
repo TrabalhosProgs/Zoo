@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.menuCadastro.funcionario;
+package view.menuCadastro.empregado;
 
 import javax.swing.UnsupportedLookAndFeelException;
-import model.Funcionario;
+import model.Empregado;
 
 /**
  *
  * @author pc
  */
-public class FrmCadFuncionario extends javax.swing.JDialog {
+public class FrmCadEmpregado extends javax.swing.JDialog {
 
-    public FrmCadFuncionario(java.awt.Frame parent, boolean modal) {
+    public FrmCadEmpregado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -50,7 +50,6 @@ public class FrmCadFuncionario extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 400));
 
         jPanel3.setToolTipText("");
 
@@ -233,7 +232,7 @@ public class FrmCadFuncionario extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void preparaEdit(Funcionario empregado) {
+    public void preparaEdit(Empregado empregado) {
         selecionado = empregado;
         
         //jtfDescricao.setText(frequencia.getDescricao());
@@ -241,7 +240,7 @@ public class FrmCadFuncionario extends javax.swing.JDialog {
         
     }
 
-    private Funcionario selecionado = null;
+    private Empregado selecionado = null;
     
     
     
@@ -275,12 +274,13 @@ public class FrmCadFuncionario extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCadFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadEmpregado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCadFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadEmpregado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCadFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCadEmpregado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
         
         //</editor-fold>
@@ -288,7 +288,7 @@ public class FrmCadFuncionario extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmCadFuncionario dialog = new FrmCadFuncionario(new javax.swing.JFrame(), true);
+                FrmCadEmpregado dialog = new FrmCadEmpregado(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

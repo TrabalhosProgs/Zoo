@@ -7,12 +7,14 @@ package model.dao.impl;
 
 import connection.ConnectionFactory;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Animal;
+import model.Tratador;
 import model.dao.IGenericDAO;
 
 /**
@@ -38,7 +40,28 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
 
     @Override
     public Animal buscarUm(Integer id) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT * FROM animal WHERE idanimal = ?;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1, id);
+        
+        ResultSet rs = pst.executeQuery();  
+        Animal a = null;
+        if(rs.next()){
+            a = new Animal(rs.getInt("idanimal"), rs.getString("nome"), 
+                    rs.getString("regiaoOrigem"), 
+                    (Date)rs.getDate("dataNasc"), 
+                    rs.getDouble("peso"), 
+                    rs.getString("especie"), 
+                    (Tratador) new EmpregadoDAO().buscarUm(rs.getInt("idtratador")),
+                    null,  // Equipe de tratadores   -> Falta implementar
+                    null,  // RotinaTratamento       -> Falta implementar
+                    null); // BoletimSaude           -> Falta implementar 
+        }   
+        
+        return a;
     }
 
     @Override

@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class Animal {
     private int id;
+    private String nome;
     private String regiaoOrigem;
     private Date dataNasc;
     private double peso;
@@ -26,8 +27,9 @@ public class Animal {
     public Animal() {
     }
 
-    public Animal(int id, String regiaoOrigem, Date dataNasc, double peso, String especie, Tratador tratadorResponsavel, ArrayList<Tratador> equipeTratadores, RotinaTratamento rotinaTrabamento, BoletimSaude boletimSaude) {
+    public Animal(int id, String nome, String regiaoOrigem, Date dataNasc, double peso, String especie, Tratador tratadorResponsavel, ArrayList<Tratador> equipeTratadores, RotinaTratamento rotinaTrabamento, BoletimSaude boletimSaude) {
         this.id = id;
+        this.nome = nome;
         this.regiaoOrigem = regiaoOrigem;
         this.dataNasc = dataNasc;
         this.peso = peso;
@@ -38,6 +40,15 @@ public class Animal {
         this.boletimSaude = boletimSaude;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    
     public int getId() {
         return id;
     }

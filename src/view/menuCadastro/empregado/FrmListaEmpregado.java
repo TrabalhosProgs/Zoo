@@ -3,26 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.menuCadastro.funcionario;
+package view.menuCadastro.empregado;
 
 import java.awt.HeadlessException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Funcionario;
-import model.dao.impl.FuncionarioDAO;
-import view.menuCadastro.funcionario.FrmCadFuncionario;
+import model.Empregado;
+import model.dao.impl.EmpregadoDAO;
+import view.menuCadastro.empregado.FrmCadEmpregado;
 
 /**
  *
  * @author pc
  */
-public class FrmListaFuncionario extends javax.swing.JDialog {
+public class FrmListaEmpregado extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmListaEmpregado
      */
-    public FrmListaFuncionario(java.awt.Frame parent, boolean modal) {
+    public FrmListaEmpregado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -183,7 +183,7 @@ public class FrmListaFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_AoPesquisar
 
     private void jbIncluircallTelaIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIncluircallTelaIncluir
-        FrmCadFuncionario fcf = new FrmCadFuncionario(null, true);
+        FrmCadEmpregado fcf = new FrmCadEmpregado(null, true);
         fcf.setVisible(true);
         
         preencheTabela(null); //após inserir, ele preenche a tabela atualizando-a
@@ -191,7 +191,7 @@ public class FrmListaFuncionario extends javax.swing.JDialog {
 
     private void jbAlterarcallTelaIAlterar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarcallTelaIAlterar
          if(jtLista.getSelectedRowCount() == 1){
-           FrmCadFuncionario fcf = new FrmCadFuncionario(null, true);
+           FrmCadEmpregado fcf = new FrmCadEmpregado(null, true);
            
            fcf.preparaEdit(lista.get(jtLista.getSelectedRow()));
            fcf.setVisible(true);
@@ -209,9 +209,9 @@ public class FrmListaFuncionario extends javax.swing.JDialog {
     private void preencheTabela(String nome) throws HeadlessException {
         try {
             if(nome == null){
-                lista = new FuncionarioDAO().buscarTodos();
+                lista = new EmpregadoDAO().buscarTodos();
             }else{
-                lista = new FuncionarioDAO().buscarPeloNome(nome);
+                lista = new EmpregadoDAO().buscarPeloNome(nome);
             }            
 
             DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
@@ -220,7 +220,7 @@ public class FrmListaFuncionario extends javax.swing.JDialog {
                 dtm.removeRow(0);
             }
             
-            for(Funcionario funcionarios : lista){
+            for(Empregado funcionarios : lista){
                 Object[] row = {funcionarios.getId(),funcionarios.getEndereco(),funcionarios.getNome(), funcionarios.getTelefone()};
                 dtm.addRow(row);
             }
@@ -236,9 +236,9 @@ public class FrmListaFuncionario extends javax.swing.JDialog {
                 JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
                 
                 int idEmpregado =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
-                Funcionario e = new Funcionario(idEmpregado, "", "", "");
+                Empregado e = new Empregado(idEmpregado, "", "", "");
                 try {
-                    new FuncionarioDAO().apagar(e);
+                    new EmpregadoDAO().apagar(e);
                     preencheTabela();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Erro ao apagar o funcionario "+ex); 
@@ -275,21 +275,23 @@ public class FrmListaFuncionario extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmListaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaEmpregado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmListaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaEmpregado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmListaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaEmpregado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmListaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaEmpregado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmListaFuncionario dialog = new FrmListaFuncionario(new javax.swing.JFrame(), true);
+                FrmListaEmpregado dialog = new FrmListaEmpregado(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -315,6 +317,6 @@ public class FrmListaFuncionario extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     
     //Variaveis criadas manualmente
-    private List<Funcionario> lista;
+    private List<Empregado> lista;
 
 }

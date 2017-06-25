@@ -50,7 +50,7 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
 
     @Override
     public void alterar(RotinaTratamento obj) throws ClassNotFoundException, SQLException {
-         Connection c = ConnectionFactory.getConnection();
+        Connection c = ConnectionFactory.getConnection();
         
         String sql = "UPDATE rotinatratamento SET dataValidade = ? , idreceita = ? WHERE idrotinatratamento = ?;";
         
@@ -64,7 +64,7 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
 
     @Override
     public RotinaTratamento buscarUm(Integer id) throws ClassNotFoundException, SQLException {
-         Connection c = ConnectionFactory.getConnection();
+        Connection c = ConnectionFactory.getConnection();
         
         String sql = "SELECT * FROM rotinatratamento WHERE idrotinatratamento = ?;";
         

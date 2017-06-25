@@ -9,11 +9,11 @@ import view.boletim.diario.FrmListaBoletimDiario;
 import view.gestaoVet.consulta.FrmListaConsulta;
 import view.menuCadastro.animal.FrmListaAnimal;
 import view.menuCadastro.frequencia.FrmListaFrequencia;
-import view.menuCadastro.funcionario.FrmListaFuncionario;
+import view.menuCadastro.empregado.FrmListaEmpregado;
 import view.menuCadastro.medicamento.FrmListaMedicamento;
 import view.menuCadastro.tarefa.FrmListaTarefa;
 import view.menuCadastro.vacina.FrmListaVacina;
-import view.menuCadastro.funcionario.FrmCadFuncionario; 
+import view.menuCadastro.empregado.FrmCadEmpregado; 
 import view.menuCadastro.animal.FrmCadAnimal;
 import view.menuCadastro.rotinaTratamento.FrmListaRotinaTratamento;
 /**
@@ -253,7 +253,7 @@ public class FrmZoo extends javax.swing.JFrame {
     }//GEN-LAST:event_callAbreTelaListaAnimal
 
     private void callAbreTelaListaFuncionario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaListaFuncionario
-        FrmListaFuncionario aux = new FrmListaFuncionario(this, true);
+        FrmListaEmpregado aux = new FrmListaEmpregado(this, true);
         aux.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaFuncionario
 

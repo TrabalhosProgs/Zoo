@@ -12,17 +12,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Funcionario;
+import model.Empregado;
 import model.dao.IGenericDAO;
 
 /**
  *
  * @author pc
  */
-public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer>{
+public class EmpregadoDAO implements IGenericDAO <Empregado, Integer>{
 
     @Override
-    public void inserir(Funcionario obj) throws ClassNotFoundException, SQLException {
+    public void inserir(Empregado obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
 
         String sql = "INSERT INTO "
@@ -38,7 +38,7 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer>{
     }
 
     @Override
-    public void apagar(Funcionario obj) throws ClassNotFoundException, SQLException {
+    public void apagar(Empregado obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
         String sql = "DELETE FROM empregado WHERE idempregado = ?;";
@@ -49,12 +49,12 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer>{
         pst.executeUpdate();}
 
     @Override
-    public void alterar(Funcionario obj) throws ClassNotFoundException, SQLException {
+    public void alterar(Empregado obj) throws ClassNotFoundException, SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Funcionario buscarUm(Integer id) throws ClassNotFoundException, SQLException {
+    public Empregado buscarUm(Integer id) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
         String sql = "SELECT * FROM empregado WHERE idempregado = ?;";
@@ -63,9 +63,9 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer>{
         pst.setInt(1, id);
         
         ResultSet rs = pst.executeQuery();  
-        Funcionario e = null;
+        Empregado e = null;
         if(rs.next()){
-            e = new Funcionario(rs.getInt("idempregado"), 
+            e = new Empregado(rs.getInt("idempregado"), 
                     rs.getString("nome"),
                     rs.getString("endereco"),
                     rs.getString("telefone"));
@@ -74,7 +74,7 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer>{
         return e;}
 
     @Override
-    public List<Funcionario> buscarTodos() throws ClassNotFoundException, SQLException {
+    public List<Empregado> buscarTodos() throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
         String sql = "SELECT * FROM empregado;";
@@ -83,12 +83,12 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer>{
         
         ResultSet rs = pst.executeQuery(); 
         
-        List<Funcionario> empregados = new ArrayList<>();
+        List<Empregado> empregados = new ArrayList<>();
         
         while(rs.next()){
-            Funcionario  e;
+            Empregado  e;
             
-            e = new Funcionario(rs.getInt("idempregado"), 
+            e = new Empregado(rs.getInt("idempregado"), 
             rs.getString("nome"),
             rs.getString("endereco"),
             rs.getString("telefone"));
@@ -114,7 +114,7 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer>{
         return rs.getLong(1);  
     }
     
-    public List<Funcionario> buscarPeloNome(String nome) throws ClassNotFoundException, SQLException {
+    public List<Empregado> buscarPeloNome(String nome) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
         String sql = "SELECT * FROM empregado WHERE nome LIKE ?;";
@@ -124,12 +124,12 @@ public class FuncionarioDAO implements IGenericDAO <Funcionario, Integer>{
         ResultSet rs = pst.executeQuery(); 
         
         
-        List<Funcionario> empregado = new ArrayList<>();
+        List<Empregado> empregado = new ArrayList<>();
         
         while(rs.next()){
-            Funcionario  e;
+            Empregado  e;
             
-            e = new Funcionario(rs.getInt("idempregado"), 
+            e = new Empregado(rs.getInt("idempregado"), 
             rs.getString("nome"),
             rs.getString("endereco"),
             rs.getString("telefone"));
