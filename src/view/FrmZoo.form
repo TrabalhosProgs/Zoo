@@ -9,76 +9,7 @@
             <Property name="text" type="java.lang.String" value="Cadastro"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiAnimais">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Animais"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CallCadAnimal"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiEmpregado">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Funcionario"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CallCadFuncioario"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuGestaoTratador">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Gest&#xe3;o Tratamento"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiBoletimDiario">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Boletim Diario"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaBoletimDiario"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiRotinaTratamento">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Rotina Tratamento"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaListaRotinaTratamento"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuGestaoVeterinario">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Gest&#xe3;o Veterin&#xe1;ria"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiAgendaConsultas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Agenda Consultas"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaAgendaConsultas"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiBoletimSaude">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Boletim Sa&#xfa;de"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaBoletimSaude"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jmiTabelas">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Tabelas"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiAnimal">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Animais"/>
               </Properties>
@@ -86,7 +17,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaListaAnimal"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiFuncionario">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Funcionarios"/>
               </Properties>
@@ -131,6 +62,52 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaListaVacina"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiRotinaTratamento">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Rotina Tratamento"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaListaRotinaTratamento"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenuBoletim">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Boletins"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiBoletimDiario">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Boletim Diario"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaBoletimDiario"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiBoletimSaude">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Boletim Sa&#xfa;de"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaBoletimSaude"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenuGestaoVeterinario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Gest&#xe3;o Veterin&#xe1;ria"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiAgendaConsultas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Agenda Consultas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaAgendaConsultas"/>
               </Events>
             </MenuItem>
           </SubComponents>
