@@ -6,6 +6,7 @@
 package model;
 
 import java.util.Date;
+import model.enu.EnumFuncao;
 
 /**
  *
@@ -20,7 +21,7 @@ public class Veterinario extends Empregado{
     }
 
     public Veterinario(String numeroCRMV, Date dataCRMV, int id, String nome, String endereco, String telefone) {
-        super(id, nome, endereco, telefone);
+        super(id, nome, endereco, telefone,EnumFuncao.VETERINARIO);
         this.numeroCRMV = numeroCRMV;
         this.dataCRMV = dataCRMV;
     }

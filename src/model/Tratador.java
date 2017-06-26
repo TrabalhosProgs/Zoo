@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import model.enu.EnumFuncao;
 
 /**
  *
@@ -15,24 +16,24 @@ public class Tratador extends Empregado {
     private ArrayList<Tarefa> tarefas;
 
     public Tratador() {
-        super(0, "", "", "");
+        super(0, "", "", "",EnumFuncao.TRATADOR);
         tarefas = new ArrayList<Tarefa>();
     }
 
     public Tratador(int id, String nome, String endereco, String telefone) {
-        super(id, nome, endereco, telefone);
+        super(id, nome, endereco, telefone,EnumFuncao.TRATADOR);
         tarefas = new ArrayList<Tarefa>();
     }
 
     public Tratador(int id, String nome, String endereco, String telefone, ArrayList<Tarefa> tarefas) {
-        super(id, nome, endereco, telefone);
+        super(id, nome, endereco, telefone,EnumFuncao.TRATADOR);
         this.tarefas = tarefas;
     }
     
     
     
     public Tratador(ArrayList<Tarefa> tarefas) {
-        super(0, "", "", "");
+        super(0, "", "", "", EnumFuncao.TRATADOR);
         this.tarefas = tarefas;
     }
     

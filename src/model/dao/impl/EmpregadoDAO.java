@@ -13,7 +13,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Empregado;
+import model.Veterinario;
 import model.dao.IGenericDAO;
+import model.enu.EnumFuncao;
 
 /**
  *
@@ -25,14 +27,20 @@ public class EmpregadoDAO implements IGenericDAO <Empregado, Integer>{
     public void inserir(Empregado obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
 
-        String sql = "INSERT INTO "
-                + "empregado (nome,endereco,telefone) "
-                + "VALUES (?,?,?);";
+        String sql = "INSERT INTO empregado (idempregado,nome,endereco,telefone,funcao,numeroCRMV,dataCRMV) "
+                + "VALUES (?,?,?,?,?,?,?);";
 
-        PreparedStatement pst = c.prepareStatement(sql); 
-        //pst.setString(1, Funcionario.getNome());
-        //pst.setString(2, Funcionario.getEndereco());
-        //pst.setString(3, Funcionario.getTelefone());
+        PreparedStatement pst = c.prepareStatement(sql);
+        
+        //--> ERRO: NON-STATIC <--//
+        
+//        pst.setInt(1, Empregado.getId());
+//        pst.setString(2, Empregado.getNome());
+//        pst.setString(3, Empregado.getEndereco());
+//        pst.setString(4, Empregado.getTelefone());
+//        pst.setString(5, Empregado.getFuncao());
+//        pst.setString(6, Veterinario.getNumeroCRMV());
+          pst.setDate(7,new java.sql.Date(obj.getData().getTime()));
 
         pst.executeUpdate();
     }
@@ -50,28 +58,45 @@ public class EmpregadoDAO implements IGenericDAO <Empregado, Integer>{
 
     @Override
     public void alterar(Empregado obj) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "UPDATE empregado SET nome = ?, endereco = ?, telefone = ?, funcao = ?, numeroCRMV, = ? dataCRMV WHERE idempregado = ?;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        
+        //--> ERRO: NON-STATIC <--//
+        
+//        pst.setInt(1, Empregado.getId());
+//        pst.setString(2, Empregado.getNome());
+//        pst.setString(3, Empregado.getEndereco());
+//        pst.setString(4, Empregado.getTelefone());
+//        pst.setString(5, Empregado.getFuncao());
+//        pst.setString(6, Veterinario.getNumeroCRMV());
+          pst.setDate(7,new java.sql.Date(obj.getData().getTime()));
     }
 
     @Override
-    public Empregado buscarUm(Integer id) throws ClassNotFoundException, SQLException {
+    public Empregado buscarUm(Integer idempregado) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
         String sql = "SELECT * FROM empregado WHERE idempregado = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
-        pst.setInt(1, id);
+        pst.setInt(1, idempregado);
         
         ResultSet rs = pst.executeQuery();  
         Empregado e = null;
         if(rs.next()){
-            e = new Empregado(rs.getInt("idempregado"), 
-                    rs.getString("nome"),
-                    rs.getString("endereco"),
-                    rs.getString("telefone"));
-        }   
-        
+            //Adicionar Construtor Do Empregado
+            e = new Empregado(rs.getInt("idempregado"), rs.getString("nome"),
+                    rs.getString("endereco"), rs.getString("telefone"), null);
+                    if(rs.getString("funcao") == "TRATADOR")
+                        e.setFuncao(EnumFuncao.TRATADOR);
+                    else
+                        e.setFuncao(EnumFuncao.VETERINARIO);
+        }
         return e;}
+    
 
     @Override
     public List<Empregado> buscarTodos() throws ClassNotFoundException, SQLException {
@@ -87,13 +112,10 @@ public class EmpregadoDAO implements IGenericDAO <Empregado, Integer>{
         
         while(rs.next()){
             Empregado  e;
+
+            //Adicionar Construtor Do Empregado
             
-            e = new Empregado(rs.getInt("idempregado"), 
-            rs.getString("nome"),
-            rs.getString("endereco"),
-            rs.getString("telefone"));
-            
-            empregados.add(e);
+            //empregados.add(e);
         } 
         
         return empregados;
@@ -129,15 +151,34 @@ public class EmpregadoDAO implements IGenericDAO <Empregado, Integer>{
         while(rs.next()){
             Empregado  e;
             
-            e = new Empregado(rs.getInt("idempregado"), 
-            rs.getString("nome"),
-            rs.getString("endereco"),
-            rs.getString("telefone"));
+        //Adicionar Construtor Do Empregado
             
-            empregado.add(e);
+            //empregado.add(e);
         }  
         
         return empregado;
+    }
+    
+    public List<Empregado> buscarVeterinarios( ) throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT * FROM empregado where funcao = 'VETERINARIO';";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        
+        ResultSet rs = pst.executeQuery(); 
+        
+        List<Empregado> empregados = new ArrayList<>();
+        
+        while(rs.next()){
+            Empregado  e;
+            
+            //Adicionar Construtor Do Empregado
+            
+            //empregados.add(e);
+        } 
+        
+        return empregados;
     }
     
 }

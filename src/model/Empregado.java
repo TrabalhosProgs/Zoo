@@ -5,6 +5,9 @@
  */
 package model;
 
+import java.util.Date;
+import model.enu.EnumFuncao;
+
 /**
  *
  * @author william
@@ -14,15 +17,26 @@ public class Empregado {
     private String nome;
     private String endereco;
     private String telefone;
+    private EnumFuncao funcao;
+    private Date data;    
+
+    public EnumFuncao getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(EnumFuncao funcao) {
+        this.funcao = funcao;
+    }
 
     public Empregado() {
     }
 
-    public Empregado(int id, String nome, String endereco, String telefone) {
+    public Empregado(int id, String nome, String endereco, String telefone, EnumFuncao funcao) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
+        this.funcao = funcao;
     }
 
     public int getId() {
@@ -55,6 +69,14 @@ public class Empregado {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+    
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
     
 }

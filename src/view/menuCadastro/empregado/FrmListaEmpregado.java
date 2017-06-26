@@ -221,8 +221,15 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
             }
             
             for(Empregado funcionarios : lista){
-                Object[] row = {funcionarios.getId(),funcionarios.getEndereco(),funcionarios.getNome(), funcionarios.getTelefone()};
-                dtm.addRow(row);
+                if(funcionarios.getFuncao().equals("VETERINARIO")){
+                  Object[] row = {funcionarios.getId(),funcionarios.getEndereco(),funcionarios.getNome(), funcionarios.getTelefone(), funcionarios.getFuncao()};
+                  
+                  dtm.addRow(row);
+                }
+                else{
+                  Object[] row = {funcionarios.getId(),funcionarios.getEndereco(),funcionarios.getNome(), funcionarios.getTelefone(), funcionarios.getFuncao()};
+                  dtm.addRow(row);
+                }
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Não conseguiu buscar os funcionarios ...");
@@ -236,7 +243,7 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
                 JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
                 
                 int idEmpregado =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
-                Empregado e = new Empregado(idEmpregado, "", "", "");
+                Empregado e = new Empregado(idEmpregado, "", "", "",null);
                 try {
                     new EmpregadoDAO().apagar(e);
                     preencheTabela();
