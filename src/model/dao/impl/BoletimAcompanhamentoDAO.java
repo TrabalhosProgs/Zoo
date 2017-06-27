@@ -49,7 +49,7 @@ public class BoletimAcompanhamentoDAO implements IGenericDAO<BoletimAcompanhamen
     public void apagar(BoletimAcompanhamento obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "DELETE FROM boletimacompanhamento WHERE id = ?;";
+        String sql = "DELETE FROM boletimacompanhamento WHERE idboletimacompanhamento = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1,obj.getId());

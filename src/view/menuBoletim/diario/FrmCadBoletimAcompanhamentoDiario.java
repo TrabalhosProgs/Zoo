@@ -8,7 +8,9 @@ package view.menuBoletim.diario;
 import java.awt.HeadlessException;
 import view.menuCadastro.vacina.*;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +20,9 @@ import model.Animal;
 import model.BoletimAcompanhamento;
 import model.Tratador;
 import model.dao.impl.AnimalDAO;
+import model.dao.impl.BoletimAcompanhamentoDAO;
 import model.dao.impl.TratadorDAO;
+import model.enu.EnumParecer;
 
 /**
  *
@@ -120,7 +124,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
         jbGravar.setText("Gravar");
         jbGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbGravarActionPerformed(evt);
+                aoGravar(evt);
             }
         });
 
@@ -218,25 +222,58 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-       /* //Vacina vacina = new Vacina(Integer.parseInt(jtfCodigo.getText()), jtfDescricao.getText());
-        Vacina vacina = new Vacina(0, jtfDescricao.getText());
-        try {
-            if(selecionado == null){
-                new VacinaDAO().inserir(vacina);
-                vacina.setId(new VacinaDAO().buscarMaiorID());
-            }else{
-                vacina.setId(selecionado.getId());
-                new VacinaDAO().alterar(vacina);
+    private void aoGravar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoGravar
+        if (jComboBoxTratador.getSelectedIndex() != 0 && jComboBoxAnimal.getSelectedIndex() != 0) {
+            Date dt = null;
+            try {
+                dt = sdf.parse(jtfData.getText());
+                try {
+                if(selecionado == null){
+                    BoletimAcompanhamento ba = new BoletimAcompanhamento(0,
+                            dt,
+                            listaTratadores.get(jComboBoxTratador.getSelectedIndex() - 1),
+                            jTextAreaObservacao.getText(),
+                            null,
+                            listaAnimais.get(jComboBoxAnimal.getSelectedIndex() - 1));
+                    if (jComboBoxParecer.getSelectedIndex() == 0) {
+                        ba.setTipo(EnumParecer.SAUDAVEL);
+                    }
+                    if (jComboBoxParecer.getSelectedIndex() == 1) {
+                        ba.setTipo(EnumParecer.ESTADO_ALERTA);
+                    }
+                    if (jComboBoxParecer.getSelectedIndex() == 2) {
+                        ba.setTipo(EnumParecer.DOENTE);
+                    }
+                    new BoletimAcompanhamentoDAO().inserir(ba);
+                }else{
+                    selecionado.setDataBoletim(dt);
+                    selecionado.setTratador(listaTratadores.get(jComboBoxTratador.getSelectedIndex() - 1));
+                    selecionado.setObservacao(jTextAreaObservacao.getText());
+                    selecionado.setAnimal(listaAnimais.get(jComboBoxAnimal.getSelectedIndex() - 1));
+                    if (jComboBoxParecer.getSelectedIndex() == 0) {
+                        selecionado.setTipo(EnumParecer.SAUDAVEL);
+                    }
+                    if (jComboBoxParecer.getSelectedIndex() == 1) {
+                        selecionado.setTipo(EnumParecer.ESTADO_ALERTA);
+                    }
+                    if (jComboBoxParecer.getSelectedIndex() == 2) {
+                        selecionado.setTipo(EnumParecer.DOENTE);
+                    }
+                    new BoletimAcompanhamentoDAO().alterar(selecionado);
+                }
+                    JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
+                    setVisible(false);
+                    
+                } catch (ClassNotFoundException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao inserir Boletim de Acompanhamento " + ex);
+                }
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(null, "Digite uma data em formato válido (dd/MM/aaaa)!");
             }
-            
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao gravar vacina ..."+ex.getMessage());
+        } else {
+            JOptionPane.showMessageDialog(null, "É necessário selecionar um Tratador e um Animal!");
         }
-        
-        JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
-        setVisible(false);*/
-    }//GEN-LAST:event_jbGravarActionPerformed
+    }//GEN-LAST:event_aoGravar
 
     private void aoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_aoAbrir
          if(selecionado == null){
@@ -248,6 +285,9 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
          }else{
             jLabelCodigo.setVisible(true);
             jLabelCodigoTexto.setVisible(true);
+            preencheComboAnimais(selecionado.getAnimal());
+            preencheComboTratador(selecionado.getTratador());
+            preencheComboParecer(selecionado.getTipo());
          }
          
     }//GEN-LAST:event_aoAbrir
@@ -296,6 +336,10 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
     }
     
     public void preencheComboTratador()throws HeadlessException{
+        preencheComboTratador(null);
+    }
+    
+    private void preencheComboTratador(Tratador tratador) {
         try {
             listaTratadores = new TratadorDAO().buscarTodos();
             
@@ -307,11 +351,29 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
             for (Tratador t : listaTratadores) {
                 dcm.addElement(t.getNome());
             }
+            if(tratador != null){
+                int idx, i = 0;
+                for(Tratador t : listaTratadores){
+                    if(t.getNome().equals(tratador.getNome())){
+                        dcm.setSelectedItem(t.getNome());
+                        break;
+                    }
+                    i++;
+                }
+            }
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de tratadores"+ ex);
-        } 
+        }
+        if(tratador != null){
+            jComboBoxTratador.setSelectedItem(listaTratadores.indexOf(tratador));   
+        }
     }
-    public void preencheComboAnimais()throws HeadlessException{
+    
+    private void preencheComboAnimais()throws HeadlessException{
+        preencheComboAnimais(null);
+    }
+    
+    private void preencheComboAnimais(Animal animal) {
         try {
             listaAnimais = new AnimalDAO().buscarTodos();
             
@@ -323,29 +385,51 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
             for (Animal a : listaAnimais) {
                 dcma.addElement(a.getNome());
             }
+            
+            if(animal != null){
+                int idx, i = 0;
+                for(Animal a : listaAnimais){
+                    if(a.getNome().equals(animal.getNome())){
+                        dcma.setSelectedItem(a.getNome());
+                        break;
+                    }
+                    i++;
+                }
+            }
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de Animais"+ ex);
         } 
-    }
-    public void preencheComboParecer()throws HeadlessException{
         
+    }
+    
+    private void preencheComboParecer()throws HeadlessException{
+        preencheComboParecer(null);
+    }
+    
+    private void preencheComboParecer(EnumParecer tipo) {
         DefaultComboBoxModel<String> dcmp = (DefaultComboBoxModel<String>) jComboBoxParecer.getModel();
 
         dcmp.removeAllElements();
         dcmp.addElement("SAUDAVEL");
         dcmp.addElement("ESTADO_ALERTA");
         dcmp.addElement("DOENTE");
-
+        
+        
+        if(tipo != null){
+            if(tipo.toString().equals("SAUDAVEL"))
+                dcmp.setSelectedItem("SAUDAVEL");
+            if(tipo.toString().equals("ESTADO_ALERTA"))
+                dcmp.setSelectedItem("ESTADO_ALERTA");
+            if(tipo.toString().equals("DOENTE"))
+                dcmp.setSelectedItem("DOENTE");
+        }
     }
+    
     public void preparaEdit(BoletimAcompanhamento ba) {
         selecionado = ba;
-        
-        jtfData.setText(sdf.format(selecionado.getDataBoletim()));
+        jtfData.setText(sdf.format(ba.getDataBoletim()));
         jLabelCodigoTexto.setText(ba.getId()+"");
         jTextAreaObservacao.setText(ba.getObservacao());
-        jComboBoxAnimal.setSelectedItem(ba.getAnimal()); 
-        jComboBoxTratador.setSelectedItem(ba.getTratador());
-        jComboBoxParecer.setSelectedItem(ba.getTipo().toString());
     }
 
     private BoletimAcompanhamento selecionado = null;
@@ -372,4 +456,10 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
     private javax.swing.JTextField jtfData;
     private javax.swing.JLabel ljTituloCabecalho;
     // End of variables declaration//GEN-END:variables
+
+    
+
+    
+
+    
 }

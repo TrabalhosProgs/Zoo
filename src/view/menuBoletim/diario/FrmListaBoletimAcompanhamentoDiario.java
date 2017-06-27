@@ -87,8 +87,6 @@ public class FrmListaBoletimAcompanhamentoDiario extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        ljTituloCabecalho.getAccessibleContext().setAccessibleName("Relação de Boletim de Acompanhamento Diário");
-
         jtLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -108,7 +106,6 @@ public class FrmListaBoletimAcompanhamentoDiario extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jtLista.setPreferredSize(new java.awt.Dimension(300, 64));
         jScrollPane1.setViewportView(jtLista);
 
         jLabelDataPesquisa.setText("Data:");
@@ -204,25 +201,22 @@ public class FrmListaBoletimAcompanhamentoDiario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void callTelaIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTelaIncluir
-        /*FrmCadRotinaTratamento fcrt = new FrmCadRotinaTratamento(null, true);
-        
-        fcrt.preparaInclusao(new RotinaTratamento());
-        fcrt.setVisible(true);
-        
-        preencheTabela(null); //após inserir, ele preenche a tabela atualizando-a*/
+        FrmCadBoletimAcompanhamentoDiario fcba  = new FrmCadBoletimAcompanhamentoDiario(null, true);
+        fcba.setVisible(true);
+        preencheTabela(); 
     }//GEN-LAST:event_callTelaIncluir
 
     private void callTelaIAlterar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTelaIAlterar
-        /*if(jtLista.getSelectedRowCount() == 1){
-           FrmCadRotinaTratamento fcrt = new FrmCadRotinaTratamento(null, true);
+        if(jtLista.getSelectedRowCount() == 1){
+           FrmCadBoletimAcompanhamentoDiario fcba = new FrmCadBoletimAcompanhamentoDiario(null, true);
            
-           fcrt.preparaEdit(lista.get(jtLista.getSelectedRow()));
-           fcrt.setVisible(true);
+           fcba.preparaEdit(lista.get(jtLista.getSelectedRow()));
+           fcba.setVisible(true);
            preencheTabela();
                            
         }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas uma Rotina de Tratamento"); 
-        } */       
+            JOptionPane.showMessageDialog(null, "Selecione apenas um Boletim de Acompanhamento Diario"); 
+        }        
     }//GEN-LAST:event_callTelaIAlterar
 
     private void aoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_aoAbrir
@@ -244,25 +238,30 @@ public class FrmListaBoletimAcompanhamentoDiario extends javax.swing.JDialog {
     }//GEN-LAST:event_aoPesquisar
      
     private void aoExcluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoExcluir
-        /*if(jtLista.getSelectedRowCount() == 1){
-            int nomeRotinaTratamento = (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
-            if (JOptionPane.showConfirmDialog(this,"Deseja apagar a Rotina Tratamento nº: "+nomeRotinaTratamento+"?","Atenção",
-                JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
+        if(jtLista.getSelectedRowCount() == 1){
+            Date dt = lista.get(jtLista.getSelectedRow()).getDataBoletim();
+            String nomeTratador = lista.get(jtLista.getSelectedRow()).getTratador().getNome();
+            String nomeAnimal = lista.get(jtLista.getSelectedRow()).getAnimal().getNome();
+            
+            if (JOptionPane.showConfirmDialog(this,
+                    "Deseja apagar o Boletim: "+sdf.format(dt)+" - Tratador: "+nomeTratador+" - Animal: "+nomeAnimal,
+                    "Atenção",
+                    JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
                 
-                int idRotinaTratamento =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
-                RotinaTratamento rt = new RotinaTratamento(idRotinaTratamento, null, null, null);
+                int idBoletim =  lista.get(jtLista.getSelectedRow()).getId();
+                BoletimAcompanhamento ba = new BoletimAcompanhamento();
+                ba.setId(idBoletim);
                 try {
-                    new RotinaTratamentoDAO().apagar(rt);
+                    new BoletimAcompanhamentoDAO().apagar(ba);
                     preencheTabela();
                 } catch (HeadlessException | ClassNotFoundException | SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao apagar a Rotina de Tratamento... \n"
-                            + "Desvincule as tarefas antes de deletar! \n"+ex); 
+                    JOptionPane.showMessageDialog(null, "Erro ao apagar o Boletim de Tratamento Diario... \n"+ex); 
                 }
             }            
                 
         }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas uma Rotina de Tratamento"); 
-        }*/
+            JOptionPane.showMessageDialog(null, "Selecione apenas um Boletim"); 
+        }
     }//GEN-LAST:event_aoExcluir
 
     private void preencheTabela() throws HeadlessException {

@@ -292,7 +292,7 @@
             <Property name="text" type="java.lang.String" value="Gravar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbGravarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aoGravar"/>
           </Events>
         </Component>
       </SubComponents>
