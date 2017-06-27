@@ -121,7 +121,7 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Endereço", "Telefone", "Função", "Cadastro CRMV", "Data do cadastro CRMV"
+                "Código", "Endereço", "Nome", "Telefone", "Função", "Cadastro CRMV", "Data do cadastro CRMV"
             }
         ));
         jtLista.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -185,7 +185,6 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
     private void jbIncluircallTelaIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIncluircallTelaIncluir
         FrmCadEmpregado fcf = new FrmCadEmpregado(null, true);
         fcf.setVisible(true);
-        
         preencheTabela(null); //após inserir, ele preenche a tabela atualizando-a
     }//GEN-LAST:event_jbIncluircallTelaIncluir
 

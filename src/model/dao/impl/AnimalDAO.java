@@ -95,7 +95,17 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
 
     @Override
     public long quantidade() throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT count(*) FROM animal;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        
+        ResultSet rs = pst.executeQuery(); 
+        
+        rs.next();
+        
+        return rs.getLong(1);
     }
     
 }

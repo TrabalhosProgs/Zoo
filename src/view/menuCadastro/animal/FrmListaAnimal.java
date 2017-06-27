@@ -183,30 +183,7 @@ public class FrmListaAnimal extends javax.swing.JDialog {
         //preencheTabela(null);
     }//GEN-LAST:event_aoAbrir
 
-//    private void preencheTabela() throws HeadlessException {
-//            preencheTabela(null);
-//    }
-//    private void preencheTabela(String nome) throws HeadlessException {
-//        try {
-//            if(nome == null){
-//                lista = new MedicamentoDAO().buscarTodos();
-//            }else{
-//                lista = new MedicamentoDAO().buscarPeloNome(nome);
-//            }
-//            DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
-//            int idx = dtm.getRowCount();
-//            for (int i = 0; i < idx; i++) {
-//                dtm.removeRow(0);
-//            }
-//            
-//            for(Medicamento medicamento : lista){
-//                Object[] row = {medicamento.getId(),medicamento.getNome()};
-//                dtm.addRow(row);
-//            }
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(null, "Não conseguiu buscar os Medicamentos ...");
-//        }
-//    }
+    
     
     /**
      * @param args the command line arguments

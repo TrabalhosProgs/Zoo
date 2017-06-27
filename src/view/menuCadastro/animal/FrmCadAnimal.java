@@ -6,6 +6,15 @@
 package view.menuCadastro.animal;
 
 import java.awt.HeadlessException;
+import javax.swing.table.DefaultTableModel;
+import java.awt.HeadlessException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Empregado;
+import model.dao.impl.EmpregadoDAO;
+import view.menuCadastro.empregado.FrmCadEmpregado;
+
 
 /**
  *
@@ -46,7 +55,7 @@ public class FrmCadAnimal extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTVet = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
@@ -132,7 +141,7 @@ public class FrmCadAnimal extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTVet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -143,7 +152,7 @@ public class FrmCadAnimal extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jTVet);
 
         jLabel7.setText("Equipe Responsável:");
 
@@ -247,37 +256,42 @@ public class FrmCadAnimal extends javax.swing.JDialog {
     }//GEN-LAST:event_NomeActionPerformed
 
     private void AoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrir
-       // preencheTabela(null);
+       preencheTabelaVet();
     }//GEN-LAST:event_AoAbrir
 
+    private void preencheTabelaVet() throws HeadlessException {
+        try {  
+            
+            lista = new EmpregadoDAO().buscarVeterinarios();
+
+            DefaultTableModel dtm = (DefaultTableModel) jTVet.getModel();
+            int idx = dtm.getRowCount();
+            for (int i = 0; i < idx; i++) {
+                dtm.removeRow(0);
+            }
+            
+            for(Empregado funcionarios : lista){
+                Object[] row = {funcionarios.getId() ,funcionarios.getNome(),funcionarios.getTelefone()};
+                dtm.addRow(row);
+                
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não conseguiu buscar os veterinarios ...");
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     private void Peso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Peso1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Peso1ActionPerformed
 
-//    private void preencheTabela() throws HeadlessException {
-//            preencheTabela(null);
-//    }
-//    private void preencheTabela(String nome) throws HeadlessException {
-//        try {
-//            if(nome == null){
-//                lista = new MedicamentoDAO().buscarTodos();
-//            }else{
-//                lista = new MedicamentoDAO().buscarPeloNome(nome);
-//            }
-//            DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
-//            int idx = dtm.getRowCount();
-//            for (int i = 0; i < idx; i++) {
-//                dtm.removeRow(0);
-//            }
-//            
-//            for(Medicamento medicamento : lista){
-//                Object[] row = {medicamento.getId(),medicamento.getNome()};
-//                dtm.addRow(row);
-//            }
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(null, "Não conseguiu buscar os Medicamentos ...");
-//        }
-//    }
+    
     
     /**
      * @param args the command line arguments
@@ -339,7 +353,8 @@ public class FrmCadAnimal extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTVet;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
+    private List<Empregado> lista;
 }

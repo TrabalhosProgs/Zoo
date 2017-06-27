@@ -10,5 +10,5 @@ package model.enu;
  * @author pc
  */
 public enum EnumFuncao {
-    TRATADOR,VETERINARIO
+    VETERINARIO,TRATADOR
 }

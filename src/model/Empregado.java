@@ -20,14 +20,6 @@ public class Empregado {
     private EnumFuncao funcao;
     private Date data;    
 
-    public EnumFuncao getFuncao() {
-        return funcao;
-    }
-
-    public void setFuncao(EnumFuncao funcao) {
-        this.funcao = funcao;
-    }
-
     public Empregado() {
     }
 
@@ -36,6 +28,14 @@ public class Empregado {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
+        this.funcao = funcao;
+    }
+    
+    public EnumFuncao getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(EnumFuncao funcao) {
         this.funcao = funcao;
     }
 

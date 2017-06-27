@@ -5,8 +5,15 @@
  */
 package view.menuCadastro.empregado;
 
+import java.sql.SQLException;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.Empregado;
+import model.dao.impl.EmpregadoDAO;
+import model.enu.EnumFuncao;
 
 /**
  *
@@ -38,17 +45,22 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         jlEndereco = new javax.swing.JLabel();
         jTFEndereco = new javax.swing.JTextField();
         jlFuncao = new javax.swing.JLabel();
-        jTFFuncao = new javax.swing.JTextField();
         jlMatricula = new javax.swing.JLabel();
-        jTFMatricula = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
+        jPDadosVet = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTFRegistroCRMV = new javax.swing.JTextField();
         jTFDataRegistroCRMV = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jlMatriculaAuto = new javax.swing.JLabel();
+        jComboBoxFuncao = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                aoAbrir(evt);
+            }
+        });
 
         jPanelCabecalho1.setBackground(new java.awt.Color(246, 243, 224));
 
@@ -81,48 +93,38 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
 
         jlFuncao.setText("Função");
 
-        jTFFuncao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFFuncaoActionPerformed(evt);
-            }
-        });
-
         jlMatricula.setText("Matrícula");
 
-        jTFMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFMatriculaActionPerformed(evt);
-            }
-        });
-
-        jPanel3.setToolTipText("");
+        jPDadosVet.setToolTipText("");
 
         jLabel1.setText("Registro CRMV");
 
         jLabel2.setText("Data de Registro");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTFRegistroCRMV, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                    .addComponent(jTFDataRegistroCRMV)))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPDadosVetLayout = new javax.swing.GroupLayout(jPDadosVet);
+        jPDadosVet.setLayout(jPDadosVetLayout);
+        jPDadosVetLayout.setHorizontalGroup(
+            jPDadosVetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPDadosVetLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPDadosVetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPDadosVetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTFRegistroCRMV, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                    .addComponent(jTFDataRegistroCRMV))
+                .addContainerGap())
+        );
+        jPDadosVetLayout.setVerticalGroup(
+            jPDadosVetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPDadosVetLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPDadosVetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTFRegistroCRMV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPDadosVetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFDataRegistroCRMV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -132,6 +134,13 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aoGravar(evt);
+            }
+        });
+
+        jComboBoxFuncao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxFuncao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                VerificarFuncao(evt);
             }
         });
 
@@ -150,45 +159,45 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
                             .addComponent(jlFuncao)
                             .addComponent(jlTelefone))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                        .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTFMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanelDadosLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTFNome, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                            .addComponent(jTFEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                            .addComponent(jTFTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                            .addComponent(jlMatriculaAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxFuncao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1)))
                 .addContainerGap())
+            .addComponent(jPDadosVet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelDadosLayout.setVerticalGroup(
             jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTFMatricula))
+                    .addComponent(jlMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                    .addComponent(jlMatriculaAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTFNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFEndereco)
-                    .addComponent(jlEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTFEndereco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlFuncao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTFFuncao))
+                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlFuncao, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jComboBoxFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPDadosVet, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -215,18 +224,63 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //(int id, String nome, String endereco, String telefone, EnumFuncao funcao)
+    
     private void aoGravar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoGravar
-        // TODO add your handling code here:
+        Empregado e = new Empregado(0, jTFNome.getText(), jTFEndereco.getText(), jTFTelefone.getText(), null);
+        try {
+            if(selecionado == null){
+                new EmpregadoDAO().inserir(e);
+                e.setId(new EmpregadoDAO().buscarMaiorID());
+            }else{
+                e.setId(selecionado.getId());
+                new EmpregadoDAO().alterar(e);
+            }
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao gravar Empregado ..."+ex.getMessage());
+        }
+        
+        JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
+        setVisible(false);
     }//GEN-LAST:event_aoGravar
 
-    private void jTFMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFMatriculaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFMatriculaActionPerformed
+    private void aoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_aoAbrir
+        preencheCombo();
+        jPDadosVet.setVisible(false);
+        
+        
+        if(selecionado == null){
+            jlMatricula.setVisible(false);
+            jlMatriculaAuto.setVisible(false);           
+         }else{
+            jlMatriculaAuto.setVisible(true);
+            jlMatricula.setVisible(true);
+         }
+    }//GEN-LAST:event_aoAbrir
 
-    private void jTFFuncaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFFuncaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFFuncaoActionPerformed
+//            if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("Veterinario")) {
+//            jPDadosVet.setVisible(true);
+//        }
+    
+    private void VerificarFuncao(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VerificarFuncao
+        if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("Veterinario")) {
+            jPDadosVet.setVisible(true);
+        }
+        else{
+            jPDadosVet.setVisible(false);
+        }
+    }//GEN-LAST:event_VerificarFuncao
 
+    private void preencheCombo(){
+        DefaultComboBoxModel<String> dcm = (DefaultComboBoxModel<String>) jComboBoxFuncao.getModel();
+        dcm.removeAllElements();
+        dcm.addElement("Selecione uma função...");
+        dcm.addElement("Veterinario");
+        dcm.addElement("Tratador");
+    }
+    private List<Empregado> listaEmpregado;
+    
     public void preparaEdit(Empregado empregado) {
         selecionado = empregado;
         
@@ -285,21 +339,21 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBoxFuncao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPDadosVet;
     private javax.swing.JPanel jPanelCabecalho1;
     private javax.swing.JPanel jPanelDados;
     private javax.swing.JTextField jTFDataRegistroCRMV;
     private javax.swing.JTextField jTFEndereco;
-    private javax.swing.JTextField jTFFuncao;
-    private javax.swing.JTextField jTFMatricula;
     private javax.swing.JTextField jTFNome;
     private javax.swing.JTextField jTFRegistroCRMV;
     private javax.swing.JTextField jTFTelefone;
     private javax.swing.JLabel jlEndereco;
     private javax.swing.JLabel jlFuncao;
     private javax.swing.JLabel jlMatricula;
+    private javax.swing.JLabel jlMatriculaAuto;
     private javax.swing.JLabel jlNome;
     private javax.swing.JLabel jlTelefone;
     private javax.swing.JLabel ljTituloCabecalho1;
