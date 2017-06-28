@@ -40,6 +40,7 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
         pst.setString(6, obj.getTratadorResponsavel().toString());
         
         pst.executeUpdate();
+        //Teste
     }
 
     @Override
