@@ -153,12 +153,12 @@ public class FrmCadMedicamento extends javax.swing.JDialog {
                 medicamento.setId(selecionado.getId());
                 new MedicamentoDAO().alterar(medicamento);
             }
-            
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao gravar Medicamento ..."+ex.getMessage());
         }
         
-        JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
+        
         setVisible(false);
     }//GEN-LAST:event_jbGravarActionPerformed
 

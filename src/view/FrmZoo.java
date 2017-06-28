@@ -97,7 +97,7 @@ public class FrmZoo extends javax.swing.JFrame {
         });
         jMenuCadastro.add(jmiAnimal);
 
-        jmiFuncionario.setText("Funcionarios");
+        jmiFuncionario.setText("Empregados");
         jmiFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 callAbreTelaListaFuncionario(evt);

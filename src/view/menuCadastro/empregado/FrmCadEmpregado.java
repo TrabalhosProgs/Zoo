@@ -6,7 +6,9 @@
 package view.menuCadastro.empregado;
 
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -224,10 +226,21 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    //(int id, String nome, String endereco, String telefone, EnumFuncao funcao)
-    
     private void aoGravar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoGravar
-        Empregado e = new Empregado(0, jTFNome.getText(), jTFEndereco.getText(), jTFTelefone.getText(), null);
+        Empregado e = new Empregado(0, jTFNome.getText(), jTFEndereco.getText(), jTFTelefone.getText(),null);
+        
+        if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("VETERINARIO"))
+        {
+           e.setFuncao(EnumFuncao.VETERINARIO);
+             
+        }else if(jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("TRATADOR")){
+            e.setFuncao(EnumFuncao.TRATADOR);
+        }else{
+             JOptionPane.showMessageDialog(null, "Selecione uma função");
+        }
+            
+        
+        
         try {
             if(selecionado == null){
                 new EmpregadoDAO().inserir(e);
@@ -235,13 +248,14 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
             }else{
                 e.setId(selecionado.getId());
                 new EmpregadoDAO().alterar(e);
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
             }
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao gravar Empregado ..."+ex.getMessage());
         }
         
-        JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
+        
         setVisible(false);
     }//GEN-LAST:event_aoGravar
 
@@ -258,10 +272,6 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
             jlMatricula.setVisible(true);
          }
     }//GEN-LAST:event_aoAbrir
-
-//            if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("Veterinario")) {
-//            jPDadosVet.setVisible(true);
-//        }
     
     private void VerificarFuncao(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VerificarFuncao
         if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("Veterinario")) {
@@ -281,11 +291,15 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
     }
     private List<Empregado> listaEmpregado;
     
-    public void preparaEdit(Empregado empregado) {
-        selecionado = empregado;
+    public void preparaEdit(Empregado e) {
+        selecionado = e;
         
-        //jtfDescricao.setText(frequencia.getDescricao());
-        //jLabelCodigoTexto.setText(frequencia.getId()+"");
+        jlMatriculaAuto.setText(e.getId()+"");
+        jTFNome.setText(e.getNome());
+        jTFEndereco.setText(e.getEndereco());
+        jTFTelefone.setText(e.getTelefone());
+        jComboBoxFuncao.setSelectedItem(e.getFuncao().toString());
+        
         
     }
 

@@ -6,6 +6,12 @@
 package view.menuCadastro.animal;
 
 import java.awt.HeadlessException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Animal;
+import model.dao.impl.AnimalDAO;
+import model.dao.impl.EmpregadoDAO;
 
 /**
  *
@@ -35,11 +41,11 @@ public class FrmListaAnimal extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jBAlterar = new javax.swing.JButton();
+        jBExcluir = new javax.swing.JButton();
+        jBIncluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtLista = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -82,27 +88,32 @@ public class FrmListaAnimal extends javax.swing.JDialog {
         jButton1.setText("Pesquisar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Pesquisar(evt);
             }
         });
 
-        jButton2.setText("Alterar");
-
-        jButton3.setText("Excluir");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jBAlterar.setText("Alterar");
+        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jBAlterarActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Incluir");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jBExcluir.setText("Excluir");
+        jBExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBExcluirActionPerformed(evt);
+            }
+        });
+
+        jBIncluir.setText("Incluir");
+        jBIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aoIncluir(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -113,7 +124,7 @@ public class FrmListaAnimal extends javax.swing.JDialog {
                 "Nome", "Origem", "Nascimento", "Peso", "Especie", "Tratador Responsável", "Equipe"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtLista);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,11 +143,11 @@ public class FrmListaAnimal extends javax.swing.JDialog {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jBAlterar)
                         .addGap(14, 14, 14)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -152,9 +163,9 @@ public class FrmListaAnimal extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jBAlterar)
+                    .addComponent(jBExcluir)
+                    .addComponent(jBIncluir))
                 .addContainerGap())
         );
 
@@ -166,24 +177,62 @@ public class FrmListaAnimal extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void Pesquisar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pesquisar
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_Pesquisar
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jBExcluirActionPerformed
 
     private void aoIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoIncluir
         FrmCadAnimal fca = new FrmCadAnimal(null, true);
         fca.setVisible(true);
+        preencheTabela(null); //após inserir, ele preenche a tabela atualizando-a
     }//GEN-LAST:event_aoIncluir
 
     private void aoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_aoAbrir
-        //preencheTabela(null);
+        preencheTabela(null);
     }//GEN-LAST:event_aoAbrir
 
-    
+    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        if(jtLista.getSelectedRowCount() == 1){
+           FrmCadAnimal fcf = new FrmCadAnimal(null, true);
+           
+           //fcf.preparaEdit(lista.get(jtLista.getSelectedRow()));
+           fcf.setVisible(true);
+           preencheTabela();
+                           
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione apenas um empregado"); 
+        }    
+    }//GEN-LAST:event_jBAlterarActionPerformed
+
+    private void preencheTabela() throws HeadlessException {
+            preencheTabela(null);
+    }
+    private void preencheTabela(String nome) throws HeadlessException {
+        try {
+            if(nome == null){
+                lista = new AnimalDAO().buscarTodos();
+            }else{
+                lista = new AnimalDAO().buscarPeloNome(nome);
+            }            
+
+            DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
+            int idx = dtm.getRowCount();
+            for (int i = 0; i < idx; i++) {
+                dtm.removeRow(0);
+            }
+            
+            for(Animal animais : lista){
+                  Object[] row = {animais.getId(),animais.getNome(),animais.getPeso(),animais.getRegiaoOrigem(),animais.getTratadorResponsavel()};
+                  dtm.addRow(row);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não conseguiu buscar os animais ...");
+        }
+    }
     
     /**
      * @param args the command line arguments
@@ -228,17 +277,18 @@ public class FrmListaAnimal extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBAlterar;
+    private javax.swing.JButton jBExcluir;
+    private javax.swing.JButton jBIncluir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jtLista;
     // End of variables declaration//GEN-END:variables
 
+    private List<Animal> lista;
 
 }

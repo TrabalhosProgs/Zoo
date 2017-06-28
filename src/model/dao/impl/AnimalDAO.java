@@ -108,4 +108,32 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
         return rs.getLong(1);
     }
     
+    public List<Animal> buscarPeloNome(String nome) throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT * FROM animal WHERE nome LIKE ?;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setString(1, "%"+nome+"%");
+        ResultSet rs = pst.executeQuery(); 
+        
+        
+        List<Animal> animal = new ArrayList<>();
+        
+        while(rs.next()){
+            Animal a = new Animal(rs.getInt("idanimal"), rs.getString("nome"), 
+                    rs.getString("regiaoOrigem"), 
+                    (Date)rs.getDate("dataNasc"), 
+                    rs.getDouble("peso"), 
+                    rs.getString("especie"), 
+                    new TratadorDAO().buscarUm(rs.getInt("idtratador")),
+                    null,  // Equipe de tratadores   -> Falta implementar
+                    null  // RotinaTratamento       -> Falta implementar
+                    ); 
+                    
+            animal.add(a);
+        }  
+        
+        return animal;
+    }    
 }

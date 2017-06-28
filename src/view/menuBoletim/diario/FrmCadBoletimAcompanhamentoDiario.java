@@ -108,6 +108,11 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
         jLabelTratador.setText("Tratador");
 
         jComboBoxTratador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTratador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTratadorActionPerformed(evt);
+            }
+        });
 
         jLabelAnimal.setText("Animal");
 
@@ -291,6 +296,10 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
          }
          
     }//GEN-LAST:event_aoAbrir
+
+    private void jComboBoxTratadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTratadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxTratadorActionPerformed
 
     /**
      * @param args the command line arguments

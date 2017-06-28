@@ -11,8 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Empregado;
 import model.dao.impl.EmpregadoDAO;
-import view.menuCadastro.empregado.FrmCadEmpregado;
-
 /**
  *
  * @author pc
@@ -58,7 +56,7 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(235, 161, 91));
-        jLabel1.setText("Relação de Funcionarios");
+        jLabel1.setText("Relação de Empregados");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -197,7 +195,7 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
            preencheTabela();
                            
         }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas uma Frequencia"); 
+            JOptionPane.showMessageDialog(null, "Selecione apenas um empregado"); 
         }        
           
     }//GEN-LAST:event_jbAlterarcallTelaIAlterar
