@@ -7,6 +7,7 @@ package view;
 
 import view.menuBoletim.diario.FrmListaBoletimAcompanhamentoDiario;
 import view.gestaoVet.consulta.FrmListaConsulta;
+import view.menuBoletim.saude.FrmListaBoletimSaude;
 import view.menuCadastro.animal.FrmListaAnimal;
 import view.menuCadastro.frequencia.FrmListaFrequencia;
 import view.menuCadastro.empregado.FrmListaEmpregado;
@@ -239,7 +240,8 @@ public class FrmZoo extends javax.swing.JFrame {
     }//GEN-LAST:event_callAbreTelaListaRotinaTratamento
 
     private void callAbreTelaBoletimSaude(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaBoletimSaude
-        
+        FrmListaBoletimSaude fbs = new FrmListaBoletimSaude(this, true);
+        fbs.setVisible(true);
     }//GEN-LAST:event_callAbreTelaBoletimSaude
 
     private void callAbreTelaAgendaConsultas(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAbreTelaAgendaConsultas
