@@ -57,7 +57,8 @@ public class EmpregadoDAO implements IGenericDAO <Empregado, Integer>{
     public void alterar(Empregado obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "UPDATE empregado SET nome = ?, endereco = ?, telefone = ?, funcao = ?, numeroCRMV, = ? dataCRMV WHERE idempregado = ?;";
+        //String sql = "UPDATE empregado SET nome = ?, endereco = ?, telefone = ?, funcao = ?, numeroCRMV, = ? dataCRMV WHERE idempregado = ?;";
+        String sql = "UPDATE empregado SET nome = ?, endereco = ?, telefone = ?, funcao = ? WHERE idempregado = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
         
@@ -65,10 +66,15 @@ public class EmpregadoDAO implements IGenericDAO <Empregado, Integer>{
         pst.setString(2, obj.getEndereco());
         pst.setString(3, obj.getTelefone());
         pst.setString(4, obj.getFuncao().toString());
+        //if(obj.getFuncao().toString().equalsIgnoreCase("tratador")){
+        //    pst.setString(5, obj.get());
+        //    pst.setString(6, obj.getTelefone());
+        //}
         //CONTRUTOR IMCOMPLETO, FALTA NUMEROCRMV E DATA
         //pst.setInt(5, );
         //pst.setDate(6,new java.sql.Date(obj.getData().getTime()));
-    }
+        pst.setInt(5, obj.getId());
+        pst.executeUpdate();}
 
     @Override
     public Empregado buscarUm(Integer idempregado) throws ClassNotFoundException, SQLException {

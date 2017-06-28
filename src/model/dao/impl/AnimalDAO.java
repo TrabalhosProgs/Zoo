@@ -25,18 +25,54 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
 
     @Override
     public void inserir(Animal obj) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection c = ConnectionFactory.getConnection();
+
+        String sql = "INSERT INTO empregado (nome,regiaoOrigem,dataNasc, peso, especie, idtratador) "
+                + "VALUES (?,?,?,?,?,?);";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+               
+        pst.setString(1, obj.getNome());
+        pst.setString(2, obj.getRegiaoOrigem());
+        pst.setDate(3,new java.sql.Date(obj.getData().getTime()));
+        pst.setDouble(4, obj.getPeso());
+        pst.setString(5, obj.getEspecie());
+        pst.setString(6, obj.getTratadorResponsavel().toString());
+        
+        pst.executeUpdate();
     }
 
     @Override
     public void apagar(Animal obj) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "DELETE FROM empregado WHERE idanimal = ?;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1,obj.getId());
+        
+        pst.executeUpdate();}
+    
 
     @Override
     public void alterar(Animal obj) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "UPDATE empregado SET nome = ?, regiaoOrigem = ?, dataNasc = ?, peso = ?, especie=?, idtratador=? WHERE idempregado = ?;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        
+        pst.setString(1, obj.getNome());
+        pst.setString(2, obj.getRegiaoOrigem());
+        pst.setDate(3,new java.sql.Date(obj.getData().getTime()));
+        pst.setDouble(4, obj.getPeso());
+        pst.setString(5, obj.getEspecie());
+        pst.setString(6, obj.getTratadorResponsavel().toString());
+        pst.setInt(7, obj.getId());
+        
+        pst.executeUpdate();
     }
+    
 
     @Override
     public Animal buscarUm(Integer id) throws ClassNotFoundException, SQLException {
