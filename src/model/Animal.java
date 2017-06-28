@@ -22,12 +22,12 @@ public class Animal {
     private Tratador tratadorResponsavel;
     private ArrayList<Tratador> equipeTratadores;
     private RotinaTratamento rotinaTrabamento;
-    private BoletimSaude boletimSaude;
+    //private BoletimSaude boletimSaude;
 
     public Animal() {
     }
 
-    public Animal(int id, String nome, String regiaoOrigem, Date dataNasc, double peso, String especie, Tratador tratadorResponsavel, ArrayList<Tratador> equipeTratadores, RotinaTratamento rotinaTrabamento, BoletimSaude boletimSaude) {
+    public Animal(int id, String nome, String regiaoOrigem, Date dataNasc, double peso, String especie, Tratador tratadorResponsavel, ArrayList<Tratador> equipeTratadores, RotinaTratamento rotinaTrabamento/*, BoletimSaude boletimSaude*/) {
         this.id = id;
         this.nome = nome;
         this.regiaoOrigem = regiaoOrigem;
@@ -37,7 +37,7 @@ public class Animal {
         this.tratadorResponsavel = tratadorResponsavel;
         this.equipeTratadores = equipeTratadores;
         this.rotinaTrabamento = rotinaTrabamento;
-        this.boletimSaude = boletimSaude;
+        //this.boletimSaude = boletimSaude;
     }
 
     public String getNome() {
@@ -121,13 +121,13 @@ public class Animal {
         this.rotinaTrabamento = rotinaTrabamento;
     }
 
-    public BoletimSaude getBoletimSaude() {
+    /*public BoletimSaude getBoletimSaude() {
         return boletimSaude;
     }
 
     public void setBoletimSaude(BoletimSaude boletimSaude) {
         this.boletimSaude = boletimSaude;
-    }
+    }*/
     
     
 }

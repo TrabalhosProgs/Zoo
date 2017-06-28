@@ -57,8 +57,8 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
                     rs.getString("especie"), 
                     new TratadorDAO().buscarUm(rs.getInt("idtratador")),
                     null,  // Equipe de tratadores   -> Falta implementar
-                    null,  // RotinaTratamento       -> Falta implementar
-                    null); // BoletimSaude           -> Falta implementar 
+                    null  // RotinaTratamento       -> Falta implementar
+                    ); 
         }   
         
         return a;
@@ -84,8 +84,8 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
                     rs.getString("especie"), 
                     new TratadorDAO().buscarUm(rs.getInt("idtratador")),
                     null,  // Equipe de tratadores   -> Falta implementar
-                    null,  // RotinaTratamento       -> Falta implementar
-                    null); // BoletimSaude           -> Falta implementar 
+                    null  // RotinaTratamento       -> Falta implementar
+                    ); 
                     
             animais.add(a);
         }
