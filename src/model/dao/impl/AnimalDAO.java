@@ -41,14 +41,13 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
         pst.setInt(7, obj.getRotinaTrabamento().getId());
         
         pst.executeUpdate();
-        //Teste
     }
 
     @Override
     public void apagar(Animal obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "DELETE FROM empregado WHERE idanimal = ?;";
+        String sql = "DELETE FROM animal WHERE idanimal = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1,obj.getId());
@@ -200,5 +199,21 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
         }
         
         return animais;
-    }    
+    }
+    
+    public int buscarMaiorID() throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT max(idanimal) FROM animal;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        
+        ResultSet rs = pst.executeQuery(); 
+        
+        if(rs.next()){
+            return rs.getInt(1);
+        }else{
+            return 0;
+        }  
+    }
 }

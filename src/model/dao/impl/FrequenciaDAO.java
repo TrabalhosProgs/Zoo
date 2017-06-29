@@ -15,6 +15,7 @@ import java.util.List;
 import model.Frequencia;
 import model.dao.IGenericDAO;
 
+
 /**
  *
  * @author william

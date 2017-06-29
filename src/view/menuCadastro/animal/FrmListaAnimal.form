@@ -34,7 +34,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" pref="228" max="-2" attributes="0"/>
+                      <Component id="jtfPesquisar" min="-2" pref="228" max="-2" attributes="0"/>
                       <EmptySpace pref="245" max="32767" attributes="0"/>
                       <Component id="jButton1" min="-2" pref="167" max="-2" attributes="0"/>
                   </Group>
@@ -57,7 +57,7 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtfPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -121,9 +121,9 @@
         <Property name="text" type="java.lang.String" value="Nome:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="jtfPesquisar">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfPesquisarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
@@ -147,7 +147,7 @@
         <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBExcluirActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbExcluir"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBIncluir">
@@ -169,12 +169,12 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="7" rowCount="4">
+                <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                 <Column editable="true" title="Nome" type="java.lang.Object"/>
-                <Column editable="true" title="Origem" type="java.lang.Object"/>
-                <Column editable="true" title="Nascimento" type="java.lang.Object"/>
                 <Column editable="true" title="Peso" type="java.lang.Object"/>
-                <Column editable="true" title="Especie" type="java.lang.Object"/>
+                <Column editable="true" title="Regi&#xe3;o De Origem" type="java.lang.Object"/>
                 <Column editable="true" title="Tratador Respons&#xe1;vel" type="java.lang.Object"/>
+                <Column editable="true" title="Especie" type="java.lang.Object"/>
                 <Column editable="true" title="Equipe" type="java.lang.Object"/>
               </Table>
             </Property>

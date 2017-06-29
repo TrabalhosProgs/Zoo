@@ -39,7 +39,7 @@ public class FrmListaAnimal extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jtfPesquisar = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jBAlterar = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
@@ -79,9 +79,9 @@ public class FrmListaAnimal extends javax.swing.JDialog {
 
         jLabel2.setText("Nome:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jtfPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jtfPesquisarActionPerformed(evt);
             }
         });
 
@@ -102,7 +102,7 @@ public class FrmListaAnimal extends javax.swing.JDialog {
         jBExcluir.setText("Excluir");
         jBExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBExcluirActionPerformed(evt);
+                jbExcluir(evt);
             }
         });
 
@@ -121,7 +121,7 @@ public class FrmListaAnimal extends javax.swing.JDialog {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nome", "Origem", "Nascimento", "Peso", "Especie", "Tratador Responsável", "Equipe"
+                "Código", "Nome", "Peso", "Região De Origem", "Tratador Responsável", "Especie", "Equipe"
             }
         ));
         jScrollPane1.setViewportView(jtLista);
@@ -138,7 +138,7 @@ public class FrmListaAnimal extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(26, 26, 26)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -156,7 +156,7 @@ public class FrmListaAnimal extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
@@ -173,17 +173,35 @@ public class FrmListaAnimal extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jtfPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPesquisarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jtfPesquisarActionPerformed
 
     private void Pesquisar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pesquisar
-        // TODO add your handling code here:
+        preencheTabela(jtfPesquisar.getText());
     }//GEN-LAST:event_Pesquisar
 
-    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBExcluirActionPerformed
+    private void jbExcluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluir
+            if(jtLista.getSelectedRowCount() == 1){
+            String nomeAnimal = (String) jtLista.getValueAt(jtLista.getSelectedRow(), 1);
+            if (JOptionPane.showConfirmDialog(this,"Deseja apagar o animal "+nomeAnimal+"?","Atenção",
+                JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
+                
+                int id =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
+                Animal a = new Animal(id, "", "", null,0,"",null,null,null);
+                try {
+                    new AnimalDAO().apagar(a);
+                    preencheTabela();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao apagar o animal "+ex); 
+                }
+            }  
+
+                
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione apenas um animal"); 
+        }
+    }//GEN-LAST:event_jbExcluir
 
     private void aoIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoIncluir
         FrmCadAnimal fca = new FrmCadAnimal(null, true);
@@ -226,7 +244,9 @@ public class FrmListaAnimal extends javax.swing.JDialog {
             }
             
             for(Animal animais : lista){
-                  Object[] row = {animais.getId(),animais.getNome(),animais.getPeso(),animais.getRegiaoOrigem(),animais.getTratadorResponsavel()};
+                  Object[] row = {animais.getId(),animais.getNome(),
+                      animais.getPeso(),animais.getRegiaoOrigem(),
+                      animais.getTratadorResponsavel().getNome(),animais.getEspecie()};
                   dtm.addRow(row);
             }
         } catch (Exception ex) {
@@ -285,8 +305,8 @@ public class FrmListaAnimal extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable jtLista;
+    private javax.swing.JTextField jtfPesquisar;
     // End of variables declaration//GEN-END:variables
 
     private List<Animal> lista;
