@@ -76,7 +76,7 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
         if(rs.next()){
             rt = new RotinaTratamento(rs.getInt("idrotinatratamento"), 
                     (Date)rs.getDate("dataValidade"),
-                    new  Receita(rs.getInt("idreceita"),null, "", null, null, null),
+                    new  Receita(rs.getInt("idreceita"),null, "", null, null),
                     null);
         }   
         
@@ -98,7 +98,7 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
         while(rs.next()){
             RotinaTratamento  rt = new RotinaTratamento(rs.getInt("idrotinatratamento"), 
                     (Date)rs.getDate("dataValidade"),
-                    new  Receita(rs.getInt("idreceita"),null, "", null, null, null),
+                    new  Receita(rs.getInt("idreceita"),null, "", null, null),
                     null);
             rotinasTratamento.add(rt);
         }   
@@ -136,7 +136,7 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
         while(rs.next()){
             RotinaTratamento  rt = new RotinaTratamento(rs.getInt("idrotinatratamento"), 
                     (Date)rs.getDate("dataValidade"),
-                    new  Receita(rs.getInt("idreceita"),null, "", null, null, null),
+                    new  Receita(rs.getInt("idreceita"),null, "",  null, null),
                     null);
             rotinasTratamento.add(rt);
         }   

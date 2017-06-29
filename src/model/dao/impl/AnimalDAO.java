@@ -27,17 +27,18 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
     public void inserir(Animal obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
 
-        String sql = "INSERT INTO empregado (nome,regiaoOrigem,dataNasc, peso, especie, idtratador) "
-                + "VALUES (?,?,?,?,?,?);";
+        String sql = "INSERT INTO empregado (nome,regiaoOrigem,dataNasc, peso, especie, idtratador, idrotinatratamento) "
+                + "VALUES (?,?,?,?,?,?,?);";
         
         PreparedStatement pst = c.prepareStatement(sql);
                
         pst.setString(1, obj.getNome());
         pst.setString(2, obj.getRegiaoOrigem());
-        pst.setDate(3,new java.sql.Date(obj.getData().getTime()));
+        pst.setDate(3,new java.sql.Date(obj.getDataNasc().getTime()));
         pst.setDouble(4, obj.getPeso());
         pst.setString(5, obj.getEspecie());
         pst.setString(6, obj.getTratadorResponsavel().toString());
+        pst.setInt(7, obj.getRotinaTrabamento().getId());
         
         pst.executeUpdate();
         //Teste
@@ -59,17 +60,18 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
     public void alterar(Animal obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "UPDATE empregado SET nome = ?, regiaoOrigem = ?, dataNasc = ?, peso = ?, especie=?, idtratador=? WHERE idempregado = ?;";
+        String sql = "UPDATE empregado SET nome = ?, regiaoOrigem = ?, dataNasc = ?, peso = ?, especie=?, idtratador=?,idrotinatratamento=? WHERE idempregado = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
         
         pst.setString(1, obj.getNome());
         pst.setString(2, obj.getRegiaoOrigem());
-        pst.setDate(3,new java.sql.Date(obj.getData().getTime()));
+        pst.setDate(3,new java.sql.Date(obj.getDataNasc().getTime()));
         pst.setDouble(4, obj.getPeso());
         pst.setString(5, obj.getEspecie());
         pst.setString(6, obj.getTratadorResponsavel().toString());
-        pst.setInt(7, obj.getId());
+        pst.setInt(7, obj.getRotinaTrabamento().getId());
+        pst.setInt(8, obj.getId());
         
         pst.executeUpdate();
     }
@@ -94,8 +96,7 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
                     rs.getString("especie"), 
                     new TratadorDAO().buscarUm(rs.getInt("idtratador")),
                     null,  // Equipe de tratadores   -> Falta implementar
-                    null  // RotinaTratamento       -> Falta implementar
-                    ); 
+                    new RotinaTratamentoDAO().buscarUm(rs.getInt("idrotinatratamento"))); 
         }   
         
         return a;
@@ -121,8 +122,7 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
                     rs.getString("especie"), 
                     new TratadorDAO().buscarUm(rs.getInt("idtratador")),
                     null,  // Equipe de tratadores   -> Falta implementar
-                    null  // RotinaTratamento       -> Falta implementar
-                    ); 
+                    new RotinaTratamentoDAO().buscarUm(rs.getInt("idrotinatratamento")));
                     
             animais.add(a);
         }
@@ -165,12 +165,40 @@ public class AnimalDAO implements IGenericDAO<Animal, Integer>{
                     rs.getString("especie"), 
                     new TratadorDAO().buscarUm(rs.getInt("idtratador")),
                     null,  // Equipe de tratadores   -> Falta implementar
-                    null  // RotinaTratamento       -> Falta implementar
-                    ); 
+                    new RotinaTratamentoDAO().buscarUm(rs.getInt("idrotinatratamento"))); 
                     
             animal.add(a);
         }  
         
         return animal;
+    }
+
+    public List<Animal> buscarTodosPorTratador(Tratador t) throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT a.* FROM animal a inner join empregado e "
+                + " on a.idtratador = e.idempregado where e.idempregado = ? order by a.nome asc;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1, t.getId());
+        ResultSet rs = pst.executeQuery(); 
+        
+        
+        List<Animal> animais = new ArrayList<>();
+        
+        while(rs.next()){
+            Animal a = new Animal(rs.getInt("a.idanimal"), rs.getString("a.nome"), 
+                    rs.getString("a.regiaoOrigem"), 
+                    (Date)rs.getDate("a.dataNasc"), 
+                    rs.getDouble("a.peso"), 
+                    rs.getString("a.especie"), 
+                    new TratadorDAO().buscarUm(rs.getInt("a.idtratador")),
+                    null,  // Equipe de tratadores   -> Falta implementar
+                    new RotinaTratamentoDAO().buscarUm(rs.getInt("a.idrotinatratamento")));
+                    
+            animais.add(a);
+        }
+        
+        return animais;
     }    
 }

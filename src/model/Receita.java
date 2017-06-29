@@ -17,18 +17,18 @@ public class Receita {
     private Date data;
     private String observacao;
     private ArrayList<Medicacao> medicacoes;
-    private Animal animal;
+    
     private Veterinario veterinario;
 
     public Receita() {
     }
 
-    public Receita(int id, Date data, String observacao, ArrayList<Medicacao> medicacoes, Animal animal, Veterinario veterinario) {
+    public Receita(int id, Date data, String observacao, ArrayList<Medicacao> medicacoes, Veterinario veterinario) {
         this.id = id;
         this.data = data;
         this.observacao = observacao;
         this.medicacoes = medicacoes;
-        this.animal = animal;
+        
         this.veterinario = veterinario;
     }
 
@@ -70,14 +70,6 @@ public class Receita {
     
     public void removeMedicacao(int indice){
         medicacoes.remove(indice);
-    }
-    
-    public Animal getAnimal() {
-        return animal;
-    }
-
-    public void setAnimal(Animal animal) {
-        this.animal = animal;
     }
 
     public Veterinario getVeterinario() {
