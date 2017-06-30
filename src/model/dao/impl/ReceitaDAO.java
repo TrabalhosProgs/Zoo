@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import model.Medicacao;
 import model.Receita;
 import model.dao.IGenericDAO;
 
@@ -55,7 +58,24 @@ public class ReceitaDAO implements IGenericDAO<Receita, Integer>{
 
     @Override
     public Receita buscarUm(Integer id) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Connection c = ConnectionFactory.getConnection();
+        
+        String sql = "SELECT * FROM receita WHERE idreceita = ?;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setInt(1, id);
+        
+        ResultSet rs = pst.executeQuery();  
+        Receita r = null;
+        if(rs.next()){
+            r = new Receita(rs.getInt("idreceita"), 
+                    (Date) rs.getDate("data"), 
+                    rs.getString("observacao"), 
+                    (ArrayList<Medicacao>) new MedicacaoDAO().buscarTudoPorReceita(rs.getInt("idreceita")), 
+                    new VeterinarioDAO().buscarUm(rs.getInt("idveterinario")));
+        }   
+        
+        return r;
     }
 
     @Override

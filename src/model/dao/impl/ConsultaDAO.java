@@ -114,7 +114,8 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
     }    
 
     @Override
-    public long quantidade() throws ClassNotFoundException, SQLException {Connection c = ConnectionFactory.getConnection();
+    public long quantidade() throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
         
         String sql = "SELECT count(*) FROM consulta;";
         
@@ -142,27 +143,26 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
         }  
     }
 
-    public List<Consulta> buscarNomeAnimal(String nome) {Connection c = ConnectionFactory.getConnection();
+    public List<Consulta> buscarNomeAnimal(String nome) throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
         
-//        String sql = "SELECT * FROM consulta WHERE nome LIKE ?;";
-//        
-//        PreparedStatement pst = c.prepareStatement(sql);
-//        pst.setString(1, "%"+nome+"%");
-//        ResultSet rs = pst.executeQuery(); 
-//        
-//        
-//        List<Empregado> empregado = new ArrayList<>();
-//        
-//        while(rs.next()){
-//            Empregado  e;
-//            
-//        e = new Empregado(rs.getInt("idempregado"), rs.getString("nome"),
-//                    rs.getString("endereco"), rs.getString("telefone"), null);
-//                    
-//                    
-//           empregado.add(e);
-//        }  
-//        
-//        return empregado;
+        String sql = "SELECT * FROM consulta WHERE nome LIKE ?;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setString(1, "%"+nome+"%");
+        
+        ResultSet rs = pst.executeQuery(); 
+        
+        List<Consulta> consultas = new ArrayList<>();
+        
+        while(rs.next()){
+            Consulta cs = new Consulta(rs.getInt("idconsulta"), (Date)rs.getDate("dataHoraPrevista"),
+                    (Date)rs.getDate("dataHoraRealizacao"),                    
+                    new VeterinarioDAO().buscarUm(rs.getInt("idtratador")),
+                    new AnimalDAO().buscarUm(rs.getInt("idanimal")));
+            consultas.add(cs);
+        }  
+        
+        return consultas;
     }    
 }

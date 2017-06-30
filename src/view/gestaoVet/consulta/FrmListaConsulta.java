@@ -195,26 +195,26 @@ public class FrmListaConsulta extends javax.swing.JDialog {
             if(nome == null){
                 lista = new ConsultaDAO().buscarTodos();
             }else{
-                lista = new ConsultaDAO().buscarPeloAnimal(nome);
+                lista = new ConsultaDAO().buscarNomeAnimal(nome);
             }            
 
-            DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
+            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
             int idx = dtm.getRowCount();
             for (int i = 0; i < idx; i++) {
                 dtm.removeRow(0);
             }
-            
-            for(Consulta funcionarios : lista){
-                if(funcionarios.getFuncao().equals("VETERINARIO")){
-                  Object[] row = {funcionarios.getId(),funcionarios.getEndereco(),funcionarios.getNome(), funcionarios.getTelefone(), funcionarios.getFuncao()};
+            /*
+            for(Consulta consulta : lista){
+                if(consulta.getFuncao().equals("VETERINARIO")){
+                  Object[] row = {consulta.getId(),consulta.getEndereco(),consulta.getNome(), consulta.getTelefone(), consulta.getFuncao()};
                   
                   dtm.addRow(row);
                 }
                 else{
-                  Object[] row = {funcionarios.getId(),funcionarios.getEndereco(),funcionarios.getNome(), funcionarios.getTelefone(), funcionarios.getFuncao()};
+                  Object[] row = {consulta.getId(),consulta.getEndereco(),consulta.getNome(), consulta.getTelefone(), consulta.getFuncao()};
                   dtm.addRow(row);
                 }
-            }
+            }*/
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Não conseguiu buscar os funcionarios ...");
         }

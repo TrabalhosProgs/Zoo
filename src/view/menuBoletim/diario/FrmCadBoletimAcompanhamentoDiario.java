@@ -19,6 +19,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import model.Animal;
 import model.BoletimAcompanhamento;
+import model.Medicacao;
 import model.Tarefa;
 import model.Tratador;
 import model.dao.impl.AnimalDAO;
@@ -71,7 +72,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jListTarefas = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jListMedicacoes = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -126,7 +127,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
 
         jLabelAnimal.setText("Animal");
 
-        jComboBoxAnimal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxAnimal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "..." }));
         jComboBoxAnimal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 aoSelecionarAnimal(evt);
@@ -149,22 +150,22 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
         });
 
         jListTarefas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "..." };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(jListTarefas);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        jListMedicacoes.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "..." };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(jListMedicacoes);
 
         jLabel1.setText("Tarefas");
 
-        jLabel2.setText("Vacinas");
+        jLabel2.setText("Medicações");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -357,6 +358,8 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
 
     private void aoSelecionarAnimal(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_aoSelecionarAnimal
          preencherListaTarefas(listaAnimais.get(jComboBoxAnimal.getSelectedIndex() - 1));
+         preencherListaMedicacao(listaAnimais.get(jComboBoxAnimal.getSelectedIndex() - 1));
+         
     }//GEN-LAST:event_aoSelecionarAnimal
 
     /**
@@ -510,7 +513,27 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
             }
             jListTarefas.setModel(dlm);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de Tarefas" + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de Tarefas \n" + ex);
+        }
+    }
+    
+    private void preencherListaMedicacao(Animal a) {
+         try {
+            listaMedicacao = new RotinaTratamentoDAO().buscarUm(a.getRotinaTrabamento().getId()).getReceita().getMedicacoes();
+            DefaultListModel dlm = new DefaultListModel<>();
+
+            dlm.removeAllElements();
+
+            for (Medicacao m : listaMedicacao) {
+                dlm.addElement(m.getMedicamento().getNome()+ " - "
+                        +m.getDose()+ " - "
+                        +m.getFrequencia()+ " - "
+                        +sdf.format(m.getPeriodoIni())+ " - "
+                        +sdf.format(m.getPeriodoFim()));
+            }
+            jListMedicacoes.setModel(dlm);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de Medicações \n" + ex);
         }
     }
 
@@ -526,6 +549,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
     private List<Tratador> listaTratadores;
     private List<Animal> listaAnimais;
     private List<Tarefa> listaTarefas;
+    private List<Medicacao> listaMedicacao;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBoxAnimal;
@@ -540,7 +564,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelObservacao;
     private javax.swing.JLabel jLabelParecer;
     private javax.swing.JLabel jLabelTratador;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jListMedicacoes;
     private javax.swing.JList<String> jListTarefas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCabecalho;
@@ -552,5 +576,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
     private javax.swing.JTextField jtfData;
     private javax.swing.JLabel ljTituloCabecalho;
     // End of variables declaration//GEN-END:variables
+
+    
 
 }
