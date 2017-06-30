@@ -19,6 +19,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import model.Animal;
 import model.BoletimAcompanhamento;
+import model.Medicacao;
 import model.Tarefa;
 import model.Tratador;
 import model.dao.impl.AnimalDAO;
@@ -71,9 +72,10 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jListTarefas = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jListMedicacoes = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jCheckBoxTarefas = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Boletim de Acompanhamento Diário");
@@ -126,7 +128,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
 
         jLabelAnimal.setText("Animal");
 
-        jComboBoxAnimal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxAnimal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "..." }));
         jComboBoxAnimal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 aoSelecionarAnimal(evt);
@@ -149,22 +151,24 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
         });
 
         jListTarefas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "..." };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(jListTarefas);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        jListMedicacoes.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "..." };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(jListMedicacoes);
 
         jLabel1.setText("Tarefas");
 
-        jLabel2.setText("Vacinas");
+        jLabel2.setText("Medicações");
+
+        jCheckBoxTarefas.setText("Tarefas Concluídas");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -178,16 +182,6 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
                         .addComponent(jbGravar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelObservacao)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(14, 14, 14)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2)
-                                    .addComponent(jScrollPane1)
-                                    .addComponent(jScrollPaneTexAreaObs)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(72, 72, 72)
                                 .addComponent(jLabelCodigoTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -203,14 +197,27 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
                                         .addGap(23, 23, 23))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jtfData, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelParecer)
                                     .addComponent(jLabelTratador))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jComboBoxTratador, 0, 151, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxParecer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jComboBoxParecer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelObservacao)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(14, 14, 14)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jScrollPaneTexAreaObs)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jCheckBoxTarefas)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(27, 27, 27)))
                 .addContainerGap())
         );
@@ -244,18 +251,15 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
                     .addComponent(jLabelObservacao))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 64, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxTarefas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(12, 12, 12))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jbGravar)
                 .addContainerGap())
         );
@@ -291,7 +295,8 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
                                 listaTratadores.get(jComboBoxTratador.getSelectedIndex() - 1),
                                 jTextAreaObservacao.getText(),
                                 null,
-                                listaAnimais.get(jComboBoxAnimal.getSelectedIndex() - 1));
+                                listaAnimais.get(jComboBoxAnimal.getSelectedIndex() - 1),
+                                jCheckBoxTarefas.isSelected());
                         if (jComboBoxParecer.getSelectedIndex() == 0) {
                             ba.setTipo(EnumParecer.SAUDAVEL);
                         }
@@ -307,6 +312,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
                         selecionado.setTratador(listaTratadores.get(jComboBoxTratador.getSelectedIndex() - 1));
                         selecionado.setObservacao(jTextAreaObservacao.getText());
                         selecionado.setAnimal(listaAnimais.get(jComboBoxAnimal.getSelectedIndex() - 1));
+                        selecionado.setTarefaConcluida(jCheckBoxTarefas.isSelected());
                         if (jComboBoxParecer.getSelectedIndex() == 0) {
                             selecionado.setTipo(EnumParecer.SAUDAVEL);
                         }
@@ -342,7 +348,6 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
         } else {
             jLabelCodigo.setVisible(true);
             jLabelCodigoTexto.setVisible(true);
-
             preencheComboTratador(selecionado.getTratador());
             preencheComboParecer(selecionado.getTipo());
             preencheComboAnimais(selecionado.getAnimal(), selecionado.getTratador());
@@ -356,7 +361,9 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
     }//GEN-LAST:event_selecionaTratador
 
     private void aoSelecionarAnimal(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_aoSelecionarAnimal
-         preencherListaTarefas(listaAnimais.get(jComboBoxAnimal.getSelectedIndex() - 1));
+        preencherListaTarefas(listaAnimais.get(jComboBoxAnimal.getSelectedIndex() - 1));
+        preencherListaMedicacao(listaAnimais.get(jComboBoxAnimal.getSelectedIndex() - 1));
+
     }//GEN-LAST:event_aoSelecionarAnimal
 
     /**
@@ -419,21 +426,12 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
                 dcm.addElement(t.getNome());
             }
             if (tratador != null) {
-                int idx, i = 0;
-                for (Tratador t : listaTratadores) {
-                    if (t.getNome().equals(tratador.getNome())) {
-                        dcm.setSelectedItem(t.getNome());
-                        break;
-                    }
-                    i++;
-                }
+                jComboBoxTratador.setSelectedItem(tratador.getNome());
             }
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de tratadores" + ex);
         }
-        if (tratador != null) {
-            jComboBoxTratador.setSelectedItem(listaTratadores.indexOf(tratador));
-        }
+        
     }
 
     private void preencheComboAnimais() throws HeadlessException {
@@ -455,20 +453,16 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
                 }
 
                 if (animal != null) {
-                    int idx, i = 0;
-                    for (Animal a : listaAnimais) {
-                        if (a.getNome().equals(animal.getNome())) {
-                            dcma.setSelectedItem(a.getNome());
-                            break;
-                        }
-                        i++;
-                    }
-                }
-               
+                    jComboBoxAnimal.setSelectedItem(animal.getNome());
+                    preencherListaTarefas(animal);
+                    preencherListaMedicacao(animal);
 
+                }
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de Animais \n" + ex);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um Tratador ");
         }
     }
 
@@ -509,8 +503,30 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
                 dlm.addElement(t.getId() + " (" + t.getDescricao() + ")");
             }
             jListTarefas.setModel(dlm);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de Tarefas" + ex);
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de Tarefas \n" + ex);
+        }
+    }
+
+    private void preencherListaMedicacao(Animal a) {
+        try {
+            listaMedicacao = new RotinaTratamentoDAO().buscarUm(a.getRotinaTrabamento().getId()).getReceita().getMedicacoes();
+
+            DefaultListModel dlm = new DefaultListModel<>();
+
+            dlm.removeAllElements();
+
+            for (Medicacao m : listaMedicacao) {
+                dlm.addElement(m.getMedicamento().getNome() + " - "
+                        + m.getDose() + " - "
+                        + m.getFrequencia().getDescricao() + " - "
+                        + sdf.format(m.getPeriodoIni()) + " - "
+                        + sdf.format(m.getPeriodoFim()));
+            }
+            jListMedicacoes.setModel(dlm);
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de Medicações \n" + ex);
         }
     }
 
@@ -519,6 +535,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
         jtfData.setText(sdf.format(ba.getDataBoletim()));
         jLabelCodigoTexto.setText(ba.getId() + "");
         jTextAreaObservacao.setText(ba.getObservacao());
+        jCheckBoxTarefas.setSelected(ba.isTarefaConcluida());
     }
 
     private BoletimAcompanhamento selecionado = null;
@@ -526,8 +543,10 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
     private List<Tratador> listaTratadores;
     private List<Animal> listaAnimais;
     private List<Tarefa> listaTarefas;
+    private List<Medicacao> listaMedicacao;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCheckBoxTarefas;
     private javax.swing.JComboBox<String> jComboBoxAnimal;
     private javax.swing.JComboBox<String> jComboBoxParecer;
     private javax.swing.JComboBox<String> jComboBoxTratador;
@@ -540,7 +559,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelObservacao;
     private javax.swing.JLabel jLabelParecer;
     private javax.swing.JLabel jLabelTratador;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jListMedicacoes;
     private javax.swing.JList<String> jListTarefas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCabecalho;

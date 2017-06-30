@@ -16,6 +16,7 @@ import java.util.List;
 import model.Frequencia;
 import model.Receita;
 import model.RotinaTratamento;
+import model.Tarefa;
 import model.dao.IGenericDAO;
 
 /**
@@ -76,8 +77,8 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
         if(rs.next()){
             rt = new RotinaTratamento(rs.getInt("idrotinatratamento"), 
                     (Date)rs.getDate("dataValidade"),
-                    new  Receita(rs.getInt("idreceita"),null, "", null, null),
-                    null);
+                    new ReceitaDAO().buscarUm(rs.getInt("idreceita")),
+                    (ArrayList<Tarefa>)new TarefaDAO().buscarPorRotina(rs.getInt("idrotinatratamento")));
         }   
         
         return rt;

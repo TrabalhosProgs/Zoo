@@ -225,8 +225,8 @@ public class FrmListaConsulta extends javax.swing.JDialog {
                   Object[] row = {consultas.getId(), consultas.getDataHoraPrevista(),consultas.getDataHoraRealizacao()};
                   dtm.addRow(row);
                 }
-            
-        } catch (Exception ex) {
+                
+            }catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Não conseguiu buscar as consultas ...");
         }
     }

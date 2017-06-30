@@ -31,8 +31,8 @@ public class BoletimAcompanhamentoDAO implements IGenericDAO<BoletimAcompanhamen
     public void inserir(BoletimAcompanhamento obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "INSERT INTO boletimacompanhamento (data, observacao, parecer, idanimal, idtratador) "
-                + " VALUES(?,?,?,?,?);";
+        String sql = "INSERT INTO boletimacompanhamento (data, observacao, parecer, idanimal, idtratador, tarefaConcluida) "
+                + " VALUES(?,?,?,?,?,?);";
         
         PreparedStatement pst = c.prepareStatement(sql);
         
@@ -41,7 +41,7 @@ public class BoletimAcompanhamentoDAO implements IGenericDAO<BoletimAcompanhamen
         pst.setString(3, obj.getTipo().toString());
         pst.setInt(4, obj.getAnimal().getId());
         pst.setInt(5, obj.getTratador().getId());
-        
+        pst.setInt(6, obj.isTarefaConcluida()? 1:0);
         pst.executeUpdate();
     }
 
@@ -66,7 +66,8 @@ public class BoletimAcompanhamentoDAO implements IGenericDAO<BoletimAcompanhamen
                 + " observacao = ?, "
                 + " parecer = ?, "
                 + " idanimal = ?, "
-                + " idtratador = ? "
+                + " idtratador = ?, "
+                + " tarefaConcluida = ? "
                 + "WHERE idboletimacompanhamento = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
@@ -75,7 +76,8 @@ public class BoletimAcompanhamentoDAO implements IGenericDAO<BoletimAcompanhamen
         pst.setString(3, obj.getTipo().toString());
         pst.setInt(4, obj.getAnimal().getId());
         pst.setInt(5, obj.getTratador().getId());
-        pst.setInt(6, obj.getId());
+        pst.setInt(6, obj.isTarefaConcluida()? 1:0);
+        pst.setInt(7, obj.getId());
         
         pst.executeUpdate();
     }
@@ -97,8 +99,15 @@ public class BoletimAcompanhamentoDAO implements IGenericDAO<BoletimAcompanhamen
                     (Tratador) new TratadorDAO().buscarUm(rs.getInt("idtratador")),
                     rs.getString("observacao"),
                     null,
-                    new AnimalDAO().buscarUm(rs.getInt("idanimal")));
+                    new AnimalDAO().buscarUm(rs.getInt("idanimal")),
+                    true
+                    );
             
+                    if(rs.getInt("tarefaConcluida") == 1)
+                        ba.setTarefaConcluida(true);
+                    else
+                        ba.setTarefaConcluida(false);
+                    
                     if(rs.getString("parecer").equals("SAUDAVEL"))
                         ba.setTipo(EnumParecer.SAUDAVEL);
                     else if(rs.getString("parecer").equals("ESTADO_ALERTA"))
@@ -129,7 +138,14 @@ public class BoletimAcompanhamentoDAO implements IGenericDAO<BoletimAcompanhamen
                     new TratadorDAO().buscarUm(rs.getInt("idtratador")),
                     rs.getString("observacao"),
                     null,
-                    new AnimalDAO().buscarUm(rs.getInt("idanimal")));
+                    new AnimalDAO().buscarUm(rs.getInt("idanimal")),
+                    true
+                    );
+            
+                    if(rs.getInt("tarefaConcluida") == 1)
+                        ba.setTarefaConcluida(true);
+                    else
+                        ba.setTarefaConcluida(false);
             
                     if(rs.getString("parecer").equals("SAUDAVEL"))
                         ba.setTipo(EnumParecer.SAUDAVEL);
@@ -177,7 +193,14 @@ public class BoletimAcompanhamentoDAO implements IGenericDAO<BoletimAcompanhamen
                     new TratadorDAO().buscarUm(rs.getInt("idtratador")),
                     rs.getString("observacao"),
                     null,
-                    new AnimalDAO().buscarUm(rs.getInt("idanimal")));
+                    new AnimalDAO().buscarUm(rs.getInt("idanimal")),
+                    true
+                    );
+            
+                    if(rs.getInt("tarefaConcluida") == 1)
+                        ba.setTarefaConcluida(true);
+                    else
+                        ba.setTarefaConcluida(false);
             
                     if(rs.getString("parecer").equals("SAUDAVEL"))
                         ba.setTipo(EnumParecer.SAUDAVEL);

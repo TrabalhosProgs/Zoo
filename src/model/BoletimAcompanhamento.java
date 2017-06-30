@@ -19,17 +19,27 @@ public class BoletimAcompanhamento {
     private String observacao;
     private EnumParecer tipo;
     private Animal animal;
-
+    private boolean tarefaConcluida;
+    
     public BoletimAcompanhamento() {
     }
 
-    public BoletimAcompanhamento(int id, Date dataBoletim, Tratador tratador, String observacao, EnumParecer tipo, Animal animal) {
+    public BoletimAcompanhamento(int id, Date dataBoletim, Tratador tratador, String observacao, EnumParecer tipo, Animal animal, boolean tarefaConcluida) {
         this.id = id;
         this.dataBoletim = dataBoletim;
         this.tratador = tratador;
         this.observacao = observacao;
         this.tipo = tipo;
         this.animal = animal;
+        this.tarefaConcluida = tarefaConcluida;
+    }
+
+    public boolean isTarefaConcluida() {
+        return tarefaConcluida;
+    }
+
+    public void setTarefaConcluida(boolean tarefaConcluida) {
+        this.tarefaConcluida = tarefaConcluida;
     }
 
     public int getId() {
