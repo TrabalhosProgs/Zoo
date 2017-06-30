@@ -191,10 +191,17 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
     private void jbAlterarcallTelaIAlterar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarcallTelaIAlterar
          if(jtLista.getSelectedRowCount() == 1){
            FrmCadEmpregado fcf = new FrmCadEmpregado(null, true);
+           //AJUDA!! NÃO SEI COMO BUSCAR O VALOR DA COLUNA FUNÇÃO!! 
+//           if(){
+                fcf.preparaEditTratador((Veterinario) lista.get(jtLista.getSelectedRow()));
+                fcf.setVisible(true);
+                preencheTabela();
+//           }else if(){
+//               fcf.preparaEditVet(lista.get(jtLista.getSelectedRow()));
+//                fcf.setVisible(true);
+//                preencheTabela();
+//           }
            
-           fcf.preparaEdit(lista.get(jtLista.getSelectedRow()));
-           fcf.setVisible(true);
-           preencheTabela();
                            
         }else{
             JOptionPane.showMessageDialog(null, "Selecione apenas um empregado"); 

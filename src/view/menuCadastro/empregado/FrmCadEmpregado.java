@@ -136,13 +136,13 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
             .addGroup(jPDadosVetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPDadosVetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTFRegistroCRMV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jTFRegistroCRMV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPDadosVetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFDataRegistroCRMV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFDataRegistroCRMV)
                     .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jButton1.setText("Gravar");
@@ -153,9 +153,9 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         });
 
         jComboBoxFuncao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxFuncao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                VerificarFuncao(evt);
+        jComboBoxFuncao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Verificar(evt);
             }
         });
 
@@ -168,12 +168,12 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
                 .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDadosLayout.createSequentialGroup()
                         .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlNome)
                             .addComponent(jlMatricula)
                             .addComponent(jlEndereco)
-                            .addComponent(jlFuncao)
-                            .addComponent(jlTelefone))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                            .addComponent(jlNome)
+                            .addComponent(jlTelefone)
+                            .addComponent(jlFuncao))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                         .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTFNome, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                             .addComponent(jTFEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
@@ -191,31 +191,29 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
             .addGroup(jPanelDadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                    .addComponent(jlMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(jlMatriculaAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTFNome))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTFEndereco))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlFuncao, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jComboBoxFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlEndereco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPDadosVet, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPDadosVet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -232,14 +230,14 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelCabecalho1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanelDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-        //String numeroCRMV, Date dataCRMV, int id, String nome, String endereco, String telefone
-
+        
     private void GravarVet() {
         java.util.Date dt = null;
         try {
@@ -248,7 +246,7 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
             Veterinario e = new Veterinario(jTFRegistroCRMV.getText(), dt, 0, jTFNome.getText(), jTFEndereco.getText(), jTFTelefone.getText());
             try {
                 if (selecionado == null) {
-                    new VeterinarioDAO().inserir(e);
+                    new VeterinarioDAO().inserirVet(e);
                     e.setId(new VeterinarioDAO().buscarMaiorID());
                 } else {
                     e.setId(selecionado.getId());
@@ -285,17 +283,6 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
     }
 
 
-    private void aoGravar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoGravar
-
-        if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("VETERINARIO")) {
-            GravarVet();
-        } else if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("TRATADOR")) {
-            GravarTratador();
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione uma função");
-        }
-    }//GEN-LAST:event_aoGravar
-
     private void aoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_aoAbrir
         preencheCombo();
         jPDadosVet.setVisible(false);
@@ -309,13 +296,24 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_aoAbrir
 
-    private void VerificarFuncao(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VerificarFuncao
+    private void Verificar(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Verificar
         if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("Veterinario")) {
             jPDadosVet.setVisible(true);
         } else {
             jPDadosVet.setVisible(false);
         }
-    }//GEN-LAST:event_VerificarFuncao
+    }//GEN-LAST:event_Verificar
+
+    private void aoGravar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoGravar
+
+        if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("VETERINARIO")) {
+            GravarVet();
+        } else if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("TRATADOR")) {
+            GravarTratador();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma função");
+        }
+    }//GEN-LAST:event_aoGravar
 
     private void jTFRegistroCRMVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFRegistroCRMVActionPerformed
         // TODO add your handling code here:
@@ -329,7 +327,7 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         dcm.addElement("Tratador");
     }
 
-    public void preparaEdit(Empregado e) {
+    public void preparaEditVet(Empregado e) {
         selecionado = e;
 
         jlMatriculaAuto.setText(e.getId() + "");
@@ -337,6 +335,18 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         jTFEndereco.setText(e.getEndereco());
         jTFTelefone.setText(e.getTelefone());
         jComboBoxFuncao.setSelectedItem(e.getFuncao().toString());
+    }
+    
+    public void preparaEditTratador(Veterinario e) {
+        selecionado = e;
+        jPDadosVet.setVisible(true);
+        jlMatriculaAuto.setText(e.getId() + "");
+        jTFNome.setText(e.getNome());
+        jTFEndereco.setText(e.getEndereco());
+        jTFTelefone.setText(e.getTelefone());
+        jComboBoxFuncao.setSelectedItem(e.getFuncao().toString());
+        jTFRegistroCRMV.setText(e.getNumeroCRMV());
+        jTFDataRegistroCRMV.setText(e.getDataCRMV().toString());
     }
 
     /**

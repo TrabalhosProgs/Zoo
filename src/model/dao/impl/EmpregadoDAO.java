@@ -36,9 +36,6 @@ public class EmpregadoDAO implements IGenericDAO <Empregado, Integer>{
         pst.setString(2, obj.getEndereco());
         pst.setString(3, obj.getTelefone());
         pst.setString(4, obj.getFuncao().toString());
-        //CONTRUTOR IMCOMPLETO, FALTA NUMEROCRMV E DATA
-        //pst.setInt(5, );
-        //pst.setDate(6,new java.sql.Date(obj.getData().getTime()));
         pst.executeUpdate();
     }
 

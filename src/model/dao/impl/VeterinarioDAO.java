@@ -110,4 +110,21 @@ public class VeterinarioDAO extends EmpregadoDAO{
         return empregados;
     }
     
+    public void inserirVet(Veterinario obj) throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
+
+        String sql = "INSERT INTO empregado (nome,endereco,telefone, funcao, numeroCRMV, dataCRMV) "
+                + "VALUES (?,?,?,?,?,?);";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+               
+        pst.setString(1, obj.getNome());
+        pst.setString(2, obj.getEndereco());
+        pst.setString(3, obj.getTelefone());
+        pst.setString(4, obj.getFuncao().toString());
+        pst.setString(5, obj.getNumeroCRMV());
+        pst.setDate(6,new java.sql.Date(obj.getDataCRMV().getTime()));
+        pst.executeUpdate();
+    }
+    
 }
