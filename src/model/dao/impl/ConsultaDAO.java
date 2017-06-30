@@ -103,10 +103,10 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
         
         while(rs.next()){
             Consulta cs;
-            cs = new Consulta(rs.getInt("idconsulta"), (Date)rs.getDate("dataHoraPrevista"),
-                    (Date)rs.getDate("dataHoraRealizacao"),                    
-                    new VeterinarioDAO().buscarUm(rs.getInt("idtratador")),
-                    new AnimalDAO().buscarUm(rs.getInt("idanimal")));
+            cs = new Consulta(rs.getInt("idconsulta"),(Date) rs.getDate("dataHoraPrevista"),
+                    rs.getDate("dataHoraRealizacao"),null,null);                    
+                    //new VeterinarioDAO().buscarUm(rs.getInt("idtratador")),
+                    //new AnimalDAO().buscarUm(rs.getInt("idanimal")));
             consultas.add(cs);
         }   
         
@@ -141,28 +141,4 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
             return 0;
         }  
     }
-
-    public List<Consulta> buscarNomeAnimal(String nome) {Connection c = ConnectionFactory.getConnection();
-        
-//        String sql = "SELECT * FROM consulta WHERE nome LIKE ?;";
-//        
-//        PreparedStatement pst = c.prepareStatement(sql);
-//        pst.setString(1, "%"+nome+"%");
-//        ResultSet rs = pst.executeQuery(); 
-//        
-//        
-//        List<Empregado> empregado = new ArrayList<>();
-//        
-//        while(rs.next()){
-//            Empregado  e;
-//            
-//        e = new Empregado(rs.getInt("idempregado"), rs.getString("nome"),
-//                    rs.getString("endereco"), rs.getString("telefone"), null);
-//                    
-//                    
-//           empregado.add(e);
-//        }  
-//        
-//        return empregado;
-    }    
 }

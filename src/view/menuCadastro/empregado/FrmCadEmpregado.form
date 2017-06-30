@@ -240,6 +240,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTFRegistroCRMV">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTFRegistroCRMVActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTFDataRegistroCRMV">
             </Component>

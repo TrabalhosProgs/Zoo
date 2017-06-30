@@ -10,7 +10,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Empregado;
+import model.Veterinario;
 import model.dao.impl.EmpregadoDAO;
+import model.dao.impl.VeterinarioDAO;
 /**
  *
  * @author pc
@@ -207,8 +209,10 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
         try {
             if(nome == null){
                 lista = new EmpregadoDAO().buscarTodos();
+                listaVet = new VeterinarioDAO().buscarTodosVet();
             }else{
                 lista = new EmpregadoDAO().buscarPeloNome(nome);
+                listaVet = new VeterinarioDAO().buscarVetPeloNome(nome);
             }            
 
             DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
@@ -218,16 +222,18 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
             }
             
             for(Empregado funcionarios : lista){
-                if(funcionarios.getFuncao().equals("VETERINARIO")){
+                if(funcionarios.getFuncao().toString().equalsIgnoreCase("TRATADOR")){
                   Object[] row = {funcionarios.getId(),funcionarios.getEndereco(),funcionarios.getNome(), funcionarios.getTelefone(), funcionarios.getFuncao()};
                   
                   dtm.addRow(row);
                 }
-                else{
-                  Object[] row = {funcionarios.getId(),funcionarios.getEndereco(),funcionarios.getNome(), funcionarios.getTelefone(), funcionarios.getFuncao()};
-                  dtm.addRow(row);
-                }
             }
+            
+            for(Veterinario veterinarios : listaVet){
+                Object[] row = {veterinarios.getId(),veterinarios.getEndereco(),veterinarios.getNome(), veterinarios.getTelefone(), veterinarios.getFuncao(),veterinarios.getNumeroCRMV(),veterinarios.getDataCRMV()};
+                dtm.addRow(row);
+            }
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Não conseguiu buscar os funcionarios ...");
         }
@@ -322,5 +328,6 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
     
     //Variaveis criadas manualmente
     private List<Empregado> lista;
+    private List<Veterinario> listaVet;
 
 }

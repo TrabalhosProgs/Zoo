@@ -150,6 +150,5 @@ public class TratadorDAO implements IGenericDAO <Tratador, Integer>{
         }  
         
         return tratadores;
-    }
-    
+    }  
 }

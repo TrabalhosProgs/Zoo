@@ -21,7 +21,7 @@ import model.dao.impl.BoletimAcompanhamentoDAO;
 
 /**
  *
- * @author william
+ * @author pc
  */
 public class FrmListaBoletimAcompanhamentoDiario extends javax.swing.JDialog {
 

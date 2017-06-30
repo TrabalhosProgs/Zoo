@@ -30,7 +30,7 @@ import model.enu.EnumParecer;
 
 /**
  *
- * @author william
+ * @author pc
  */
 public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
 

@@ -41,7 +41,7 @@ public class FrmListaConsulta extends javax.swing.JDialog {
         jTFNomeDoAnimal = new javax.swing.JTextField();
         jBPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtLista = new javax.swing.JTable();
         jBIncluir = new javax.swing.JButton();
         jBAlterar = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
@@ -91,18 +91,18 @@ public class FrmListaConsulta extends javax.swing.JDialog {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Data Agendada", "Hora Agendada", "Data Da Consulta", "Hora Da Consulta", "Veterinario", "Animal"
+                "Código", "Consulta Agendada", "Consulta Realizada", "Veterinario", "Animal"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtLista);
 
         jBIncluir.setText("Incluir");
         jBIncluir.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +116,7 @@ public class FrmListaConsulta extends javax.swing.JDialog {
         jBExcluir.setText("Excluir");
         jBExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBExcluirActionPerformed(evt);
+                jbExcuir(evt);
             }
         });
 
@@ -179,9 +179,26 @@ public class FrmListaConsulta extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBIncluirActionPerformed
 
-    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBExcluirActionPerformed
+    private void jbExcuir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcuir
+        if(jtLista.getSelectedRowCount() == 1){
+            String aux = (String) jtLista.getValueAt(jtLista.getSelectedRow(), 2);
+            if (JOptionPane.showConfirmDialog(this,"Deseja apagar a consulta "+aux+"?","Atenção",
+                JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
+                
+                int idconsulta =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
+                Consulta cs = new Consulta(idconsulta, null, null, null,null);
+                try {
+                    new ConsultaDAO().apagar(cs);
+                    preencheTabela();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao apagar a consulta "+ex); 
+                }
+            }            
+                
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione apenas uma consulta"); 
+        }  
+    }//GEN-LAST:event_jbExcuir
 
     private void AoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrir
         preencheTabela(null);
@@ -195,7 +212,7 @@ public class FrmListaConsulta extends javax.swing.JDialog {
             if(nome == null){
                 lista = new ConsultaDAO().buscarTodos();
             }else{
-                lista = new ConsultaDAO().buscarPeloAnimal(nome);
+                
             }            
 
             DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
@@ -204,21 +221,16 @@ public class FrmListaConsulta extends javax.swing.JDialog {
                 dtm.removeRow(0);
             }
             
-            for(Consulta funcionarios : lista){
-                if(funcionarios.getFuncao().equals("VETERINARIO")){
-                  Object[] row = {funcionarios.getId(),funcionarios.getEndereco(),funcionarios.getNome(), funcionarios.getTelefone(), funcionarios.getFuncao()};
-                  
+            for(Consulta consultas : lista){
+                  Object[] row = {consultas.getId(), consultas.getDataHoraPrevista(),consultas.getDataHoraRealizacao()};
                   dtm.addRow(row);
                 }
-                else{
-                  Object[] row = {funcionarios.getId(),funcionarios.getEndereco(),funcionarios.getNome(), funcionarios.getTelefone(), funcionarios.getFuncao()};
-                  dtm.addRow(row);
-                }
-            }
+            
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não conseguiu buscar os funcionarios ...");
+            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as consultas ...");
         }
     }
+
     
     /**
      * @param args the command line arguments
@@ -272,7 +284,7 @@ public class FrmListaConsulta extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFNomeDoAnimal;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtLista;
     // End of variables declaration//GEN-END:variables
 
       private List<Consulta> lista;    
