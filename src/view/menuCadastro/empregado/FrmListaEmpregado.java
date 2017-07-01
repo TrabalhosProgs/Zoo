@@ -102,13 +102,13 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
 
         jtLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Código", "Endereço", "Nome", "Telefone", "Função", "Cadastro CRMV", "Data do cadastro CRMV"
+                "Código", "Endereço", "Nome", "Telefone", "Função"
             }
         ));
         jtLista.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
