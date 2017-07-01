@@ -234,20 +234,26 @@ public class FrmCadAnimal extends javax.swing.JDialog {
         java.util.Date dt = null;
         try {
             dt = sdf.parse(jTFDataNasc.getText());
-            Double peso = Double.parseDouble(jTFPeso.getText());
-            
-            Animal x = new Animal(0,jTFNome.getText(),jTFRegiaoOrigem.getText(),dt, peso,jTFEspecie.getText(), null,null,null);
-            setVisible(false);
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
-        }catch (ParseException ex) {
+            try {
+                Double peso = Double.parseDouble(jTFPeso.getText());
+                
+                //Veterinario vet = VeterinarioDAO().buscarUm(0);
+                
+                
+                Animal x = new Animal(0, jTFNome.getText(), jTFRegiaoOrigem.getText(), dt, peso, jTFEspecie.getText(), null, null, null);
+                setVisible(false);
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Digite um peso em formato válido (0.0)!");
+            }
+        } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Digite uma data em formato válido (dd/MM/aaaa)!");
         }
-        //Tratador tratadorResponsavel, ArrayList<Tratador> equipeTratadores, RotinaTratamento rotinaTrabamento/*, BoletimSaude boletimSaude*/)
     }//GEN-LAST:event_jButton1ActionPerformed
 
-        public void preparaEdit(Animal e) {
+    public void preparaEdit(Animal e) {
         selecionado = e;
-        pesoAnimal = Double.valueOf(e.getPeso()).toString(); 
+        pesoAnimal = Double.valueOf(e.getPeso()).toString();
 
         jlMatriculaAuto.setText(e.getId() + "");
         jTFNome.setText(e.getNome());
@@ -255,16 +261,14 @@ public class FrmCadAnimal extends javax.swing.JDialog {
         jTFDataNasc.setText(e.getDataNasc().toString());
         jTFEspecie.setText(e.getEspecie());
         jTFPeso.setText(pesoAnimal);
-        
-    }  
-    
-    
-    
-    
+
+    }
+
+
     private void AoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrir
         preencheTabelaVet();
         preencheComboVetResponsavel();
-        
+
         if (selecionado == null) {
             jlMatricula.setVisible(false);
             jlMatriculaAuto.setVisible(false);
@@ -321,7 +325,7 @@ public class FrmCadAnimal extends javax.swing.JDialog {
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de tratadores" + ex);
         }
-        
+
     }
 
     /**
@@ -394,4 +398,8 @@ public class FrmCadAnimal extends javax.swing.JDialog {
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private Animal selecionado = null;
     String pesoAnimal;
+
+    private Object VeterinarioDAO() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
