@@ -79,7 +79,6 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Boletim de Acompanhamento Diário");
-        setPreferredSize(new java.awt.Dimension(600, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 aoAbrir(evt);
@@ -123,6 +122,11 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
         jComboBoxTratador.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 selecionaTratador(evt);
+            }
+        });
+        jComboBoxTratador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTratadorActionPerformed(evt);
             }
         });
 
@@ -365,6 +369,10 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
         preencherListaMedicacao(listaAnimais.get(jComboBoxAnimal.getSelectedIndex() - 1));
 
     }//GEN-LAST:event_aoSelecionarAnimal
+
+    private void jComboBoxTratadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTratadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxTratadorActionPerformed
 
     /**
      * @param args the command line arguments

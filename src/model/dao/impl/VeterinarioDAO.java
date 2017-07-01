@@ -62,7 +62,7 @@ public class VeterinarioDAO extends EmpregadoDAO{
         
         ResultSet rs = pst.executeQuery(); 
         
-        List<Veterinario> empregados = new ArrayList<>();
+        List<Veterinario> vet = new ArrayList<>();
         
         
             while(rs.next()){
@@ -74,11 +74,11 @@ public class VeterinarioDAO extends EmpregadoDAO{
                     rs.getString("endereco"), 
                     rs.getString("telefone"));
                     
-            empregados.add(e);
+            vet.add(e);
         } 
          
         
-        return empregados;
+        return vet;
     }
     
     public List<Veterinario> buscarVetPeloNome(String nome) throws ClassNotFoundException, SQLException {
@@ -126,5 +126,6 @@ public class VeterinarioDAO extends EmpregadoDAO{
         pst.setDate(6,new java.sql.Date(obj.getDataCRMV().getTime()));
         pst.executeUpdate();
     }
+
     
 }
