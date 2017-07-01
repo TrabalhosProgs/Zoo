@@ -278,6 +278,7 @@ public class FrmListaRotinaTratamento extends javax.swing.JDialog {
                 Date dt = null;
                 try {
                     dt = sdf.parse(data);
+                    
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null, "Data em formato inválido "+ex);
                 }
