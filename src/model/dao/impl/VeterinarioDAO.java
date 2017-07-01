@@ -45,13 +45,32 @@ public class VeterinarioDAO extends EmpregadoDAO{
         }
         return v;
     }
+ 
     
-    /**
-     *
-     * @return
-     * @throws ClassNotFoundException
-     * @throws SQLException
-     */
+    public void alterar(Veterinario obj) throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
+
+        String sql = "UPDATE empregado "
+                + " SET nome = ?, "
+                + " endereco = ?, "
+                + " telefone = ?, "
+                + " funcao = ?, "
+                + " numeroCRMV = ?, "
+                + " dataCRMV = ?"
+                + "WHERE idempregado = ?;";
+        
+        PreparedStatement pst = c.prepareStatement(sql);
+
+        pst.setString(1, obj.getNome());
+        pst.setString(2, obj.getEndereco());
+        pst.setString(3, obj.getTelefone());
+        pst.setString(4, obj.getFuncao().toString());
+        pst.setString(5, obj.getNumeroCRMV());
+        pst.setDate(6, new java.sql.Date(obj.getDataCRMV().getTime()));
+        pst.setInt(7, obj.getId());
+        
+        pst.executeUpdate();
+    }
     
     public List<Veterinario> buscarTodosVet() throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();

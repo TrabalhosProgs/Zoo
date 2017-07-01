@@ -6,13 +6,19 @@
 package view.menuCadastro.empregado;
 
 import java.awt.HeadlessException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Empregado;
+import model.Tratador;
 import model.Veterinario;
 import model.dao.impl.EmpregadoDAO;
+import model.dao.impl.TratadorDAO;
 import model.dao.impl.VeterinarioDAO;
+
 /**
  *
  * @author pc
@@ -38,16 +44,18 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jtfPesquisar = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtLista = new javax.swing.JTable();
         jbIncluir = new javax.swing.JButton();
         jbAlterar = new javax.swing.JButton();
         jbExcluir = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtLista = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(700, 330));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 AoAbrir(evt);
@@ -72,9 +80,9 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap())
+                .addGap(276, 276, 276))
         );
 
         jLabel2.setText("Nome:");
@@ -92,27 +100,6 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
             }
         });
 
-        jbIncluir.setText("Incluir");
-        jbIncluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbIncluircallTelaIncluir(evt);
-            }
-        });
-
-        jbAlterar.setText("Alterar");
-        jbAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAlterarcallTelaIAlterar(evt);
-            }
-        });
-
-        jbExcluir.setText("Excluir");
-        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbExcluiraoExcluir(evt);
-            }
-        });
-
         jtLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -127,47 +114,82 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
         jtLista.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(jtLista);
 
+        jbIncluir.setText("Incluir");
+        jbIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbIncluircallTelaIncluir(evt);
+            }
+        });
+
+        jbAlterar.setText("Alterar");
+        jbAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aoAlterar(evt);
+            }
+        });
+
+        jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluiraoExcluir(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jbIncluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbAlterar)
+                .addGap(14, 14, 14)
+                .addComponent(jbExcluir))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(5, 5, 5)
+                    .addComponent(jLabel2)
+                    .addGap(26, 26, 26)
+                    .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(5, 5, 5)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbExcluir)
+                    .addComponent(jbAlterar)
+                    .addComponent(jbIncluir)))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)
+                        .addComponent(jLabel2))
+                    .addContainerGap(204, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(26, 26, 26)
-                        .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbIncluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbAlterar)
-                        .addGap(14, 14, 14)
-                        .addComponent(jbExcluir)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbExcluir)
-                    .addComponent(jbAlterar)
-                    .addComponent(jbIncluir))
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -179,7 +201,7 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
     }//GEN-LAST:event_jtfPesquisarActionPerformed
 
     private void AoPesquisar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AoPesquisar
-       preencheTabela(jtfPesquisar.getText());
+        preencheTabela(jtfPesquisar.getText());
     }//GEN-LAST:event_AoPesquisar
 
     private void jbIncluircallTelaIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIncluircallTelaIncluir
@@ -188,92 +210,107 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
         preencheTabela(null); //após inserir, ele preenche a tabela atualizando-a
     }//GEN-LAST:event_jbIncluircallTelaIncluir
 
-    private void jbAlterarcallTelaIAlterar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarcallTelaIAlterar
-         if(jtLista.getSelectedRowCount() == 1){
-           FrmCadEmpregado fcf = new FrmCadEmpregado(null, true); 
-//           if(.toString().equalsIgnoreCase("TRATADOR")){
-                fcf.preparaEditTratador(lista.get(jtLista.getSelectedRow()));
-                fcf.setVisible(true);
-                preencheTabela();
+    private void aoAlterar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoAlterar
+        if (jtLista.getSelectedRowCount() == 1) {
+            FrmCadEmpregado fcf = new FrmCadEmpregado(null, true);
+
+            if (lista.get(jtLista.getSelectedRow()).getFuncao().toString().equals("TRATADOR")) {
+                try {
+                    Tratador t = new TratadorDAO().buscarUm(lista.get(jtLista.getSelectedRow()).getId());
+                    fcf.preparaEditTratador(t);
+                    fcf.setVisible(true);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao buscar Tratador\n" + ex);
+                }
+            } else {
+                try {
+                    Veterinario v = new VeterinarioDAO().buscarUm(lista.get(jtLista.getSelectedRow()).getId());
+                    fcf.preparaEditVet(v);
+                    fcf.setVisible(true);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao buscar Veterinario\n" + ex);
+                }
+            }
+//            fcf.preparaEditTratador(Tratador t = lista.get(jtLista.getSelectedRow()));
+//            fcf.setVisible(true);
+//            preencheTabela();
 //           }else if(){
 //               fcf.preparaEditVet(lista.get(jtLista.getSelectedRow()));
 //                fcf.setVisible(true);
 //                preencheTabela();
 //           }
-           
-                           
-        }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas um empregado"); 
-        }        
-          
-    }//GEN-LAST:event_jbAlterarcallTelaIAlterar
+            preencheTabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione apenas um empregado");
+        }
+
+    }//GEN-LAST:event_aoAlterar
 
     private void preencheTabela() throws HeadlessException {
-            preencheTabela(null);
+        preencheTabela(null);
     }
+
     private void preencheTabela(String nome) throws HeadlessException {
         try {
-            if(nome == null){
+            if (nome == null) {
                 lista = new EmpregadoDAO().buscarTodos();
-                listaVet = new VeterinarioDAO().buscarTodosVet();
-            }else{
+                //listaVet = new VeterinarioDAO().buscarTodosVet();
+            } else {
                 lista = new EmpregadoDAO().buscarPeloNome(nome);
-                listaVet = new VeterinarioDAO().buscarVetPeloNome(nome);
-            }            
+                //listaVet = new VeterinarioDAO().buscarVetPeloNome(nome);
+            }
 
             DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
             int idx = dtm.getRowCount();
             for (int i = 0; i < idx; i++) {
                 dtm.removeRow(0);
             }
-            
-            for(Empregado funcionarios : lista){
+            for (Empregado e : lista) {
+                Object[] row = {e.getId(), e.getEndereco(), e.getNome(), e.getTelefone(), e.getFuncao().toString()};
+                dtm.addRow(row);
+            }
+            /*for(Empregado funcionarios : lista){
                 if(funcionarios.getFuncao().toString().equalsIgnoreCase("TRATADOR")){
                   Object[] row = {funcionarios.getId(),funcionarios.getEndereco(),funcionarios.getNome(), funcionarios.getTelefone(), funcionarios.getFuncao()};
                   
                   dtm.addRow(row);
                 }
             }
-            
             for(Veterinario veterinarios : listaVet){
                 Object[] row = {veterinarios.getId(),veterinarios.getEndereco(),veterinarios.getNome(), veterinarios.getTelefone(), veterinarios.getFuncao(),veterinarios.getNumeroCRMV(),veterinarios.getDataCRMV()};
                 dtm.addRow(row);
-            }
-            
+            }*/
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Não conseguiu buscar os funcionarios ...");
         }
     }
-    
+
     private void jbExcluiraoExcluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluiraoExcluir
-        if(jtLista.getSelectedRowCount() == 1){
+        if (jtLista.getSelectedRowCount() == 1) {
             String nomeEmpregado = (String) jtLista.getValueAt(jtLista.getSelectedRow(), 2);
-            if (JOptionPane.showConfirmDialog(this,"Deseja apagar o empregado "+nomeEmpregado+"?","Atenção",
-                JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
-                
-                int idEmpregado =  (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
-                Empregado e = new Empregado(idEmpregado, "", "", "",null);
+            if (JOptionPane.showConfirmDialog(this, "Deseja apagar o empregado " + nomeEmpregado + "?", "Atenção",
+                    JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION) {
+
+                int idEmpregado = (int) jtLista.getValueAt(jtLista.getSelectedRow(), 0);
+                Empregado e = new Empregado(idEmpregado, "", "", "", null);
                 try {
                     new EmpregadoDAO().apagar(e);
                     preencheTabela();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao apagar o funcionario "+ex); 
+                    JOptionPane.showMessageDialog(null, "Erro ao apagar o funcionario " + ex);
                 }
-            }            
-                
-        }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas um funcionario"); 
-        }      
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione apenas um funcionario");
+        }
     }//GEN-LAST:event_jbExcluiraoExcluir
 
     private void AoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrir
         preencheTabela(null);
     }//GEN-LAST:event_AoAbrir
 
-    
-    
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -324,6 +361,7 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbAlterar;
     private javax.swing.JButton jbExcluir;
@@ -331,7 +369,7 @@ public class FrmListaEmpregado extends javax.swing.JDialog {
     private javax.swing.JTable jtLista;
     private javax.swing.JTextField jtfPesquisar;
     // End of variables declaration//GEN-END:variables
-    
+
     //Variaveis criadas manualmente
     private List<Empregado> lista;
     private List<Veterinario> listaVet;

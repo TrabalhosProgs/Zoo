@@ -18,7 +18,7 @@ public class Empregado {
     private String endereco;
     private String telefone;
     private EnumFuncao funcao;
-    private Date data;    
+    //private Date data;    
 
     public Empregado() {
     }
@@ -70,13 +70,13 @@ public class Empregado {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
+    /*
     public Date getData() {
         return data;
     }
 
     public void setData(Date data) {
         this.data = data;
-    }
+    }*/
     
 }

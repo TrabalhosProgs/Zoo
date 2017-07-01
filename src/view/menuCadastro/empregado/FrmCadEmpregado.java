@@ -5,6 +5,7 @@
  */
 package view.menuCadastro.empregado;
 
+import java.awt.HeadlessException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -19,6 +20,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.Empregado;
+import model.Tratador;
 import model.Veterinario;
 import model.dao.impl.EmpregadoDAO;
 import model.dao.impl.VeterinarioDAO;
@@ -244,24 +246,35 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-        
+
     private void GravarVet() {
         java.util.Date dt = null;
         try {
             dt = sdf.parse(jTFDataRegistroCRMV.getText());
 
-            Veterinario e = new Veterinario(jTFRegistroCRMV.getText(), dt, 0, jTFNome.getText(), jTFEndereco.getText(), jTFTelefone.getText());
+            Veterinario e = new Veterinario(jTFRegistroCRMV.getText(), 
+                    dt, 
+                    0, 
+                    jTFNome.getText(), 
+                    jTFEndereco.getText(), 
+                    jTFTelefone.getText());
             try {
-                if (selecionado == null) {
+                if (selecionadoVet == null && selecionado == null) {
                     new VeterinarioDAO().inserirVet(e);
                     e.setId(new VeterinarioDAO().buscarMaiorID());
+                    setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
                 } else {
-                    e.setId(selecionado.getId());
+                    if (selecionadoVet != null) {
+                        e.setId(selecionadoVet.getId());
+                    } else {
+                        e.setId(selecionado.getId());
+                    }
                     new VeterinarioDAO().alterar(e);
+                    setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
                 }
-                setVisible(false);
-                JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
-            } catch (Exception ex) {
+            } catch (HeadlessException | ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao gravar Veterinario ..." + ex.getMessage());
             }
         } catch (ParseException ex) {
@@ -272,39 +285,51 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
     private void GravarTratador() {
         Empregado e = new Empregado(0, jTFNome.getText(), jTFEndereco.getText(), jTFTelefone.getText(), EnumFuncao.TRATADOR);
         try {
-            if (selecionado == null) {
+            if (selecionadoVet == null && selecionado == null) {
                 new EmpregadoDAO().inserir(e);
                 e.setId(new EmpregadoDAO().buscarMaiorID());
                 setVisible(false);
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
             } else {
-                e.setId(selecionado.getId());
+                if (selecionado != null) {
+                    e.setId(selecionado.getId());
+                } else {
+                    e.setId(selecionadoVet.getId());
+                }
                 new EmpregadoDAO().alterar(e);
                 setVisible(false);
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
             }
 
-        } catch (Exception ex) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao gravar Empregado ..." + ex.getMessage());
         }
     }
 
-
     private void aoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_aoAbrir
-        preencheCombo();
+        //preencheCombo();
         jPDadosVet.setVisible(false);
 
-        if (selecionado == null) {
+        if (selecionado == null && selecionadoVet == null) {
             jlMatricula.setVisible(false);
             jlMatriculaAuto.setVisible(false);
+            preencheComboFuncao();
         } else {
-            jlMatriculaAuto.setVisible(true);
-            jlMatricula.setVisible(true);
+            if (selecionadoVet == null) {
+                jlMatricula.setVisible(false);
+                jlMatriculaAuto.setVisible(false);
+                preencheComboFuncao(selecionado.getFuncao());
+            } else {
+                jlMatriculaAuto.setVisible(true);
+                jlMatricula.setVisible(true);
+                preencheComboFuncao(selecionadoVet.getFuncao());
+                jPDadosVet.setVisible(true);
+            }
         }
     }//GEN-LAST:event_aoAbrir
 
     private void Verificar(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Verificar
-        if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("Veterinario")) {
+        if (jComboBoxFuncao.getSelectedItem().toString().equals("VETERINARIO")) {
             jPDadosVet.setVisible(true);
         } else {
             jPDadosVet.setVisible(false);
@@ -313,9 +338,9 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
 
     private void aoGravar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoGravar
 
-        if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("VETERINARIO")) {
+        if (jComboBoxFuncao.getSelectedItem().toString().equals("VETERINARIO")) {
             GravarVet();
-        } else if (jComboBoxFuncao.getSelectedItem().toString().equalsIgnoreCase("TRATADOR")) {
+        } else if (jComboBoxFuncao.getSelectedItem().toString().equals("TRATADOR")) {
             GravarTratador();
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma função");
@@ -326,7 +351,7 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFRegistroCRMVActionPerformed
 
-    private void preencheCombo() {
+    /*private void preencheCombo() {
         preencheCombo("Selecione uma função...","Veterinario","Tratador");
     }
     
@@ -336,19 +361,40 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         dcm.addElement(a);
         dcm.addElement(b);
         dcm.addElement(c);
+    }*/
+    private void preencheComboFuncao() {
+        preencheComboFuncao(null);
     }
 
-    public void preparaEditTratador(Empregado e) {
-        selecionado = e;
+    private void preencheComboFuncao(EnumFuncao funcao) {
+        DefaultComboBoxModel<String> dcmp = (DefaultComboBoxModel<String>) jComboBoxFuncao.getModel();
 
-        jlMatriculaAuto.setText(e.getId() + "");
-        jTFNome.setText(e.getNome());
-        jTFEndereco.setText(e.getEndereco());
-        jTFTelefone.setText(e.getTelefone());
-        preencheCombo("Tratador","Veterinario","Selecione uma função...");
-        
+        dcmp.removeAllElements();
+        dcmp.addElement("Selecione ...");
+        dcmp.addElement("TRATADOR");
+        dcmp.addElement("VETERINARIO");
+
+        if (funcao != null) {
+            if (funcao.toString().equals("TRATADOR")) {
+                dcmp.setSelectedItem("TRATADOR");
+            }
+            if (funcao.toString().equals("VETERINARIO")) {
+                dcmp.setSelectedItem("VETERINARIO");
+            }
+        }
     }
-    
+
+    public void preparaEditTratador(Tratador t) {
+        selecionado = t;
+
+        jlMatriculaAuto.setText(t.getId() + "");
+        jTFNome.setText(t.getNome());
+        jTFEndereco.setText(t.getEndereco());
+        jTFTelefone.setText(t.getTelefone());
+        //preencheCombo("Tratador","Veterinario","Selecione uma função...");
+
+    }
+
     public void preparaEditVet(Veterinario e) {
         selecionadoVet = e;
         jPDadosVet.setVisible(true);
@@ -356,9 +402,9 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         jTFNome.setText(e.getNome());
         jTFEndereco.setText(e.getEndereco());
         jTFTelefone.setText(e.getTelefone());
-        preencheCombo("Veterinario","Tratador","Selecione uma função...");
+        //preencheCombo("VETERINARIO","TRATADOR","Selecione uma função...");
         jTFRegistroCRMV.setText(e.getNumeroCRMV());
-        jTFDataRegistroCRMV.setText(e.getDataCRMV().toString());
+        jTFDataRegistroCRMV.setText(sdf.format(e.getDataCRMV()));
     }
 
     /**
