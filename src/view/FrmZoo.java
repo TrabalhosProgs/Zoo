@@ -17,6 +17,7 @@ import view.menuCadastro.vacina.FrmListaVacina;
 import view.menuCadastro.empregado.FrmCadEmpregado; 
 import view.menuCadastro.animal.FrmCadAnimal;
 import view.menuCadastro.rotinaTratamento.FrmListaRotinaTratamento;
+import view.menuSobre.FrmSobre;
 /**
  *
  * @author william
@@ -57,7 +58,8 @@ public class FrmZoo extends javax.swing.JFrame {
         jmiBoletimSaude = new javax.swing.JMenuItem();
         jMenuGestaoVeterinario = new javax.swing.JMenu();
         jmiAgendaConsultas = new javax.swing.JMenuItem();
-        jMenuAjuda = new javax.swing.JMenu();
+        jMenuSobre = new javax.swing.JMenu();
+        jMenuItemSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Zoo");
@@ -183,8 +185,17 @@ public class FrmZoo extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuGestaoVeterinario);
 
-        jMenuAjuda.setText("Ajuda");
-        jMenuBar1.add(jMenuAjuda);
+        jMenuSobre.setText("Sobre");
+
+        jMenuItemSobre.setText("Sobre");
+        jMenuItemSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callTelaSobre(evt);
+            }
+        });
+        jMenuSobre.add(jMenuItemSobre);
+
+        jMenuBar1.add(jMenuSobre);
 
         setJMenuBar(jMenuBar1);
 
@@ -259,6 +270,11 @@ public class FrmZoo extends javax.swing.JFrame {
         aux.setVisible(true);
     }//GEN-LAST:event_callAbreTelaListaFuncionario
 
+    private void callTelaSobre(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callTelaSobre
+        FrmSobre s = new FrmSobre(this, true);
+        s.setVisible(true);
+    }//GEN-LAST:event_callTelaSobre
+
     /**
      * @param args the command line arguments
      */
@@ -297,12 +313,13 @@ public class FrmZoo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenuAjuda;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuBoletim;
     private javax.swing.JMenu jMenuCadastro;
     private javax.swing.JMenu jMenuGestaoVeterinario;
+    private javax.swing.JMenuItem jMenuItemSobre;
     private javax.swing.JMenu jMenuMedicamento;
+    private javax.swing.JMenu jMenuSobre;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem jmiAgendaConsultas;
     private javax.swing.JMenuItem jmiAnimal;
