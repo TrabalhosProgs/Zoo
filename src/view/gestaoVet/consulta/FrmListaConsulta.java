@@ -6,11 +6,14 @@
 package view.gestaoVet.consulta;
 
 import java.awt.HeadlessException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Consulta;
 import model.dao.impl.ConsultaDAO;
+import view.gestaoVet.consulta.registroclinico.FrmCadRegistroClinico;
 
 /**
  *
@@ -45,6 +48,7 @@ public class FrmListaConsulta extends javax.swing.JDialog {
         jBIncluir = new javax.swing.JButton();
         jBAlterar = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
+        jBRegistroClinico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -120,6 +124,13 @@ public class FrmListaConsulta extends javax.swing.JDialog {
             }
         });
 
+        jBRegistroClinico.setText("Elaborar Registro Clínico");
+        jBRegistroClinico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBRegistroClinicojbExcuir(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,11 +139,12 @@ public class FrmListaConsulta extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBRegistroClinico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBAlterar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -159,7 +171,8 @@ public class FrmListaConsulta extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBIncluir)
                     .addComponent(jBAlterar)
-                    .addComponent(jBExcluir))
+                    .addComponent(jBExcluir)
+                    .addComponent(jBRegistroClinico))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -204,6 +217,15 @@ public class FrmListaConsulta extends javax.swing.JDialog {
         preencheTabela(null);
     }//GEN-LAST:event_AoAbrir
 
+    private void jBRegistroClinicojbExcuir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRegistroClinicojbExcuir
+       if(jtLista.getSelectedRowCount() == 1){
+            FrmCadRegistroClinico fca = new FrmCadRegistroClinico(null, true);
+            fca.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione apenas uma consulta"); 
+        }  
+    }//GEN-LAST:event_jBRegistroClinicojbExcuir
+
     private void preencheTabela() throws HeadlessException {
             preencheTabela(null);
     }
@@ -222,6 +244,7 @@ public class FrmListaConsulta extends javax.swing.JDialog {
             }
             
             for(Consulta consultas : lista){
+                
                   Object[] row = {consultas.getId(), consultas.getDataHoraPrevista(),consultas.getDataHoraRealizacao()};
                   dtm.addRow(row);
                 }
@@ -279,6 +302,7 @@ public class FrmListaConsulta extends javax.swing.JDialog {
     private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBIncluir;
     private javax.swing.JButton jBPesquisar;
+    private javax.swing.JButton jBRegistroClinico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -287,5 +311,7 @@ public class FrmListaConsulta extends javax.swing.JDialog {
     private javax.swing.JTable jtLista;
     // End of variables declaration//GEN-END:variables
 
-      private List<Consulta> lista;    
+      private List<Consulta> lista;   
+      DateFormat dataHoraPrevista = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      DateFormat dataHoraRealizada = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 }

@@ -5,7 +5,10 @@
  */
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -15,8 +18,11 @@ public class Consulta {
     private int id;
     private Date dataHoraPrevista;
     private Date dataHoraRealizacao;
+//    private DateFormat dataHoraPrevista = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//    private DateFormat dataHoraRealizacao = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");    
     private Veterinario veterinario;
     private Animal animal;
+    
 
     public Consulta() {
     }
@@ -68,6 +74,4 @@ public class Consulta {
     public void setAnimal(Animal animal) {
         this.animal = animal;
     }
-    
-    
 }

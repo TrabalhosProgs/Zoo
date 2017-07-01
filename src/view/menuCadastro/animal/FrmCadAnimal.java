@@ -62,9 +62,8 @@ public class FrmCadAnimal extends javax.swing.JDialog {
         jTFPeso = new javax.swing.JTextField();
         jTFDataNasc = new javax.swing.JTextField();
         jlTelefone1 = new javax.swing.JLabel();
+        jlMatricula = new javax.swing.JLabel();
         jlMatriculaAuto = new javax.swing.JLabel();
-        jlNome1 = new javax.swing.JLabel();
-        jlNome2 = new javax.swing.JLabel();
         jTFEspecie = new javax.swing.JTextField();
         jlTelefone2 = new javax.swing.JLabel();
         jComboBoxTratador = new javax.swing.JComboBox<>();
@@ -137,7 +136,7 @@ public class FrmCadAnimal extends javax.swing.JDialog {
 
         jlTelefone1.setText("Data de Nascimento");
 
-        jlNome1.setText("Matrícula");
+        jlMatricula.setText("Matrícula");
 
         jlTelefone2.setText("Peso");
 
@@ -158,7 +157,7 @@ public class FrmCadAnimal extends javax.swing.JDialog {
                             .addComponent(jlEndereco)
                             .addComponent(jlNome)
                             .addComponent(jlTelefone1)
-                            .addComponent(jlNome1)
+                            .addComponent(jlMatricula)
                             .addComponent(jlTelefone2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +166,7 @@ public class FrmCadAnimal extends javax.swing.JDialog {
                                 .addComponent(jTFRegiaoOrigem)
                                 .addComponent(jTFPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTFDataNasc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlNome2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jlMatriculaAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -184,11 +183,6 @@ public class FrmCadAnimal extends javax.swing.JDialog {
                             .addComponent(jTFEspecie, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                             .addComponent(jComboBoxTratador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap(265, Short.MAX_VALUE)
-                    .addComponent(jlMatriculaAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(101, 101, 101)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,9 +190,9 @@ public class FrmCadAnimal extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlNome2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlNome1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlMatriculaAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlMatricula))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -230,11 +224,6 @@ public class FrmCadAnimal extends javax.swing.JDialog {
                 .addGap(95, 95, 95)
                 .addComponent(jButton1)
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(232, 232, 232)
-                    .addComponent(jlMatriculaAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(279, Short.MAX_VALUE)))
         );
 
         pack();
@@ -256,9 +245,33 @@ public class FrmCadAnimal extends javax.swing.JDialog {
         //Tratador tratadorResponsavel, ArrayList<Tratador> equipeTratadores, RotinaTratamento rotinaTrabamento/*, BoletimSaude boletimSaude*/)
     }//GEN-LAST:event_jButton1ActionPerformed
 
+        public void preparaEdit(Animal e) {
+        selecionado = e;
+        pesoAnimal = Double.valueOf(e.getPeso()).toString(); 
+
+        jlMatriculaAuto.setText(e.getId() + "");
+        jTFNome.setText(e.getNome());
+        jTFRegiaoOrigem.setText(e.getRegiaoOrigem());
+        jTFDataNasc.setText(e.getDataNasc().toString());
+        jTFEspecie.setText(e.getEspecie());
+        jTFPeso.setText(pesoAnimal);
+        
+    }  
+    
+    
+    
+    
     private void AoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrir
         preencheTabelaVet();
         preencheComboVetResponsavel();
+        
+        if (selecionado == null) {
+            jlMatricula.setVisible(false);
+            jlMatriculaAuto.setVisible(false);
+        } else {
+            jlMatriculaAuto.setVisible(true);
+            jlMatricula.setVisible(true);
+        }
     }//GEN-LAST:event_AoAbrir
 
     private void jTFRegiaoOrigemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFRegiaoOrigemActionPerformed
@@ -368,10 +381,9 @@ public class FrmCadAnimal extends javax.swing.JDialog {
     private javax.swing.JTable jTVet;
     private javax.swing.JLabel jlEndereco;
     private javax.swing.JLabel jlFuncao;
+    private javax.swing.JLabel jlMatricula;
     private javax.swing.JLabel jlMatriculaAuto;
     private javax.swing.JLabel jlNome;
-    private javax.swing.JLabel jlNome1;
-    private javax.swing.JLabel jlNome2;
     private javax.swing.JLabel jlTelefone;
     private javax.swing.JLabel jlTelefone1;
     private javax.swing.JLabel jlTelefone2;
@@ -380,4 +392,6 @@ public class FrmCadAnimal extends javax.swing.JDialog {
     private List<Veterinario> listaVet;
     private List<Tratador> listaTratadores;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private Animal selecionado = null;
+    String pesoAnimal;
 }

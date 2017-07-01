@@ -35,7 +35,7 @@
                           <Component id="jlEndereco" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jlNome" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jlTelefone1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlNome1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlMatricula" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jlTelefone2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="54" max="32767" attributes="0"/>
@@ -46,7 +46,7 @@
                               <Component id="jTFPeso" alignment="0" min="-2" pref="235" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jTFDataNasc" alignment="1" min="-2" pref="235" max="-2" attributes="0"/>
-                          <Component id="jlNome2" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
+                          <Component id="jlMatriculaAuto" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jScrollPane2" alignment="0" pref="0" max="32767" attributes="0"/>
@@ -72,13 +72,6 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="265" max="32767" attributes="0"/>
-                  <Component id="jlMatriculaAuto" min="-2" pref="39" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-              </Group>
-          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -87,9 +80,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jlNome2" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
-                  <Component id="jlNome1" alignment="3" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jlMatriculaAuto" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="jlMatricula" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -128,13 +121,6 @@
               <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="232" max="-2" attributes="0"/>
-                  <Component id="jlMatriculaAuto" min="-2" pref="19" max="-2" attributes="0"/>
-                  <EmptySpace pref="279" max="32767" attributes="0"/>
-              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -247,14 +233,12 @@
         <Property name="text" type="java.lang.String" value="Data de Nascimento"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jlMatriculaAuto">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jlNome1">
+    <Component class="javax.swing.JLabel" name="jlMatricula">
       <Properties>
         <Property name="text" type="java.lang.String" value="Matr&#xed;cula"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jlNome2">
+    <Component class="javax.swing.JLabel" name="jlMatriculaAuto">
     </Component>
     <Component class="javax.swing.JTextField" name="jTFEspecie">
     </Component>

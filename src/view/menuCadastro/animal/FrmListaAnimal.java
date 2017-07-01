@@ -217,7 +217,7 @@ public class FrmListaAnimal extends javax.swing.JDialog {
         if(jtLista.getSelectedRowCount() == 1){
            FrmCadAnimal fcf = new FrmCadAnimal(null, true);
            
-           //fcf.preparaEdit(lista.get(jtLista.getSelectedRow()));
+           fcf.preparaEdit(lista.get(jtLista.getSelectedRow()));
            fcf.setVisible(true);
            preencheTabela();
                            
