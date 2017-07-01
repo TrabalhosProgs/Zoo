@@ -38,8 +38,7 @@
           <Group type="102" attributes="0">
               <Component id="jPanelCabecalho1" min="-2" pref="34" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jPanelDados" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanelDados" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,45 +90,59 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Component id="jPDadosVet" alignment="1" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jlMatricula" min="-2" max="-2" attributes="0"/>
-                              <Component id="jlEndereco" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jlNome" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jlTelefone" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jlFuncao" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="120" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTFNome" alignment="0" pref="235" max="32767" attributes="0"/>
-                              <Component id="jTFEndereco" alignment="0" pref="235" max="32767" attributes="0"/>
-                              <Component id="jTFTelefone" alignment="0" pref="235" max="32767" attributes="0"/>
-                              <Component id="jlMatriculaAuto" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="jComboBoxFuncao" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jlEndereco" alignment="0" pref="147" max="32767" attributes="0"/>
+                                      <Component id="jlNome" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jlTelefone" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jlFuncao" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jlMatricula" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jlMatriculaAuto" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jTFNome" alignment="0" pref="235" max="32767" attributes="0"/>
+                                  <Component id="jTFEndereco" alignment="0" pref="235" max="32767" attributes="0"/>
+                                  <Component id="jTFTelefone" alignment="0" pref="235" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxFuncao" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
-              <Component id="jPDadosVet" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jlMatricula" pref="42" max="32767" attributes="0"/>
-                      <Component id="jlMatriculaAuto" min="-2" pref="19" max="-2" attributes="0"/>
+                      <Component id="jlMatricula" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlMatriculaAuto" min="-2" pref="11" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlNome" alignment="3" max="32767" attributes="0"/>
                       <Component id="jTFNome" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -153,7 +166,7 @@
                   <Component id="jPDadosVet" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
