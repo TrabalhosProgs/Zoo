@@ -117,6 +117,11 @@ public class FrmCadRegistroClinico extends javax.swing.JDialog {
                 jComboBoxAtendimentoVerificar(evt);
             }
         });
+        jComboBoxAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxAtendimentoActionPerformed(evt);
+            }
+        });
 
         jlVacinas.setText("Vacinas");
 
@@ -140,18 +145,18 @@ public class FrmCadRegistroClinico extends javax.swing.JDialog {
                             .addComponent(jlVeterinarioAuto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jlAnimalAuto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosLayout.createSequentialGroup()
-                        .addComponent(jlAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                        .addComponent(jComboBoxAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosLayout.createSequentialGroup()
                         .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlVacinas, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlObservacoes))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTFObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(jTFObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosLayout.createSequentialGroup()
+                        .addComponent(jlAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanelDadosLayout.setVerticalGroup(
@@ -242,9 +247,20 @@ public class FrmCadRegistroClinico extends javax.swing.JDialog {
 
     private void AoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrir
         preencheTabelaVacina();
-        //preencheComboAtendimento();
+        preencheComboAtendimento();
     }//GEN-LAST:event_AoAbrir
 
+    private void jComboBoxAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAtendimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxAtendimentoActionPerformed
+
+        private void preencheComboAtendimento() {
+        DefaultComboBoxModel<String> dcm = (DefaultComboBoxModel<String>) jComboBoxAtendimento.getModel();
+        dcm.removeAllElements();
+        dcm.addElement("Preventivo");
+        dcm.addElement("Emergência");
+    }
+    
     public void preencheTabelaVacina() throws HeadlessException {
         preencheTabelaVacina(null);
     }

@@ -345,7 +345,7 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         jTFNome.setText(e.getNome());
         jTFEndereco.setText(e.getEndereco());
         jTFTelefone.setText(e.getTelefone());
-        preencheCombo("Tratador","Veterinario",null);
+        preencheCombo("Tratador","Veterinario","Selecione uma função...");
         
     }
     
@@ -356,7 +356,7 @@ public class FrmCadEmpregado extends javax.swing.JDialog {
         jTFNome.setText(e.getNome());
         jTFEndereco.setText(e.getEndereco());
         jTFTelefone.setText(e.getTelefone());
-        preencheCombo("Veterinario","Tratador",null);
+        preencheCombo("Veterinario","Tratador","Selecione uma função...");
         jTFRegistroCRMV.setText(e.getNumeroCRMV());
         jTFDataRegistroCRMV.setText(e.getDataCRMV().toString());
     }
