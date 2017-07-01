@@ -245,7 +245,9 @@ public class FrmListaConsulta extends javax.swing.JDialog {
             
             for(Consulta consultas : lista){
                 
-                  Object[] row = {consultas.getId(), consultas.getDataHoraPrevista(),consultas.getDataHoraRealizacao()};
+                  Object[] row = {consultas.getId(),
+                      sdf.format(consultas.getDataHoraPrevista()),
+                      sdf.format(consultas.getDataHoraRealizacao())};
                   dtm.addRow(row);
                 }
                 
@@ -314,4 +316,5 @@ public class FrmListaConsulta extends javax.swing.JDialog {
       private List<Consulta> lista;   
       DateFormat dataHoraPrevista = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
       DateFormat dataHoraRealizada = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 }
