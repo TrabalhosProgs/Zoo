@@ -15,13 +15,14 @@ import java.util.Date;
 import java.util.List;
 import model.Medicacao;
 import model.Receita;
+import model.RotinaTratamento;
 import model.dao.IGenericDAO;
 
 /**
  *
  * @author william
  */
-public class ReceitaDAO implements IGenericDAO<Receita, Integer>{
+public class ReceitaDAO implements IGenericDAO<Receita, Integer> {
 
     @Override
     public void inserir(Receita obj) throws ClassNotFoundException, SQLException {
@@ -29,25 +30,25 @@ public class ReceitaDAO implements IGenericDAO<Receita, Integer>{
 
         String sql = "INSERT INTO empregado (data,observacao,idveterinario) "
                 + "VALUES (?,?,?);";
-        
+
         PreparedStatement pst = c.prepareStatement(sql);
-               
-        pst.setDate(1,new java.sql.Date(obj.getData().getTime()));
+
+        pst.setDate(1, new java.sql.Date(obj.getData().getTime()));
         pst.setString(2, obj.getObservacao());
         pst.setInt(3, obj.getVeterinario().getId());
-        
+
         pst.executeUpdate();
     }
 
     @Override
     public void apagar(Receita obj) throws ClassNotFoundException, SQLException {
-    Connection c = ConnectionFactory.getConnection();
-        
+        Connection c = ConnectionFactory.getConnection();
+
         String sql = "DELETE FROM receita WHERE idreceita = ?;";
-        
+
         PreparedStatement pst = c.prepareStatement(sql);
-        pst.setInt(1,obj.getId());
-        
+        pst.setInt(1, obj.getId());
+
         pst.executeUpdate();
     }
 
@@ -58,61 +59,102 @@ public class ReceitaDAO implements IGenericDAO<Receita, Integer>{
 
     @Override
     public Receita buscarUm(Integer id) throws ClassNotFoundException, SQLException {
-         Connection c = ConnectionFactory.getConnection();
-        
+        Connection c = ConnectionFactory.getConnection();
+
         String sql = "SELECT * FROM receita WHERE idreceita = ?;";
-        
+
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1, id);
-        
-        ResultSet rs = pst.executeQuery();  
+
+        ResultSet rs = pst.executeQuery();
         Receita r = null;
-        if(rs.next()){
-            r = new Receita(rs.getInt("idreceita"), 
-                    (Date) rs.getDate("data"), 
-                    rs.getString("observacao"), 
-                    (ArrayList<Medicacao>) new MedicacaoDAO().buscarTudoPorReceita(rs.getInt("idreceita")), 
+        if (rs.next()) {
+            r = new Receita(rs.getInt("idreceita"),
+                    (Date) rs.getDate("data"),
+                    rs.getString("observacao"),
+                    (ArrayList<Medicacao>) new MedicacaoDAO().buscarTudoPorReceita(rs.getInt("idreceita")),
                     new VeterinarioDAO().buscarUm(rs.getInt("idveterinario")));
-        }   
-        
+        }
+
         return r;
     }
 
     @Override
     public List<Receita> buscarTodos() throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection c = ConnectionFactory.getConnection();
+
+        String sql = "SELECT * FROM receita;";
+
+        PreparedStatement pst = c.prepareStatement(sql);
+
+        ResultSet rs = pst.executeQuery();
+
+        List<Receita> receitas = new ArrayList<>();
+
+        while (rs.next()) {
+            Receita r = new Receita(rs.getInt("idreceita"),
+                    (Date) rs.getDate("data"),
+                    rs.getString("observacao"),
+                    (ArrayList<Medicacao>) new MedicacaoDAO().buscarTudoPorReceita(rs.getInt("idreceita")),
+                    new VeterinarioDAO().buscarUm(rs.getInt("idveterinario")));
+            receitas.add(r);
+        }
+        return receitas;
     }
 
     @Override
     public long quantidade() throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
-        
+
         String sql = "SELECT count(*) FROM receita;";
-        
+
         PreparedStatement pst = c.prepareStatement(sql);
-        
-        ResultSet rs = pst.executeQuery(); 
-        
+
+        ResultSet rs = pst.executeQuery();
+
         rs.next();
-        
+
         return rs.getLong(1);
     }
-    
-        public int buscarMaiorID() throws ClassNotFoundException, SQLException {
+
+    public int buscarMaiorID() throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
-        
+
         String sql = "SELECT max(idreceita) FROM receita;";
-        
+
         PreparedStatement pst = c.prepareStatement(sql);
-        
-        ResultSet rs = pst.executeQuery(); 
-        
-        if(rs.next()){
+
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
             return rs.getInt(1);
-        }else{
+        } else {
             return 0;
-        }  
+        }
     }
-    
-    
+
+    public List<Receita> buscarPelaData(Date data) throws ClassNotFoundException, SQLException {
+        Connection c = ConnectionFactory.getConnection();
+
+        String sql = "SELECT * FROM receita WHERE data = ?;";
+
+        PreparedStatement pst = c.prepareStatement(sql);
+        pst.setDate(1, (java.sql.Date) data);
+
+        ResultSet rs = pst.executeQuery();
+
+        List<Receita> receitas = new ArrayList<>();
+
+        while (rs.next()) {
+            Receita r = new Receita(rs.getInt("idreceita"),
+                    (Date) rs.getDate("data"),
+                    rs.getString("observacao"),
+                    (ArrayList<Medicacao>) new MedicacaoDAO().buscarTudoPorReceita(rs.getInt("idreceita")),
+                    new VeterinarioDAO().buscarUm(rs.getInt("idveterinario")));
+            receitas.add(r);
+        }
+
+        return receitas;
+    }
+
 }

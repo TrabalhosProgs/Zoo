@@ -29,11 +29,12 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
     public void inserir(RotinaTratamento obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "INSERT INTO rotinatratamento (dataValidade) VALUES (?);";
+        String sql = "INSERT INTO rotinatratamento (dataValidade, idreceita) VALUES (?,?);";
         
         PreparedStatement pst = c.prepareStatement(sql);
         
         pst.setDate(1, new java.sql.Date(obj.getDataValidade().getTime()));
+        pst.setInt(2, obj.getReceita().getId());
         pst.executeUpdate();
     }
 
@@ -97,9 +98,10 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
         List<RotinaTratamento> rotinasTratamento = new ArrayList<>();
         
         while(rs.next()){
+            
             RotinaTratamento  rt = new RotinaTratamento(rs.getInt("idrotinatratamento"), 
                     (Date)rs.getDate("dataValidade"),
-                    new  Receita(rs.getInt("idreceita"),null, "", null, null),
+                    new ReceitaDAO().buscarUm(rs.getInt("idreceita")),
                     null);
             rotinasTratamento.add(rt);
         }   
@@ -137,7 +139,7 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
         while(rs.next()){
             RotinaTratamento  rt = new RotinaTratamento(rs.getInt("idrotinatratamento"), 
                     (Date)rs.getDate("dataValidade"),
-                    new  Receita(rs.getInt("idreceita"),null, "",  null, null),
+                    new ReceitaDAO().buscarUm(rs.getInt("idreceita")),
                     null);
             rotinasTratamento.add(rt);
         }   

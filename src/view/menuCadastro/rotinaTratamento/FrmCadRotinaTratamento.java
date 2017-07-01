@@ -63,8 +63,8 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListaTarefa = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
+        jLabelReceita = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jtfReceita = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtListaMedicamentos = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
@@ -163,6 +163,8 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Receita Vinculada"));
 
+        jLabelReceita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
         jLabel1.setText("Receita");
 
         jtListaMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
@@ -188,27 +190,27 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jtfReceita, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelReceita, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
-                .addContainerGap(59, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jtfReceita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jButton3)
+                    .addComponent(jLabelReceita, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jbGravar.setText("Gravar");
@@ -231,6 +233,9 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jbGravar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabelCodigo)
                                 .addGap(18, 18, 18)
@@ -239,16 +244,12 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
                                 .addComponent(jftfData, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jbGravar)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel2)
                     .addComponent(jftfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,7 +275,7 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelCabecalho, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -282,53 +283,52 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-        
+
         Date dt = null;
         try {
             dt = sdf.parse(jftfData.getText());
             try {
-                if(selecionado == null){
+                if (selecionado == null) {
                     incluirSelecionado.setDataValidade(dt);
                     new RotinaTratamentoDAO().inserir(incluirSelecionado);
                     incluirSelecionado.setId(new RotinaTratamentoDAO().buscarMaiorID());
                     gravaTarefas(incluirSelecionado);
-                }else{
+                } else {
                     selecionado.setDataValidade(dt);
                     new RotinaTratamentoDAO().alterar(selecionado);
                 }
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
-                setVisible(false);    
+                setVisible(false);
             } catch (HeadlessException | ClassNotFoundException | SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao gravar Rotina Tratamento ..."+ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro ao gravar Rotina Tratamento ..." + ex.getMessage());
             }
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Digite uma data em formato válido (dd/MM/aaaa)!");
         }
-        
-        
+
+
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void aoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_aoAbrir
-         if(selecionado == null){
+        if (selecionado == null) {
             jLabelCodigo.setVisible(false);
             jLabelCodigoTexto.setVisible(false);
-         }else{
+        } else {
             jLabelCodigo.setVisible(true);
             jLabelCodigoTexto.setVisible(true);
             preencheTabelaTarefa(selecionado.getId());
             preencheTabelaMedicacoes(selecionado.getReceita().getId());
-         }
+        }
     }//GEN-LAST:event_aoAbrir
 
     private void inserirTarefa(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirTarefa
         FrmRotinaTarefa frt = new FrmRotinaTarefa(null, true);
-        
-        if(selecionado == null){
+
+        if (selecionado == null) {
             frt.vincularTarefaRotinaInclusao(incluirSelecionado);
             frt.setVisible(true);
             preencheTabelaTarefa(incluirSelecionado);
-        }
-        else{
+        } else {
             frt.vincularTarefaRotina(selecionado);
             frt.setVisible(true);
             preencheTabelaTarefa(selecionado.getId());
@@ -336,35 +336,42 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
     }//GEN-LAST:event_inserirTarefa
 
     private void excluirTarefa(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirTarefa
-        if(jtListaTarefa.getSelectedRowCount() == 1){
+        if (jtListaTarefa.getSelectedRowCount() == 1) {
             String nomeTarefa = (String) jtListaTarefa.getValueAt(jtListaTarefa.getSelectedRow(), 1);
-            if (JOptionPane.showConfirmDialog(this,"Deseja retirar a tarefa "+nomeTarefa+"?","Atenção",
-                JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION){
-                
-                int idTarefa =  (int) jtListaTarefa.getValueAt(jtListaTarefa.getSelectedRow(), 0);
-                
-                if(selecionado == null){
+            if (JOptionPane.showConfirmDialog(this, "Deseja retirar a tarefa " + nomeTarefa + "?", "Atenção",
+                    JOptionPane.YES_NO_OPTION + JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION) {
+
+                int idTarefa = (int) jtListaTarefa.getValueAt(jtListaTarefa.getSelectedRow(), 0);
+
+                if (selecionado == null) {
                     incluirSelecionado.removeTarefa(jtListaTarefa.getSelectedRow());
                     preencheTabelaTarefa(incluirSelecionado);
-                }
-                else{
+                } else {
                     try {
                         new RotinaTratamentoDAO().excluirTarefa(selecionado.getId(), idTarefa);
                         preencheTabelaTarefa(selecionado.getId());
                     } catch (HeadlessException | ClassNotFoundException | SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro ao desvincular a tarefa "+ex); 
+                        JOptionPane.showMessageDialog(null, "Erro ao desvincular a tarefa " + ex);
                     }
                 }
-            }            
-                
-        }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas uma tarefa"); 
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione apenas uma tarefa");
         }
     }//GEN-LAST:event_excluirTarefa
 
     private void aoSelecionarReceita(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoSelecionarReceita
         FrmRotinaReceita frr = new FrmRotinaReceita(null, true);
-        frr.setVisible(true);
+        if (selecionado == null) {
+            frr.vincularReceitaRotinaInclusao(incluirSelecionado);
+            frr.setVisible(true);
+            preencheTabelaMedicacoes(incluirSelecionado);
+        } else {
+            frr.vincularReceitaRotina(selecionado);
+            frr.setVisible(true);
+            preencheTabelaMedicacoes(selecionado.getReceita().getId());
+        }
     }//GEN-LAST:event_aoSelecionarReceita
 
     /**
@@ -415,28 +422,28 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
             }
         });
     }
-    
+
     private void preencheTabelaTarefa(int id) throws HeadlessException {
-        try{
+        try {
             listaTarefa = new TarefaDAO().buscarPorRotina(id);
-            
+
             DefaultTableModel dtm = (DefaultTableModel) jtListaTarefa.getModel();
             int idx = dtm.getRowCount();
             for (int i = 0; i < idx; i++) {
                 dtm.removeRow(0);
             }
-            
-            for(Tarefa tarefa : listaTarefa){
-                Object[] row = {tarefa.getId(),tarefa.getDescricao()};
+
+            for (Tarefa tarefa : listaTarefa) {
+                Object[] row = {tarefa.getId(), tarefa.getDescricao()};
                 dtm.addRow(row);
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as Tarefas cadastradas para a Rotina de Tratamento ..."+ ex);
+            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as Tarefas cadastradas para a Rotina de Tratamento ..." + ex);
         }
     }
-    
+
     private void preencheTabelaTarefa(RotinaTratamento rt) throws HeadlessException {
-        
+
         listaTarefa = rt.getTarefas();
 
         DefaultTableModel dtm = (DefaultTableModel) jtListaTarefa.getModel();
@@ -445,68 +452,82 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
             dtm.removeRow(0);
         }
 
-        for(Tarefa tarefa : listaTarefa){
-            Object[] row = {tarefa.getId(),tarefa.getDescricao()};
+        for (Tarefa tarefa : listaTarefa) {
+            Object[] row = {tarefa.getId(), tarefa.getDescricao()};
             dtm.addRow(row);
         }
     }
-    
+
     private void preencheTabelaMedicacoes(int id) {
-        try{
-            listaMedicacoes = new MedicacaoDAO().buscarTudoPorReceita(id);
-            
-            DefaultTableModel dtm = (DefaultTableModel) jtListaMedicamentos.getModel();
-            int idx = dtm.getRowCount();
-            for (int i = 0; i < idx; i++) {
-                dtm.removeRow(0);
-            }
-            
-            for(Medicacao m : listaMedicacoes){
-                //medicamento, dose, frequencia
-                Object[] row = {m.getMedicamento().getNome(),m.getDose(),m.getFrequencia().getDescricao()};
-                dtm.addRow(row);
-            }
-            jtfReceita.setText(selecionado.getReceita().getId()+"");
-        } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as Medicamentos..."+ ex);
+        listaMedicacoes = selecionado.getReceita().getMedicacoes();
+        DefaultTableModel dtm = (DefaultTableModel) jtListaMedicamentos.getModel();
+        int idx = dtm.getRowCount();
+        for (int i = 0; i < idx; i++) {
+            dtm.removeRow(0);
         }
+
+        for (Medicacao m : listaMedicacoes) {
+            //medicamento, dose, frequencia
+            Object[] row = {m.getMedicamento().getNome(), m.getDose(), m.getFrequencia().getDescricao()};
+            dtm.addRow(row);
+        }
+        jLabelReceita.setText(selecionado.getReceita().getId() + "");
     }
-    
+
+    private void preencheTabelaMedicacoes(RotinaTratamento rt) {
+
+        listaMedicacoes = rt.getReceita().getMedicacoes();
+
+        DefaultTableModel dtm = (DefaultTableModel) jtListaMedicamentos.getModel();
+        int idx = dtm.getRowCount();
+        for (int i = 0; i < idx; i++) {
+            dtm.removeRow(0);
+        }
+
+        for (Medicacao m : listaMedicacoes) {
+            //medicamento, dose, frequencia
+            Object[] row = {m.getMedicamento().getNome(), m.getDose(), m.getFrequencia().getDescricao()};
+            dtm.addRow(row);
+        }
+        jLabelReceita.setText(incluirSelecionado.getReceita().getId() + "");
+
+    }
+
     public void preparaEdit(RotinaTratamento rotinaTratamento) {
         selecionado = rotinaTratamento;
-        
+
         jftfData.setText(sdf.format(rotinaTratamento.getDataValidade()));
-        jLabelCodigoTexto.setText(rotinaTratamento.getId()+"");
+        jLabelCodigoTexto.setText(rotinaTratamento.getId() + "");
     }
-    
+
     public void preparaInclusao(RotinaTratamento rotinaTratamento) {
         incluirSelecionado = rotinaTratamento;
         try {
             incluirSelecionado.setId(new RotinaTratamentoDAO().buscarMaiorID() + 1);
         } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao buscar maior id..."+ ex);
-        } 
-        
-        jLabelCodigoTexto.setText(incluirSelecionado.getId()+"");
+            JOptionPane.showMessageDialog(null, "Erro ao buscar maior id..." + ex);
+        }
+
+        jLabelCodigoTexto.setText(incluirSelecionado.getId() + "");
     }
-    
+
     private void gravaTarefas(RotinaTratamento incluirSelecionado) {
-        for(Tarefa t : incluirSelecionado.getTarefas()){
+        for (Tarefa t : incluirSelecionado.getTarefas()) {
             try {
                 new RotinaTratamentoDAO().inserirTarefa(incluirSelecionado.getId(), t.getId());
             } catch (ClassNotFoundException | SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possivel gravar tarefas..."+ ex);
-            } 
-        }    
+                JOptionPane.showMessageDialog(null, "Não foi possivel gravar tarefas..." + ex);
+            }
+        }
     }
-    
+
     //Variaveis criadas manualmente
     private RotinaTratamento selecionado = null;
     private RotinaTratamento incluirSelecionado = null;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private List<Tarefa> listaTarefa;
     private List<Medicacao> listaMedicacoes;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -515,6 +536,7 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JLabel jLabelCodigoTexto;
+    private javax.swing.JLabel jLabelReceita;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -525,11 +547,7 @@ public class FrmCadRotinaTratamento extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField jftfData;
     private javax.swing.JTable jtListaMedicamentos;
     private javax.swing.JTable jtListaTarefa;
-    private javax.swing.JTextField jtfReceita;
     private javax.swing.JLabel ljTituloCabecalho;
     // End of variables declaration//GEN-END:variables
 
-    
-
-    
 }

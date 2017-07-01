@@ -8,6 +8,9 @@ package view.menuCadastro.rotinaTratamento.receita;
 import view.menuCadastro.rotinaTratamento.rotinaTarefa.*;
 import java.awt.HeadlessException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +22,7 @@ import model.Tarefa;
 import model.dao.impl.ReceitaDAO;
 import model.dao.impl.RotinaTratamentoDAO;
 import model.dao.impl.TarefaDAO;
+import view.menuCadastro.rotinaTratamento.receita.medicacoes.FrmVisualizaMedicacoes;
 
 
 
@@ -50,10 +54,11 @@ public class FrmRotinaReceita extends javax.swing.JDialog {
         jPanelPesquisa = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtLista = new javax.swing.JTable();
-        jLabelNomePesquisa = new javax.swing.JLabel();
+        jLabelDataPesquisa = new javax.swing.JLabel();
         jtfPesquisar = new javax.swing.JTextField();
         jbPesquisar = new javax.swing.JButton();
         jbAlterar = new javax.swing.JButton();
+        jbVisualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Vinculação de Tarefas à Rotina");
@@ -89,17 +94,17 @@ public class FrmRotinaReceita extends javax.swing.JDialog {
 
         jtLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Código", "Descricão"
+                "Código", "Emissão", "Veterinário"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -111,7 +116,7 @@ public class FrmRotinaReceita extends javax.swing.JDialog {
             jtLista.getColumnModel().getColumn(0).setPreferredWidth(5);
         }
 
-        jLabelNomePesquisa.setText("Nome:");
+        jLabelDataPesquisa.setText("Data");
 
         jbPesquisar.setText("Pesquisar");
         jbPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +132,13 @@ public class FrmRotinaReceita extends javax.swing.JDialog {
             }
         });
 
+        jbVisualizar.setText("Visualizar");
+        jbVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aoVisualizar(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelPesquisaLayout = new javax.swing.GroupLayout(jPanelPesquisa);
         jPanelPesquisa.setLayout(jPanelPesquisaLayout);
         jPanelPesquisaLayout.setHorizontalGroup(
@@ -134,14 +146,16 @@ public class FrmRotinaReceita extends javax.swing.JDialog {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(jPanelPesquisaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelNomePesquisa)
+                .addComponent(jLabelDataPesquisa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jtfPesquisar)
-                .addGap(18, 18, 18)
+                .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbPesquisar)
-                .addGap(21, 21, 21))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPesquisaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbVisualizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbAlterar)
                 .addContainerGap())
         );
@@ -150,13 +164,15 @@ public class FrmRotinaReceita extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPesquisaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNomePesquisa)
+                    .addComponent(jLabelDataPesquisa)
                     .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbPesquisar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbAlterar)
+                .addGroup(jPanelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbAlterar)
+                    .addComponent(jbVisualizar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -183,39 +199,69 @@ public class FrmRotinaReceita extends javax.swing.JDialog {
         if(jtLista.getSelectedRowCount() == 1){                 
             if(selecionado != null){
                 try {
-                    new RotinaTratamentoDAO().inserirTarefa(selecionado.getId(),lista.get(jtLista.getSelectedRow()).getId());
+                    selecionado.setReceita(lista.get(jtLista.getSelectedRow()));
+                    new RotinaTratamentoDAO().alterar(selecionado);
                     JOptionPane.showMessageDialog(null,"Salvo com sucesso!");
                     setVisible(false);
                 } catch (ClassNotFoundException | SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Não foi possivel vincular a Tarefa"+ ex);
+                    JOptionPane.showMessageDialog(null, "Não foi possivel vincular a Receita"+ ex);
                 } 
             }else{
-               //selecionadoInclusao.addTarefa(lista.get(jtLista.getSelectedRow()));
+                selecionadoInclusao.setReceita(lista.get(jtLista.getSelectedRow()));
                 JOptionPane.showMessageDialog(null,"Salvo com sucesso!");
                 setVisible(false);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Selecione apenas uma Tarefa"); 
+            JOptionPane.showMessageDialog(null, "Selecione apenas uma Receita "); 
         }
         
     }//GEN-LAST:event_aoSeleciona
 
     private void aoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_aoAbrir
         preencheTabela(null);
+        
     }//GEN-LAST:event_aoAbrir
 
     private void aoPesquisar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoPesquisar
-         //preencheTabela(jtfPesquisar.getText());
+        if(jtfPesquisar.getText() == null || "".equals(jtfPesquisar.getText())){
+            preencheTabela();
+        }else{
+            try {
+                Date data = sdf.parse(jtfPesquisar.getText());
+                preencheTabela(jtfPesquisar.getText());
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(null, "Favor digitar a data no formato válido! (dd/mm/aaaa)");
+                preencheTabela();
+            }
+        }
     }//GEN-LAST:event_aoPesquisar
+
+    private void aoVisualizar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoVisualizar
+        FrmVisualizaMedicacoes fvm = new FrmVisualizaMedicacoes(null, true);
+        fvm.preparaVisualizacao(lista.get(jtLista.getSelectedRow()));
+        fvm.setVisible(true);
+        
+        preencheTabela();
+    }//GEN-LAST:event_aoVisualizar
 
     private void preencheTabela() throws HeadlessException {
             preencheTabela(null);
     }
     
-    private void preencheTabela(RotinaTratamento rt) throws HeadlessException {
+    private void preencheTabela(String data) throws HeadlessException {
         try {
-            lista = new ReceitaDAO().buscarTodos();
-            
+            if(data == "" || data == null){
+                lista = new ReceitaDAO().buscarTodos();
+            }else{
+                Date dt = null;
+                try {
+                    dt = sdf.parse(data);
+                    
+                } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(null, "Data em formato inválido\n"+ex);
+                }
+                lista = new ReceitaDAO().buscarPelaData(new java.sql.Date(dt.getTime()));
+            }
             DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
             int idx = dtm.getRowCount();
             for (int i = 0; i < idx; i++) {
@@ -223,15 +269,11 @@ public class FrmRotinaReceita extends javax.swing.JDialog {
             }
             
             for(Receita receita : lista){
-                Object[] row = {receita.getId(),receita.getData()};
+                Object[] row = {receita.getId(),sdf.format(receita.getData()),receita.getVeterinario().getNome()};
                 dtm.addRow(row);
             }
-            
-            if(rt != null){
-                //jtLista.setSelectionMode(lista.);
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as receitas...");
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as Receitas ..."+ ex);
         }
     }
     /**
@@ -295,14 +337,16 @@ public class FrmRotinaReceita extends javax.swing.JDialog {
     private List<Receita> lista;
     private RotinaTratamento selecionado;
     private RotinaTratamento selecionadoInclusao;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabelNomePesquisa;
+    private javax.swing.JLabel jLabelDataPesquisa;
     private javax.swing.JPanel jPanelCabecalho;
     private javax.swing.JPanel jPanelPesquisa;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbAlterar;
     private javax.swing.JButton jbPesquisar;
+    private javax.swing.JButton jbVisualizar;
     private javax.swing.JTable jtLista;
     private javax.swing.JTextField jtfPesquisar;
     private javax.swing.JLabel ljTituloCabecalho;
