@@ -385,8 +385,7 @@ public class FrmCadAnimal extends javax.swing.JDialog {
                         incluirSelecionado.setEspecie(jTFEspecie.getText());
                         incluirSelecionado.setTratadorResponsavel(listaTratadores.get(jComboBoxTratador.getSelectedIndex() - 1));
                         new AnimalDAO().inserir(incluirSelecionado);
-                        incluirSelecionado.setId(new AnimalDAO().buscarMaiorID());
-                        gravaEquipe(incluirSelecionado);
+                        //gravaEquipe(incluirSelecionado);
                     } else {
                         JOptionPane.showMessageDialog(null, "Selecione uma Rotina de Tratamento ...");
                     }
@@ -436,6 +435,7 @@ public class FrmCadAnimal extends javax.swing.JDialog {
             far.vincularRotinaAnimalInclusao(incluirSelecionado);
             far.setVisible(true);
             preencheTabelaTarefa(incluirSelecionado.getRotinaTratamento());
+            jLabelCodigoRotina.setText(incluirSelecionado.getRotinaTratamento().getId()+"");
         } else {
             far.vincularRotinaAnimal(selecionado);
             far.setVisible(true);
