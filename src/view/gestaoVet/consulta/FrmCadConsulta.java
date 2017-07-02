@@ -215,12 +215,12 @@ public class FrmCadConsulta extends javax.swing.JDialog {
         try {
             dtPrevista = sdf.parse(jTConsultaPrevista.getText());
             dtRealizada = sdf.parse(jTConsultaRealizada.getText());
-            
-                    selecionado.setDataHoraPrevista(dtPrevista);
-                    selecionado.setDataHoraRealizacao(dtRealizada); 
-                    selecionado.setAnimal(listaAnimais.get(jComboBoxAnimal.getSelectedIndex()));
-                    selecionado.setVeterinario(lista.get(jComboBoxVeterinario.getSelectedIndex()));
-            
+
+            selecionado.setDataHoraPrevista(dtPrevista);
+            selecionado.setDataHoraRealizacao(dtRealizada);
+            selecionado.setAnimal(listaAnimais.get(jComboBoxAnimal.getSelectedIndex()));
+            selecionado.setVeterinario(lista.get(jComboBoxVeterinario.getSelectedIndex())); 
+
             try {
                 if (selecionado == null) {
                     new ConsultaDAO().inserir(selecionado);
@@ -228,7 +228,7 @@ public class FrmCadConsulta extends javax.swing.JDialog {
                     setVisible(false);
                     JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
                 } else {
-                    selecionado.setId(selecionado.getId());                    
+                    selecionado.setId(selecionado.getId());
                     setVisible(false);
                     JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
                 }
@@ -245,18 +245,16 @@ public class FrmCadConsulta extends javax.swing.JDialog {
         preencheAnimal();
     }//GEN-LAST:event_AoAbrir
 
-
-    
     public void preencheAnimal() throws HeadlessException {
         preencheAnimal(null);
     }
-    
+
     public void preparaEdit(Consulta t) {
         selecionado = t;
 
         jLCodigo.setText("Código");
         jLCodigoAuto.setText(t.getId() + "");
-        
+
     }
 
     private void preencheAnimal(Animal v) {
@@ -277,9 +275,9 @@ public class FrmCadConsulta extends javax.swing.JDialog {
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de animais" + ex);
         }
-        
+
     }
-    
+
     public void preencheComboVet() throws HeadlessException {
         preencheComboVet(null);
     }
@@ -302,11 +300,9 @@ public class FrmCadConsulta extends javax.swing.JDialog {
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de veterinarios" + ex);
         }
-        
+
     }
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */

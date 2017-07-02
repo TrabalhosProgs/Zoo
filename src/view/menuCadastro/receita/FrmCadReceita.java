@@ -208,18 +208,18 @@ public class FrmCadReceita extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                java.util.Date dt = null;
+        java.util.Date dt = null;
         try {
             dt = sdf.parse(jTData.getText());
-
+ 
             Receita e = new Receita(
-                    0, 
-                    dt, 
+                    0,
+                    dt,
                     jTObservacao.getText(),
                     null,//Falta implementação
                     null);//Falta implementação
-                            setVisible(false);
-                JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
+            setVisible(false);
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Digite uma data em formato válido (dd/MM/aaaa)!");
         }
@@ -235,7 +235,7 @@ public class FrmCadReceita extends javax.swing.JDialog {
 
     private void AoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrir
         preencheComboVet();
-         preencheTabela();
+        preencheTabela();
     }//GEN-LAST:event_AoAbrir
 
     private void jTObservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTObservacaoActionPerformed
@@ -244,31 +244,28 @@ public class FrmCadReceita extends javax.swing.JDialog {
 
     public void preencheTabela() throws HeadlessException {
         try {
-            
-                listaM = new MedicamentoDAO().buscarTodos();
-                     
+
+            listaM = new MedicamentoDAO().buscarTodos();
 
             DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
             int idx = dtm.getRowCount();
             for (int i = 0; i < idx; i++) {
                 dtm.removeRow(0);
             }
-            
-            for(Medicamento med : listaM){
-                  //Animal animal = new Animal (AnimalDAO().buscar);
-                
-                  Object[] row = {med.getId(),med.getNome() 
-                  };
-                  dtm.addRow(row);
-                }
-                
-            }catch (Exception ex) {
+
+            for (Medicamento med : listaM) {
+                //Animal animal = new Animal (AnimalDAO().buscar);
+
+                Object[] row = {med.getId(), med.getNome()
+                };
+                dtm.addRow(row);
+            }
+
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Não conseguiu buscar as consultas ...");
         }
     }
-        
-    
-    
+
     public void preencheComboVet() throws HeadlessException {
         preencheComboVet(null);
     }
@@ -292,7 +289,7 @@ public class FrmCadReceita extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de veterinarios" + ex);
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -352,7 +349,7 @@ public class FrmCadReceita extends javax.swing.JDialog {
     private javax.swing.JLabel ljTituloCabecalho1;
     // End of variables declaration//GEN-END:variables
 
-     private List<Medicamento> listaM;
+    private List<Medicamento> listaM;
     private List<Veterinario> lista;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 }
