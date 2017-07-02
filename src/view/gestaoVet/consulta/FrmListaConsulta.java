@@ -6,11 +6,15 @@
 package view.gestaoVet.consulta;
 
 import java.awt.HeadlessException;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Animal;
 import model.Consulta;
 import model.dao.impl.ConsultaDAO;
 import view.gestaoVet.consulta.registroclinico.FrmCadRegistroClinico;
@@ -116,6 +120,11 @@ public class FrmListaConsulta extends javax.swing.JDialog {
         });
 
         jBAlterar.setText("Alterar");
+        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarActionPerformed(evt);
+            }
+        });
 
         jBExcluir.setText("Excluir");
         jBExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +198,8 @@ public class FrmListaConsulta extends javax.swing.JDialog {
     }//GEN-LAST:event_jBPesquisarActionPerformed
 
     private void jBIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIncluirActionPerformed
-        // TODO add your handling code here:
+        FrmCadConsulta fcf = new FrmCadConsulta(null, true);
+        fcf.setVisible(true);
     }//GEN-LAST:event_jBIncluirActionPerformed
 
     private void jbExcuir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcuir
@@ -218,13 +228,36 @@ public class FrmListaConsulta extends javax.swing.JDialog {
     }//GEN-LAST:event_AoAbrir
 
     private void jBRegistroClinicojbExcuir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRegistroClinicojbExcuir
-       if(jtLista.getSelectedRowCount() == 1){
+        
+
+        
+        if(jtLista.getSelectedRowCount() == 1){
             FrmCadRegistroClinico fca = new FrmCadRegistroClinico(null, true);
+            Consulta t;
+            try {
+                t = new ConsultaDAO().buscarUm(lista.get(jtLista.getSelectedRow()).getId());
+                fca.preparaEdit(t);
             fca.setVisible(true);
+            } catch (ClassNotFoundException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao buscar Consulta\n" + ex);
+                }
+            
         }else{
             JOptionPane.showMessageDialog(null, "Selecione apenas uma consulta"); 
         }  
     }//GEN-LAST:event_jBRegistroClinicojbExcuir
+
+    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        FrmCadConsulta fcf = new FrmCadConsulta(null, true);
+        Consulta t;
+        try {
+            t = new ConsultaDAO().buscarUm(lista.get(jtLista.getSelectedRow()).getId());
+            fcf.preparaEdit(t);
+            fcf.setVisible(true);
+        } catch (ClassNotFoundException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao buscar Conculta\n" + ex);
+        }
+    }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void preencheTabela() throws HeadlessException {
             preencheTabela(null);
@@ -244,10 +277,14 @@ public class FrmListaConsulta extends javax.swing.JDialog {
             }
             
             for(Consulta consultas : lista){
+                  //Animal animal = new Animal (AnimalDAO().buscar);
                 
                   Object[] row = {consultas.getId(),
                       sdf.format(consultas.getDataHoraPrevista()),
-                      sdf.format(consultas.getDataHoraRealizacao())};
+                      sdf.format(consultas.getDataHoraRealizacao()),
+                      consultas.getAnimal()/*.getId()*/,
+                      consultas.getVeterinario()/*.getNome()*/
+                  };
                   dtm.addRow(row);
                 }
                 
@@ -313,6 +350,7 @@ public class FrmListaConsulta extends javax.swing.JDialog {
     private javax.swing.JTable jtLista;
     // End of variables declaration//GEN-END:variables
 
+    
       private List<Consulta> lista;   
       DateFormat dataHoraPrevista = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
       DateFormat dataHoraRealizada = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
