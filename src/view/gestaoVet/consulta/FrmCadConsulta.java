@@ -339,6 +339,4 @@ public class FrmCadConsulta extends javax.swing.JDialog {
     private List<Animal> listaAnimais;
     private List<Veterinario> lista;
     private Consulta selecionado = null;
-
-
 }
