@@ -218,8 +218,8 @@ public class FrmCadConsulta extends javax.swing.JDialog {
 
             selecionado.setDataHoraPrevista(dtPrevista);
             selecionado.setDataHoraRealizacao(dtRealizada);
-            selecionado.setAnimal(listaAnimais.get(jComboBoxAnimal.getSelectedIndex()));
-            selecionado.setVeterinario(lista.get(jComboBoxVeterinario.getSelectedIndex())); 
+            selecionado.setAnimal(listaAnimais.get(jComboBoxAnimal.getSelectedIndex()-1));
+            selecionado.setVeterinario(lista.get(jComboBoxVeterinario.getSelectedIndex()-1)); 
 
             try {
                 if (selecionado == null) {
