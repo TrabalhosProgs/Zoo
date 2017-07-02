@@ -64,6 +64,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAbreTelaListaVacina"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiReceita">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Receitas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiReceitacallAbreTelaListaAnimal"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiRotinaTratamento">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Rotina Tratamento"/>

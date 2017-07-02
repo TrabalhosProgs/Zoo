@@ -12,9 +12,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Medicamento;
 import model.Receita;
 import model.Tratador;
 import model.Veterinario;
+import model.dao.impl.MedicamentoDAO;
 import model.dao.impl.VeterinarioDAO;
 
 /**
@@ -52,7 +55,7 @@ public class FrmCadReceita extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtLista = new javax.swing.JTable();
         jlAtendimento2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -116,18 +119,21 @@ public class FrmCadReceita extends javax.swing.JDialog {
 
         jLabel4.setText("Observação");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Código", "Nome"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtLista);
+        if (jtLista.getColumnModel().getColumnCount() > 0) {
+            jtLista.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         jlAtendimento2.setText("Medicação");
 
@@ -138,23 +144,7 @@ public class FrmCadReceita extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())
                     .addComponent(jPanelCabecalho1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlAtendimento1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(205, 205, 205))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTData, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBoxVeterinario, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,6 +157,16 @@ public class FrmCadReceita extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlAtendimento1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(103, 103, 103)
+                                .addComponent(jComboBoxVeterinario, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTData, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButton1))
@@ -204,6 +204,7 @@ public class FrmCadReceita extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -215,8 +216,10 @@ public class FrmCadReceita extends javax.swing.JDialog {
                     0, 
                     dt, 
                     jTObservacao.getText(),
-                    null,
-                    null);            
+                    null,//Falta implementação
+                    null);//Falta implementação
+                            setVisible(false);
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Digite uma data em formato válido (dd/MM/aaaa)!");
         }
@@ -232,12 +235,40 @@ public class FrmCadReceita extends javax.swing.JDialog {
 
     private void AoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrir
         preencheComboVet();
+         preencheTabela();
     }//GEN-LAST:event_AoAbrir
 
     private void jTObservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTObservacaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTObservacaoActionPerformed
 
+    public void preencheTabela() throws HeadlessException {
+        try {
+            
+                listaM = new MedicamentoDAO().buscarTodos();
+                     
+
+            DefaultTableModel dtm = (DefaultTableModel) jtLista.getModel();
+            int idx = dtm.getRowCount();
+            for (int i = 0; i < idx; i++) {
+                dtm.removeRow(0);
+            }
+            
+            for(Medicamento med : listaM){
+                  //Animal animal = new Animal (AnimalDAO().buscar);
+                
+                  Object[] row = {med.getId(),med.getNome() 
+                  };
+                  dtm.addRow(row);
+                }
+                
+            }catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as consultas ...");
+        }
+    }
+        
+    
+    
     public void preencheComboVet() throws HeadlessException {
         preencheComboVet(null);
     }
@@ -315,12 +346,13 @@ public class FrmCadReceita extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTData;
     private javax.swing.JTextField jTObservacao;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel jlAtendimento1;
     private javax.swing.JLabel jlAtendimento2;
+    private javax.swing.JTable jtLista;
     private javax.swing.JLabel ljTituloCabecalho1;
     // End of variables declaration//GEN-END:variables
 
+     private List<Medicamento> listaM;
     private List<Veterinario> lista;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 }

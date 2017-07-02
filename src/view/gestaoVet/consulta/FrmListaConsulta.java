@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Animal;
 import model.Consulta;
 import model.dao.impl.ConsultaDAO;
 import view.gestaoVet.consulta.registroclinico.FrmCadRegistroClinico;
@@ -265,10 +266,14 @@ public class FrmListaConsulta extends javax.swing.JDialog {
             }
             
             for(Consulta consultas : lista){
+                  //Animal animal = new Animal (AnimalDAO().buscar);
                 
                   Object[] row = {consultas.getId(),
                       sdf.format(consultas.getDataHoraPrevista()),
-                      sdf.format(consultas.getDataHoraRealizacao())};
+                      sdf.format(consultas.getDataHoraRealizacao()),
+                      consultas.getAnimal()/*.getId()*/,
+                      consultas.getVeterinario()/*.getNome()*/
+                  };
                   dtm.addRow(row);
                 }
                 

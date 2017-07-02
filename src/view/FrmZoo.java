@@ -5,6 +5,7 @@
  */
 package view;
 
+import view.gestaoVet.consulta.FrmCadConsulta;
 import view.menuBoletim.diario.FrmListaBoletimAcompanhamentoDiario;
 import view.gestaoVet.consulta.FrmListaConsulta;
 import view.menuBoletim.saude.FrmListaBoletimSaude;
@@ -16,6 +17,7 @@ import view.menuCadastro.tarefa.FrmListaTarefa;
 import view.menuCadastro.vacina.FrmListaVacina;
 import view.menuCadastro.empregado.FrmCadEmpregado; 
 import view.menuCadastro.animal.FrmCadAnimal;
+import view.menuCadastro.receita.FrmCadReceita;
 import view.menuCadastro.rotinaTratamento.FrmListaRotinaTratamento;
 import view.menuSobre.FrmSobre;
 /**
@@ -52,6 +54,7 @@ public class FrmZoo extends javax.swing.JFrame {
         jmiMedicamento = new javax.swing.JMenuItem();
         jmiFrequencia = new javax.swing.JMenuItem();
         jmiVacina = new javax.swing.JMenuItem();
+        jmiReceita = new javax.swing.JMenuItem();
         jmiRotinaTratamento = new javax.swing.JMenuItem();
         jMenuBoletim = new javax.swing.JMenu();
         jmiBoletimDiario = new javax.swing.JMenuItem();
@@ -142,6 +145,14 @@ public class FrmZoo extends javax.swing.JFrame {
             }
         });
         jMenuCadastro.add(jmiVacina);
+
+        jmiReceita.setText("Receitas");
+        jmiReceita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiReceitacallAbreTelaListaAnimal(evt);
+            }
+        });
+        jMenuCadastro.add(jmiReceita);
 
         jmiRotinaTratamento.setText("Rotina Tratamento");
         jmiRotinaTratamento.addActionListener(new java.awt.event.ActionListener() {
@@ -275,6 +286,11 @@ public class FrmZoo extends javax.swing.JFrame {
         s.setVisible(true);
     }//GEN-LAST:event_callTelaSobre
 
+    private void jmiReceitacallAbreTelaListaAnimal(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReceitacallAbreTelaListaAnimal
+       FrmCadReceita aux = new FrmCadReceita(this, true);
+       aux.setVisible(true);
+    }//GEN-LAST:event_jmiReceitacallAbreTelaListaAnimal
+
     /**
      * @param args the command line arguments
      */
@@ -328,6 +344,7 @@ public class FrmZoo extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiFrequencia;
     private javax.swing.JMenuItem jmiFuncionario;
     private javax.swing.JMenuItem jmiMedicamento;
+    private javax.swing.JMenuItem jmiReceita;
     private javax.swing.JMenuItem jmiRotinaTratamento;
     private javax.swing.JMenuItem jmiTarefa;
     private javax.swing.JMenuItem jmiVacina;
