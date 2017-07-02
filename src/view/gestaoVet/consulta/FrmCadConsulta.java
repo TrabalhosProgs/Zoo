@@ -222,9 +222,8 @@ public class FrmCadConsulta extends javax.swing.JDialog {
             selecionado.setVeterinario(lista.get(jComboBoxVeterinario.getSelectedIndex()-1)); 
 
             try {
-                if (selecionado == null) {
+                if (selecionado.getId() == 0) {
                     new ConsultaDAO().inserir(selecionado);
-                    selecionado.setId(new VeterinarioDAO().buscarMaiorID());
                     setVisible(false);
                     JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
                 } else {
@@ -254,6 +253,10 @@ public class FrmCadConsulta extends javax.swing.JDialog {
 
         jLCodigo.setText("Código");
         jLCodigoAuto.setText(t.getId() + "");
+        jTConsultaPrevista.setText(sdf.format(t.getDataHoraPrevista()));
+        jTConsultaRealizada.setText(sdf.format(t.getDataHoraRealizacao()));
+        //jComboBoxAnimal.setSelectedItem(t.getAnimal().getNome());
+        //jComboBoxVeterinario.setSelectedItem(t.getVeterinario().getNome());
 
     }
 

@@ -199,7 +199,9 @@ public class FrmListaConsulta extends javax.swing.JDialog {
 
     private void jBIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIncluirActionPerformed
         FrmCadConsulta fcf = new FrmCadConsulta(null, true);
+        fcf.preparaEdit(new Consulta());
         fcf.setVisible(true);
+         preencheTabela();
     }//GEN-LAST:event_jBIncluirActionPerformed
 
     private void jbExcuir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcuir
@@ -254,6 +256,7 @@ public class FrmListaConsulta extends javax.swing.JDialog {
             t = new ConsultaDAO().buscarUm(lista.get(jtLista.getSelectedRow()).getId());
             fcf.preparaEdit(t);
             fcf.setVisible(true);
+             preencheTabela();
         } catch (ClassNotFoundException | SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro ao buscar Conculta\n" + ex);
         }

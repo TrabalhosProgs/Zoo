@@ -27,7 +27,7 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
     public void inserir(Consulta obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
 
-        String sql = "INSERT INTO empregado (dataHoraPrevista,dataHoraRealizacao,idanimal, idveterinario) "
+        String sql = "INSERT INTO consulta (dataHoraPrevista, dataHoraRealizacao, idanimal, idveterinario) "
                 + "VALUES (?,?,?,?);";
         
         PreparedStatement pst = c.prepareStatement(sql);
@@ -43,7 +43,7 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
     public void apagar(Consulta obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "DELETE FROM rotinatratamento WHERE idconsulta = ?;";
+        String sql = "DELETE FROM consulta WHERE idconsulta = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1,obj.getId());
@@ -55,7 +55,7 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
     public void alterar(Consulta obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "UPDATE empregado SET dataHoraPrevista = ?, "
+        String sql = "UPDATE consulta SET dataHoraPrevista = ?, "
                 + " dataHoraRealizacao = ?, "
                 + " idanimal = ?, "
                 + " idveterinario = ? "
@@ -76,7 +76,7 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
     public Consulta buscarUm(Integer id) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "SELECT * FROM animal WHERE consulta = ?;";
+        String sql = "SELECT * FROM consulta WHERE idconsulta = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1, id);
@@ -134,7 +134,7 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
     public int buscarMaiorID() throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "SELECT max(idempregado) FROM consulta;";
+        String sql = "SELECT max(idconsulta) FROM consulta;";
         
         PreparedStatement pst = c.prepareStatement(sql);
         
@@ -147,7 +147,7 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
         }  
     }
 
-    public List<Consulta> buscarNomeAnimal(String nome) throws ClassNotFoundException, SQLException {
+    public List<Consulta> buscarNomeConsulta(String nome) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
         String sql = "SELECT * FROM consulta WHERE nome LIKE ?;";
