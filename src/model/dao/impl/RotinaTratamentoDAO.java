@@ -101,8 +101,8 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
             
             RotinaTratamento  rt = new RotinaTratamento(rs.getInt("idrotinatratamento"), 
                     (Date)rs.getDate("dataValidade"),
-                    new ReceitaDAO().buscarUm(rs.getInt("idreceita")),
-                    null);
+                    new ReceitaDAO().buscarUm(rs.getInt("idreceita")), 
+                    (ArrayList<Tarefa>)new TarefaDAO().buscarPorRotina(rs.getInt("idrotinatratamento")));
             rotinasTratamento.add(rt);
         }   
         
@@ -140,7 +140,7 @@ public class RotinaTratamentoDAO implements IGenericDAO<RotinaTratamento, Intege
             RotinaTratamento  rt = new RotinaTratamento(rs.getInt("idrotinatratamento"), 
                     (Date)rs.getDate("dataValidade"),
                     new ReceitaDAO().buscarUm(rs.getInt("idreceita")),
-                    null);
+                    (ArrayList<Tarefa>)new TarefaDAO().buscarPorRotina(rs.getInt("idrotinatratamento")));
             rotinasTratamento.add(rt);
         }   
         

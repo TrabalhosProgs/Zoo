@@ -6,6 +6,7 @@
 package view.menuCadastro.animal;
 
 import java.awt.HeadlessException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -95,7 +96,7 @@ public class FrmListaAnimal extends javax.swing.JDialog {
         jBAlterar.setText("Alterar");
         jBAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAlterarActionPerformed(evt);
+                aoAlterar(evt);
             }
         });
 
@@ -115,13 +116,13 @@ public class FrmListaAnimal extends javax.swing.JDialog {
 
         jtLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Peso", "Região De Origem", "Tratador Responsável", "Especie", "Equipe"
+                "Código", "Nome", "Peso", "Região De Origem", "Tratador Responsável", "Especie"
             }
         ));
         jScrollPane1.setViewportView(jtLista);
@@ -205,6 +206,7 @@ public class FrmListaAnimal extends javax.swing.JDialog {
 
     private void aoIncluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoIncluir
         FrmCadAnimal fca = new FrmCadAnimal(null, true);
+        fca.preparaInclusao(new Animal());
         fca.setVisible(true);
         preencheTabela(null); //após inserir, ele preenche a tabela atualizando-a
     }//GEN-LAST:event_aoIncluir
@@ -213,7 +215,7 @@ public class FrmListaAnimal extends javax.swing.JDialog {
         preencheTabela(null);
     }//GEN-LAST:event_aoAbrir
 
-    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+    private void aoAlterar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aoAlterar
         if(jtLista.getSelectedRowCount() == 1){
            FrmCadAnimal fcf = new FrmCadAnimal(null, true);
            
@@ -224,11 +226,12 @@ public class FrmListaAnimal extends javax.swing.JDialog {
         }else{
             JOptionPane.showMessageDialog(null, "Selecione apenas um empregado"); 
         }    
-    }//GEN-LAST:event_jBAlterarActionPerformed
+    }//GEN-LAST:event_aoAlterar
 
     private void preencheTabela() throws HeadlessException {
             preencheTabela(null);
     }
+    
     private void preencheTabela(String nome) throws HeadlessException {
         try {
             if(nome == null){
@@ -249,8 +252,8 @@ public class FrmListaAnimal extends javax.swing.JDialog {
                       animais.getTratadorResponsavel().getNome(),animais.getEspecie()};
                   dtm.addRow(row);
             }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não conseguiu buscar os animais ...");
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não conseguiu buscar os animais ..."+ ex.getMessage());
         }
     }
     

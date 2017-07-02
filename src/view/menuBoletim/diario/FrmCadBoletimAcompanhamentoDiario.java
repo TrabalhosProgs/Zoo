@@ -502,7 +502,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
     private void preencherListaTarefas(Animal a) {
 
         try {
-            listaTarefas = new TarefaDAO().buscarPorRotina(a.getRotinaTrabamento().getId());
+            listaTarefas = new TarefaDAO().buscarPorRotina(a.getRotinaTratamento().getId());
             DefaultListModel dlm = new DefaultListModel<>();
 
             dlm.removeAllElements();
@@ -518,7 +518,7 @@ public class FrmCadBoletimAcompanhamentoDiario extends javax.swing.JDialog {
 
     private void preencherListaMedicacao(Animal a) {
         try {
-            listaMedicacao = new RotinaTratamentoDAO().buscarUm(a.getRotinaTrabamento().getId()).getReceita().getMedicacoes();
+            listaMedicacao = new RotinaTratamentoDAO().buscarUm(a.getRotinaTratamento().getId()).getReceita().getMedicacoes();
 
             DefaultListModel dlm = new DefaultListModel<>();
 

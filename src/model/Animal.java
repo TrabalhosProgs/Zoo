@@ -21,7 +21,7 @@ public class Animal {
     private String especie;
     private Tratador tratadorResponsavel;
     private ArrayList<Tratador> equipeTratadores;
-    private RotinaTratamento rotinaTrabamento;
+    private RotinaTratamento rotinaTratamento;
     //private BoletimSaude boletimSaude;
 
     public Animal() {
@@ -36,7 +36,7 @@ public class Animal {
         this.especie = especie;
         this.tratadorResponsavel = tratadorResponsavel;
         this.equipeTratadores = equipeTratadores;
-        this.rotinaTrabamento = rotinaTrabamento;
+        this.rotinaTratamento = rotinaTrabamento;
         //this.boletimSaude = boletimSaude;
     }
 
@@ -113,12 +113,12 @@ public class Animal {
         equipeTratadores.remove(indice);
     }
     
-    public RotinaTratamento getRotinaTrabamento() {
-        return rotinaTrabamento;
+    public RotinaTratamento getRotinaTratamento() {
+        return rotinaTratamento;
     }
 
-    public void setRotinaTrabamento(RotinaTratamento rotinaTrabamento) {
-        this.rotinaTrabamento = rotinaTrabamento;
+    public void setRotinaTratamento(RotinaTratamento rotinaTrabamento) {
+        this.rotinaTratamento = rotinaTrabamento;
     }
 
     /*public BoletimSaude getBoletimSaude() {
