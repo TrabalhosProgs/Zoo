@@ -253,8 +253,8 @@ public class FrmCadConsulta extends javax.swing.JDialog {
 
         jLCodigo.setText("Código");
         jLCodigoAuto.setText(t.getId() + "");
-        jTConsultaPrevista.setText(sdf.format(t.getDataHoraPrevista()));
-        jTConsultaRealizada.setText(sdf.format(t.getDataHoraRealizacao()));
+        //jTConsultaPrevista.setText(sdf.format(t.getDataHoraPrevista()));
+        //jTConsultaRealizada.setText(sdf.format(t.getDataHoraRealizacao()));
         //jComboBoxAnimal.setSelectedItem(t.getAnimal().getNome());
         //jComboBoxVeterinario.setSelectedItem(t.getVeterinario().getNome());
 
