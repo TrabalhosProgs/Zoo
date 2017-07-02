@@ -215,6 +215,8 @@ public class FrmCadConsulta extends javax.swing.JDialog {
         preencheAnimal();
     }//GEN-LAST:event_AoAbrir
 
+
+    
     public void preencheAnimal() throws HeadlessException {
         preencheAnimal(null);
     }

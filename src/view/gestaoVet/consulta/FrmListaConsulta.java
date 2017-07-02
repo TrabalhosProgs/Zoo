@@ -228,9 +228,20 @@ public class FrmListaConsulta extends javax.swing.JDialog {
     }//GEN-LAST:event_AoAbrir
 
     private void jBRegistroClinicojbExcuir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRegistroClinicojbExcuir
-       if(jtLista.getSelectedRowCount() == 1){
+        
+
+        
+        if(jtLista.getSelectedRowCount() == 1){
             FrmCadRegistroClinico fca = new FrmCadRegistroClinico(null, true);
+            Consulta t;
+            try {
+                t = new ConsultaDAO().buscarUm(lista.get(jtLista.getSelectedRow()).getId());
+                fca.preparaEdit(t);
             fca.setVisible(true);
+            } catch (ClassNotFoundException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao buscar Consulta\n" + ex);
+                }
+            
         }else{
             JOptionPane.showMessageDialog(null, "Selecione apenas uma consulta"); 
         }  

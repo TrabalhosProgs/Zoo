@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Empregado;
 import model.Animal;
+import model.Consulta;
 import model.Vacina;
 import model.Veterinario;
 import model.dao.impl.AnimalDAO;
@@ -260,6 +261,11 @@ public class FrmCadRegistroClinico extends javax.swing.JDialog {
         dcm.addElement("Preventivo");
         dcm.addElement("Emergência");
     }
+       
+    public void preparaEdit(Consulta c) throws HeadlessException {
+        jlAnimalAuto.setText(c.getAnimal().getNome());
+        jlVeterinarioAuto.setText(c.getVeterinario().getNome());
+    }    
     
     public void preencheTabelaVacina() throws HeadlessException {
         preencheTabelaVacina(null);
