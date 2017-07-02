@@ -55,14 +55,18 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
     public void alterar(Consulta obj) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "UPDATE empregado SET dataHoraPrevista = ?, dataHoraRealizacao = ?, idanimal = ?, idveterinario = ? WHERE idconsulta = ?;";
+        String sql = "UPDATE empregado SET dataHoraPrevista = ?, "
+                + " dataHoraRealizacao = ?, "
+                + " idanimal = ?, "
+                + " idveterinario = ? "
+                + " WHERE idconsulta = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
         
         pst.setDate(1,new java.sql.Date(obj.getDataHoraPrevista().getTime()));
         pst.setDate(2,new java.sql.Date(obj.getDataHoraRealizacao().getTime()));
-        pst.setString(3, obj.getAnimal().getNome());
-        pst.setString(4, obj.getVeterinario().getNome());
+        pst.setInt(3, obj.getAnimal().getId());
+        pst.setInt(4, obj.getVeterinario().getId());
         pst.setInt(5, obj.getId());
         
         pst.executeUpdate();
@@ -82,7 +86,7 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
         if(rs.next()){
                 cs = new Consulta(rs.getInt("idconsulta"), (Date)rs.getDate("dataHoraPrevista"),
                     (Date)rs.getDate("dataHoraRealizacao"),                    
-                    new VeterinarioDAO().buscarUm(rs.getInt("idtratador")),
+                    new VeterinarioDAO().buscarUm(rs.getInt("idveterinario")),
                     new AnimalDAO().buscarUm(rs.getInt("idanimal")));    
         }   
         
@@ -104,9 +108,9 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
         while(rs.next()){
             Consulta cs;
             cs = new Consulta(rs.getInt("idconsulta"),(Date) rs.getDate("dataHoraPrevista"),
-                    rs.getDate("dataHoraRealizacao"),null,null);                    
-                    //new VeterinarioDAO().buscarUm(rs.getInt("idtratador")),
-                    //new AnimalDAO().buscarUm(rs.getInt("idanimal")));
+                    rs.getDate("dataHoraRealizacao"),                    
+                    new VeterinarioDAO().buscarUm(rs.getInt("idveterinario")),
+                    new AnimalDAO().buscarUm(rs.getInt("idanimal")));
             consultas.add(cs);
         }   
         
@@ -158,7 +162,7 @@ public class ConsultaDAO implements IGenericDAO<Consulta, Integer>{
         while(rs.next()){
             Consulta cs = new Consulta(rs.getInt("idconsulta"), (Date)rs.getDate("dataHoraPrevista"),
                     (Date)rs.getDate("dataHoraRealizacao"),                    
-                    new VeterinarioDAO().buscarUm(rs.getInt("idtratador")),
+                    new VeterinarioDAO().buscarUm(rs.getInt("idveterinario")),
                     new AnimalDAO().buscarUm(rs.getInt("idanimal")));
             consultas.add(cs);
         }  

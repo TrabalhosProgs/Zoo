@@ -27,11 +27,11 @@ public class VeterinarioDAO extends EmpregadoDAO{
     public Veterinario buscarUm(Integer id) throws ClassNotFoundException, SQLException {
         Connection c = ConnectionFactory.getConnection();
         
-        String sql = "SELECT * FROM empregado WHERE idempregado = ? AND funcao = ?";
+        String sql = "SELECT * FROM empregado WHERE idempregado = ?;";
         
         PreparedStatement pst = c.prepareStatement(sql);
         pst.setInt(1, id);
-        pst.setString(2, "VETERINARIO");
+        //pst.setString(2, "VETERINARIO");
         
         ResultSet rs = pst.executeQuery();  
         Veterinario v = null;

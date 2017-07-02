@@ -276,20 +276,17 @@ public class FrmListaConsulta extends javax.swing.JDialog {
                 dtm.removeRow(0);
             }
             
-            for(Consulta consultas : lista){
-                  //Animal animal = new Animal (AnimalDAO().buscar);
+            for(Consulta c : lista){
+                Object[] row = {c.getId(),
+                      sdf.format(c.getDataHoraPrevista()),
+                      sdf.format(c.getDataHoraRealizacao()),
+                      c.getVeterinario().getNome(),
+                      c.getAnimal().getNome()};
+                dtm.addRow(row);
+            }
                 
-                  Object[] row = {consultas.getId(),
-                      sdf.format(consultas.getDataHoraPrevista()),
-                      sdf.format(consultas.getDataHoraRealizacao()),
-                      consultas.getAnimal()/*.getId()*/,
-                      consultas.getVeterinario()/*.getNome()*/
-                  };
-                  dtm.addRow(row);
-                }
-                
-            }catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as consultas ...");
+            }catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não conseguiu buscar as consultas ...\n"+ex);
         }
     }
 
