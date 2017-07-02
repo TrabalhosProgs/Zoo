@@ -7,6 +7,8 @@ package view.gestaoVet.consulta;
 
 import java.awt.HeadlessException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -15,6 +17,7 @@ import model.Consulta;
 import model.Tratador;
 import model.Veterinario;
 import model.dao.impl.AnimalDAO;
+import model.dao.impl.ConsultaDAO;
 import model.dao.impl.TratadorDAO;
 import model.dao.impl.VeterinarioDAO;
 
@@ -207,7 +210,34 @@ public class FrmCadConsulta extends javax.swing.JDialog {
     }//GEN-LAST:event_jComboBoxVeterinarioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        java.util.Date dtPrevista = null;
+        java.util.Date dtRealizada = null;
+        try {
+            dtPrevista = sdf.parse(jTConsultaPrevista.getText());
+            dtRealizada = sdf.parse(jTConsultaRealizada.getText());
+            
+                    selecionado.setDataHoraPrevista(dtPrevista);
+                    selecionado.setDataHoraRealizacao(dtRealizada); 
+                    selecionado.setAnimal(listaAnimais.get(jComboBoxAnimal.getSelectedIndex()));
+                    selecionado.setVeterinario(lista.get(jComboBoxVeterinario.getSelectedIndex()));
+            
+            try {
+                if (selecionado == null) {
+                    new ConsultaDAO().inserir(selecionado);
+                    selecionado.setId(new VeterinarioDAO().buscarMaiorID());
+                    setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
+                } else {
+                    selecionado.setId(selecionado.getId());                    
+                    setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Salvo com sucesso ...");
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao gravar Consulta ..." + ex.getMessage());
+            }
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Digite uma data em formato válido (dd/MM/aaaa)!");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void AoAbrir(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrir
@@ -339,4 +369,5 @@ public class FrmCadConsulta extends javax.swing.JDialog {
     private List<Animal> listaAnimais;
     private List<Veterinario> lista;
     private Consulta selecionado = null;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 }
